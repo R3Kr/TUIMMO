@@ -13,14 +13,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class StateTransmitter implements Runnable{
     private static final int TICKS = 30;
-    private ConcurrentHashMap<String, Player> gameState;
+    private GameState gameState;
     private DatagramSocket socket;
 
 
     private ServerPacket sp;
     private List<SocketAddress> clients;
 
-    public StateTransmitter(ConcurrentHashMap<String, Player> gameState, DatagramSocket socket, List<SocketAddress> clients) {
+    public StateTransmitter(GameState gameState, DatagramSocket socket, List<SocketAddress> clients) {
         this.gameState = gameState;
         this.socket = socket;
         this.sp = new ServerPacket(new DatagramPacket(new byte[1024], 1024));
@@ -30,21 +30,12 @@ public class StateTransmitter implements Runnable{
     @Override
     public void run() {
         while (true){
-            try {
-                sp.writeData(gameState.values());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+
+
+            if (!gameState.sentStateUpdate.get()){
+                sendData();
+                gameState.sentStateUpdate.compareAndSet(false, true);
             }
-
-            clients.forEach(c ->{
-                sp.getPacket().setSocketAddress(c);
-                try {
-                    socket.send(sp.getPacket());
-                } catch (IOException e) {
-                    System.err.println(e);
-                }
-            });
-
 
             try {
                 Thread.sleep(1000/TICKS);
@@ -53,5 +44,22 @@ public class StateTransmitter implements Runnable{
             }
         }
 
+    }
+
+    private void sendData(){
+        try {
+            sp.writeData(gameState.values());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        clients.forEach(c ->{
+            sp.getPacket().setSocketAddress(c);
+            try {
+                socket.send(sp.getPacket());
+            } catch (IOException e) {
+                System.err.println(e);
+            }
+        });
     }
 }

@@ -12,14 +12,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ClientHandler implements Runnable{
 
-    private ConcurrentHashMap<String, Player> gameState;
+    private GameState gameState;
     private DatagramSocket socket;
 
 
     private ClientPacket cp;
 
     private List<SocketAddress> clients;
-    public ClientHandler(ConcurrentHashMap<String, Player> gameState, DatagramSocket socket, List<SocketAddress> clients) {
+    public ClientHandler(GameState gameState, DatagramSocket socket, List<SocketAddress> clients) {
         this.gameState = gameState;
         this.socket = socket;
         this.cp = new ClientPacket(new DatagramPacket(new byte[1024], 1024));
@@ -42,7 +42,7 @@ public class ClientHandler implements Runnable{
                 clients.add(cp.getPacket().getSocketAddress());
             }
 
-            Player player = gameState.get(cp.getPlayerName());
+            Player player = gameState.getMut(cp.getPlayerName());
 
             if (player == null){
                 gameState.put(cp.getPlayerName(), new Player(cp.getPlayerName(), cp.getX(), cp.getY()));

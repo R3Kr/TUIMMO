@@ -17,7 +17,7 @@ public class Server {
 
 
 
-    private ConcurrentHashMap<String, Player> gameState;
+    private GameState gameState;
 
     private ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -27,7 +27,7 @@ public class Server {
 
     public Server() throws SocketException, UnknownHostException {
         this.socket = new DatagramSocket(6969, InetAddress.getByName("0.0.0.0"));
-        this.gameState = new ConcurrentHashMap<>();
+        this.gameState = new GameState();
         this.clients = new ArrayList<>();
     }
 
