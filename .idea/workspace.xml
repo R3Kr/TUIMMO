@@ -4,18 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="only sends state updates if new state">
-      <change afterPath="$PROJECT_DIR$/src/main/java/client/StayAliveSender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/GamePacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/StayAlivePacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/StayAliveHandler.java" afterDir="false" />
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="can now handle disconnects">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/ServerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ServerListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/ClientPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/ClientPacket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/ServerPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/ServerPacket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +187,7 @@
       <workItem from="1690614786733" duration="22753000" />
       <workItem from="1690704697867" duration="16155000" />
       <workItem from="1691062107434" duration="40466000" />
-      <workItem from="1691351587961" duration="3353000" />
+      <workItem from="1691351587961" duration="7074000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>
@@ -232,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1691094408513</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="can now handle disconnects">
+      <created>1691355624489</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1691355624489</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,6 +241,7 @@
     <MESSAGE value="kan bygga en fucking jar" />
     <MESSAGE value="multiplayer gad damn work" />
     <MESSAGE value="only sends state updates if new state" />
-    <option name="LAST_COMMIT_MESSAGE" value="only sends state updates if new state" />
+    <MESSAGE value="can now handle disconnects" />
+    <option name="LAST_COMMIT_MESSAGE" value="can now handle disconnects" />
   </component>
 </project>

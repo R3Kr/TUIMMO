@@ -15,17 +15,16 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketAddress;
 import java.rmi.NotBoundException;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Client {
     private Terminal terminal;
     private Screen screen;
-    private TextGraphics tg;
+    private TextGraphics playerGraphics;
+    private TextGraphics terrainGraphics;
 
     private Player player;
 
@@ -43,27 +42,25 @@ public class Client {
     public Client(String playerName, String address) throws IOException, NotBoundException {
         terminal = new DefaultTerminalFactory().setPreferTerminalEmulator(true).createTerminal();
         screen = new TerminalScreen(terminal);
-        tg = screen.newTextGraphics();
+        playerGraphics = screen.newTextGraphics();
         this.player = new Player(playerName, 5, 5);
         this.socket = new DatagramSocket();
         this.address = InetAddress.getByName(address);
         this.threadPool = Executors.newCachedThreadPool();
         this.cp = new ClientPacket(new DatagramPacket(new byte[1024], 1024, InetAddress.getByName(address), 6969));
         this.players = new ConcurrentHashMap<>();
+        this.terrainGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.BLACK).setBackgroundColor(TextColor.ANSI.WHITE);
 
     }
 
     private void run() throws IOException, InterruptedException {
         threadPool.execute(new ServerListener(players, socket));
         threadPool.execute(new StayAliveSender(player, socket, address));
-
         screen.startScreen(); // screens must be started
         screen.clear();
 
-
-
-        tg.setForegroundColor(TextColor.ANSI.WHITE);
-        tg.setBackgroundColor(TextColor.ANSI.BLUE);
+        playerGraphics.setForegroundColor(TextColor.ANSI.WHITE);
+        playerGraphics.setBackgroundColor(TextColor.ANSI.BLUE);
 
 
         while (isRunning) {
@@ -97,8 +94,8 @@ public class Client {
             //System.out.println(players);
             //tg.putString(player.getX(), player.getY(), player.getName());
             renderPlayers();
+            renderTerrain();
 
-            tg.drawLine(0, 0, 30, 40, 'E');
 
 
             Thread.sleep(20);
@@ -111,8 +108,13 @@ public class Client {
 
     private void renderPlayers(){
         players.values().forEach(p -> {
-            tg.putString(p.getX(), p.getY(), p.getName());
+            playerGraphics.putString(p.getX(), p.getY(), p.getName());
         });
+    }
+
+    private void renderTerrain(){
+        terrainGraphics.drawLine(0, 0, 0, 23, 'E');
+        terrainGraphics.drawLine(0, 23, 40, 23, '@');
     }
 
     public static void main(String[] args) throws IOException, InterruptedException, NotBoundException {

@@ -15,10 +15,18 @@ public class Player implements Serializable {
 
     public void move(Direction direction){
         switch (direction){
-            case DOWN -> y++;
-            case UP -> y--;
-            case LEFT -> x-=2;
-            case RIGHT -> x+=2;
+            case DOWN -> {
+                if (y < 23) y++;
+            }
+            case UP -> {
+                if (y > 0) y--;
+            }
+            case LEFT -> {
+                if (x > 0) x-=2;
+            }
+            case RIGHT -> {
+                if (x < 79) x+=2;
+            }
         }
     }
 
