@@ -53,7 +53,7 @@ public class ClientHandler implements Runnable{
             }
 
 
-            System.out.printf("%s %d %d%n", cp.getPlayerName(), cp.getX(), cp.getY());
+            System.out.printf("%s %d %d", cp.getPlayerName(), cp.getX(), cp.getY());
             System.out.println(gameState);
             System.out.println(clients);
             //packet.setData("pong".getBytes());

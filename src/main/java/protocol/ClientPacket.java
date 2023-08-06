@@ -3,7 +3,7 @@ package protocol;
 import java.io.*;
 import java.net.DatagramPacket;
 
-public class ClientPacket {
+public class ClientPacket implements GamePacket{
     private DatagramPacket packet;
 //    private ByteArrayInputStream bis;
 //    private ByteArrayOutputStream bos;

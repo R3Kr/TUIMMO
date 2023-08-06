@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class ServerPacket {
+public class ServerPacket implements GamePacket{
     private DatagramPacket packet;
 
     private int playerCount;

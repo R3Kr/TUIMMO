@@ -39,5 +39,6 @@ public class Server {
         ClientHandler clientHandler = new ClientHandler(gameState, socket, clients);
         executorService.execute(clientHandler);
         executorService.execute(new StateTransmitter(gameState, socket, clients));
+        executorService.execute(new StayAliveHandler(gameState, clients));
     }
 }

@@ -6,8 +6,9 @@ import protocol.ServerPacket;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ServerListener implements Runnable{
 
@@ -36,8 +37,12 @@ public class ServerListener implements Runnable{
             }
             printPlayers();
 
-            if (players.size() != sp.getPlayerCount()){
-                modifyPlayerCount();
+            if (players.size() < sp.getPlayerCount()){
+                addPlayer();
+            }
+
+            if (players.size() > sp.getPlayerCount()){
+                removePlayer();
             }
 
             for (int i = 0; i < sp.getPlayerCount(); i++) {
@@ -50,7 +55,17 @@ public class ServerListener implements Runnable{
         }
     }
 
-    private void modifyPlayerCount(){
+    private void removePlayer() {
+        Iterator<String> it = players.keys().asIterator();
+
+        for (String player = it.next(); it.hasNext(); player = it.next()) {
+            if (!Arrays.asList(sp.getPlayerNames()).contains(player)){
+                players.remove(player);
+            }
+        }
+    }
+
+    private void addPlayer(){
         for (int i = 0; i < sp.getPlayerCount(); i++) {
             players.putIfAbsent(sp.getPlayerNames()[i], new Player(sp.getPlayerNames()[i], sp.getX()[i], sp.getY()[i]));
         }

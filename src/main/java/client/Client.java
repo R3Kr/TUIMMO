@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketAddress;
 import java.rmi.NotBoundException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -37,12 +38,15 @@ public class Client {
 
     private boolean isRunning = true;
 
+    private InetAddress address;
+
     public Client(String playerName, String address) throws IOException, NotBoundException {
         terminal = new DefaultTerminalFactory().setPreferTerminalEmulator(true).createTerminal();
         screen = new TerminalScreen(terminal);
         tg = screen.newTextGraphics();
         this.player = new Player(playerName, 5, 5);
         this.socket = new DatagramSocket();
+        this.address = InetAddress.getByName(address);
         this.threadPool = Executors.newCachedThreadPool();
         this.cp = new ClientPacket(new DatagramPacket(new byte[1024], 1024, InetAddress.getByName(address), 6969));
         this.players = new ConcurrentHashMap<>();
@@ -51,6 +55,7 @@ public class Client {
 
     private void run() throws IOException, InterruptedException {
         threadPool.execute(new ServerListener(players, socket));
+        threadPool.execute(new StayAliveSender(player, socket, address));
 
         screen.startScreen(); // screens must be started
         screen.clear();
