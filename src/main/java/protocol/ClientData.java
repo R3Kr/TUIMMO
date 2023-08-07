@@ -1,21 +1,22 @@
 package protocol;
 
+import game.Direction;
+
 import java.io.*;
 
 public class ClientData implements Data {
 
+    private static final short MOVE = DataType.MOVEDATA.getId();
     private String playerName;
-    private int x;
-    private int y;
+    private Direction direction;
 
     public ClientData(byte[] bytes) throws IOException {
         write(bytes);
     }
 
-    public ClientData(String playerName, int x, int y) {
+    public ClientData(String playerName, Direction direction) {
         this.playerName = playerName;
-        this.x = x;
-        this.y = y;
+        this.direction = direction;
     }
 
     @Override
@@ -23,9 +24,9 @@ public class ClientData implements Data {
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         DataInputStream dis = new DataInputStream(bis);
 
+        dis.readShort(); //id already known
         playerName = dis.readUTF();
-        x = dis.readInt();
-        y = dis.readInt();
+        direction = Direction.fromShort(dis.readShort());
 
         dis.close();
     }
@@ -36,9 +37,9 @@ public class ClientData implements Data {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(bos);
 
+        dos.writeShort(MOVE);
         dos.writeUTF(playerName);
-        dos.writeInt(x);
-        dos.writeInt(y);
+        dos.writeShort(direction.getValue());
 
         bytes = bos.toByteArray();
         dos.close();
@@ -49,11 +50,7 @@ public class ClientData implements Data {
         return playerName;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+    public Direction getDirection() {
+        return direction;
     }
 }

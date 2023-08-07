@@ -1,6 +1,7 @@
 package server;
 
 import game.Player;
+import protocol.ActionBuilder;
 import protocol.ClientData;
 import protocol.Data;
 
@@ -46,15 +47,14 @@ public class ClientHandler implements Runnable{
             Player player = gameState.getMut(data.getPlayerName());
 
             if (player == null){
-                gameState.put(data.getPlayerName(), new Player(data.getPlayerName(), data.getX(), data.getY()));
+                gameState.put(data.getPlayerName(), new Player(data.getPlayerName(), 10, 10));
             }
             else {
-                player.setX(data.getX());
-                player.setY(data.getY());
+                new ActionBuilder(gameState).setPlayer(data.getPlayerName()).setDirection(data.getDirection()).build().perform();
             }
 
 
-            System.out.printf("%s %d %d", data.getPlayerName(), data.getX(), data.getY());
+            System.out.printf("%s %d %d", data.getPlayerName(), gameState.get(data.getPlayerName()).getX(), gameState.get(data.getPlayerName()).getY());
             System.out.println(gameState);
             System.out.println(clients);
             //packet.setData("pong".getBytes());

@@ -90,10 +90,22 @@ public class Client {
             // Handle input
             if (keyStroke != null) {
                 switch (keyStroke.getKeyType()) {
-                    case ArrowUp -> moveUp.perform();
-                    case ArrowDown -> moveDown.perform();
-                    case ArrowLeft -> moveLeft.perform();
-                    case ArrowRight -> moveRight.perform();
+                    case ArrowUp -> {
+                        moveUp.perform();
+                        packet.setData(new ClientData(player.getName(), Direction.UP).read());
+                    }
+                    case ArrowDown -> {
+                        moveDown.perform();
+                        packet.setData(new ClientData(player.getName(), Direction.DOWN).read());
+                    }
+                    case ArrowLeft -> {
+                        moveLeft.perform();
+                        packet.setData(new ClientData(player.getName(), Direction.LEFT).read());
+                    }
+                    case ArrowRight -> {
+                        moveRight.perform();
+                        packet.setData(new ClientData(player.getName(), Direction.RIGHT).read());
+                    }
                     case Escape -> {
                         isRunning = false;
                     }
@@ -101,8 +113,6 @@ public class Client {
                     }
                 }
 
-
-                packet.setData(new ClientData(player.getName(), player.getX(), player.getY()).read());
                 socket.send(packet);
             }
 
