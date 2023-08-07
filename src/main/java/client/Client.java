@@ -8,9 +8,11 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
-import protocol.ClientPacket;
+import game.actions.Action;
+import game.actions.Move;
 import game.Direction;
 import game.Player;
+import protocol.ClientData;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -33,7 +35,7 @@ public class Client {
 
     private DatagramSocket socket;
 
-    private ClientPacket cp;
+    private DatagramPacket packet;
     private ExecutorService threadPool;
 
     private ConcurrentHashMap<String, Player> players;
@@ -54,7 +56,7 @@ public class Client {
         this.socket = new DatagramSocket();
         this.address = InetAddress.getByName(address);
         this.threadPool = Executors.newCachedThreadPool();
-        this.cp = new ClientPacket(new DatagramPacket(new byte[1024], 1024, InetAddress.getByName(address), 6969));
+        this.packet = new DatagramPacket(new byte[1024], 1024, InetAddress.getByName(address), 6969);
         this.players = new ConcurrentHashMap<>();
         this.terrainGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.BLACK).setBackgroundColor(TextColor.ANSI.WHITE);
         this.uiGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.RED);
@@ -72,6 +74,10 @@ public class Client {
         playerGraphics.setBackgroundColor(TextColor.ANSI.BLUE);
 
 
+        Action moveUp = new Move(player, Direction.UP);
+        Action moveDown = new Move(player, Direction.DOWN);
+        Action moveLeft = new Move(player, Direction.LEFT);
+        Action moveRight = new Move(player, Direction.RIGHT);
         while (isRunning) {
 
 
@@ -84,10 +90,10 @@ public class Client {
             // Handle input
             if (keyStroke != null) {
                 switch (keyStroke.getKeyType()) {
-                    case ArrowUp -> player.move(Direction.UP);
-                    case ArrowDown -> player.move(Direction.DOWN);
-                    case ArrowLeft -> player.move(Direction.LEFT);
-                    case ArrowRight -> player.move(Direction.RIGHT);
+                    case ArrowUp -> moveUp.perform();
+                    case ArrowDown -> moveDown.perform();
+                    case ArrowLeft -> moveLeft.perform();
+                    case ArrowRight -> moveRight.perform();
                     case Escape -> {
                         isRunning = false;
                     }
@@ -96,8 +102,8 @@ public class Client {
                 }
 
 
-                cp.writeData(player.getName(), player.getX(), player.getY());
-                socket.send(cp.getPacket());
+                packet.setData(new ClientData(player.getName(), player.getX(), player.getY()).read());
+                socket.send(packet);
             }
 
             //System.out.println(players);

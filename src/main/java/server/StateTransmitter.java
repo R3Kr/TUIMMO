@@ -1,15 +1,12 @@
 package server;
 
-import game.Player;
-import protocol.ServerPacket;
+import protocol.ServerData;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.Socket;
 import java.net.SocketAddress;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class StateTransmitter implements Runnable{
     private static final int TICKS = 30;
@@ -17,13 +14,13 @@ public class StateTransmitter implements Runnable{
     private DatagramSocket socket;
 
 
-    private ServerPacket sp;
+    private DatagramPacket packet;
     private List<SocketAddress> clients;
 
     public StateTransmitter(GameState gameState, DatagramSocket socket, List<SocketAddress> clients) {
         this.gameState = gameState;
         this.socket = socket;
-        this.sp = new ServerPacket(new DatagramPacket(new byte[1024], 1024));
+        this.packet = new DatagramPacket(new byte[1024], 1024);
         this.clients = clients;
     }
 
@@ -48,15 +45,15 @@ public class StateTransmitter implements Runnable{
 
     private void sendData(){
         try {
-            sp.writeData(gameState.values());
+            packet.setData(new ServerData(gameState.values()).read());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         clients.forEach(c ->{
-            sp.getPacket().setSocketAddress(c);
+            packet.setSocketAddress(c);
             try {
-                socket.send(sp.getPacket());
+                socket.send(packet);
             } catch (IOException e) {
                 System.err.println(e);
             }

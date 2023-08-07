@@ -2,7 +2,7 @@ package game;
 
 import java.io.Serializable;
 
-public class Player implements Serializable {
+public class Player implements Movable {
     private final String name;
     private int x;
     private int y;

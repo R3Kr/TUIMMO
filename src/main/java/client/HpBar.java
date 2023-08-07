@@ -14,7 +14,7 @@ public class HpBar {
     }
 
     public String getString(){
-        return String.format("HP: [{%s}] ({%d}/{%d})", healthString(), player.getCurrHp(), player.getMaxHp());
+        return String.format("HP: [%s] (%d/%d)", healthString(), player.getCurrHp(), player.getMaxHp());
     }
 
     private String healthString(){

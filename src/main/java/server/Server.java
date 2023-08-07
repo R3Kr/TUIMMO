@@ -1,6 +1,6 @@
 package server;
 
-import protocol.ClientPacket;
+
 import game.Player;
 
 import java.io.IOException;

@@ -1,7 +1,8 @@
 package server;
 
 import game.Player;
-import protocol.StayAlivePacket;
+import protocol.StayAliveData;
+
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -9,7 +10,6 @@ import java.net.DatagramSocket;
 import java.net.SocketAddress;
 import java.net.SocketException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -21,7 +21,7 @@ public class StayAliveHandler implements Runnable{
 
     private List<SocketAddress> clients;
 
-    private StayAlivePacket sap;
+    private DatagramPacket packet;
 
     private Map<SocketAddress, Long> clientTimeStamps;
     private Map<String, Long> playerTimeStamps;
@@ -30,7 +30,7 @@ public class StayAliveHandler implements Runnable{
         this.gameState = gameState;
         this.socket = new DatagramSocket(6970);
         this.clients = clients;
-        this.sap = new StayAlivePacket(new DatagramPacket(new byte[1024], 1024));
+        this.packet = new DatagramPacket(new byte[1024], 1024);
         this.clientTimeStamps = new HashMap<>();
         this.playerTimeStamps = new HashMap<>();
 
@@ -57,15 +57,16 @@ public class StayAliveHandler implements Runnable{
                 }
             }
 
+            StayAliveData data;
             try {
-                socket.receive(sap.getPacket());
-                sap.readData();
+                socket.receive(packet);
+                data = new StayAliveData(packet.getData());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
-            clientTimeStamps.put(sap.getPacket().getSocketAddress(), System.currentTimeMillis());
-            playerTimeStamps.put(sap.getPlayer(), System.currentTimeMillis());
+            clientTimeStamps.put(packet.getSocketAddress(), System.currentTimeMillis());
+            playerTimeStamps.put(data.getPlayer(), System.currentTimeMillis());
 
             disconnectClients();
             disconnectPlayer();
