@@ -9,6 +9,25 @@
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.3.0</version>
+        <executions>
+          <execution>
+            <id>server-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <classifier>server</classifier>
+              <archive>
+                <manifest>
+                  <addClasspath>true</addClasspath>
+                  <classpathPrefix>lib/</classpathPrefix>
+                  <mainClass>server.Server</mainClass>
+                </manifest>
+              </archive>
+            </configuration>
+          </execution>
+        </executions>
         <configuration>
           <archive>
             <manifest>

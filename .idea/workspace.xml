@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="can now handle disconnects">
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="collision detectsion added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +85,7 @@
       <command value="mvn clean package" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Game2">
+  <component name="RunManager" selected="JAR Application.TUIMMO-1.0-SNAPSHOT.jar">
     <configuration name="Game" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="client.Client" />
       <module name="TUIMMO" />
@@ -161,16 +161,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TUIMMO-1.0-SNAPSHOT.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/target/TUIMMO-1.0-SNAPSHOT.jar" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Application.Test" />
       <item itemvalue="Application.Game" />
       <item itemvalue="Application.Game2" />
       <item itemvalue="Application.Server" />
+      <item itemvalue="JAR Application.TUIMMO-1.0-SNAPSHOT.jar" />
       <item itemvalue="JUnit.ServerPacketTest" />
       <item itemvalue="JUnit.ServerPacketTest.readData" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JAR Application.TUIMMO-1.0-SNAPSHOT.jar" />
         <item itemvalue="JUnit.ServerPacketTest" />
         <item itemvalue="JUnit.ServerPacketTest.readData" />
       </list>
@@ -187,7 +193,8 @@
       <workItem from="1690614786733" duration="22753000" />
       <workItem from="1690704697867" duration="16155000" />
       <workItem from="1691062107434" duration="40466000" />
-      <workItem from="1691351587961" duration="7074000" />
+      <workItem from="1691351587961" duration="7663000" />
+      <workItem from="1691425227011" duration="1480000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>
@@ -231,7 +238,14 @@
       <option name="project" value="LOCAL" />
       <updated>1691355624489</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="collision detectsion added">
+      <created>1691359895345</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1691359895345</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,6 +256,7 @@
     <MESSAGE value="multiplayer gad damn work" />
     <MESSAGE value="only sends state updates if new state" />
     <MESSAGE value="can now handle disconnects" />
-    <option name="LAST_COMMIT_MESSAGE" value="can now handle disconnects" />
+    <MESSAGE value="collision detectsion added" />
+    <option name="LAST_COMMIT_MESSAGE" value="collision detectsion added" />
   </component>
 </project>
