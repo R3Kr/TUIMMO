@@ -7,10 +7,16 @@ public class Player implements Serializable {
     private int x;
     private int y;
 
+    private int maxHp;
+
+    private int currHp;
+
     public Player(String name, int x, int y) {
         this.name = name;
         this.x = x;
         this.y = y;
+        this.maxHp = 100;
+        this.currHp = 80;
     }
 
     public void move(Direction direction){
@@ -39,6 +45,14 @@ public class Player implements Serializable {
     }
     public int getY(){
         return y;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public int getCurrHp() {
+        return currHp;
     }
 
     public void setX(int x) {

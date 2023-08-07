@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="collision detectsion added">
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="now builds both client and server jars">
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/HpBar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +86,7 @@
       <command value="mvn clean package" />
     </option>
   </component>
-  <component name="RunManager" selected="JAR Application.TUIMMO-1.0-SNAPSHOT.jar">
+  <component name="RunManager" selected="Application.Game">
     <configuration name="Game" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="client.Client" />
       <module name="TUIMMO" />
@@ -194,7 +195,7 @@
       <workItem from="1690704697867" duration="16155000" />
       <workItem from="1691062107434" duration="40466000" />
       <workItem from="1691351587961" duration="7663000" />
-      <workItem from="1691425227011" duration="1480000" />
+      <workItem from="1691425227011" duration="6111000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>
@@ -245,7 +246,14 @@
       <option name="project" value="LOCAL" />
       <updated>1691359895345</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="now builds both client and server jars">
+      <created>1691427296301</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1691427296301</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,6 +265,7 @@
     <MESSAGE value="only sends state updates if new state" />
     <MESSAGE value="can now handle disconnects" />
     <MESSAGE value="collision detectsion added" />
-    <option name="LAST_COMMIT_MESSAGE" value="collision detectsion added" />
+    <MESSAGE value="now builds both client and server jars" />
+    <option name="LAST_COMMIT_MESSAGE" value="now builds both client and server jars" />
   </component>
 </project>

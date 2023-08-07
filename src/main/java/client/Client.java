@@ -1,5 +1,6 @@
 package client;
 
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -26,6 +27,8 @@ public class Client {
     private TextGraphics playerGraphics;
     private TextGraphics terrainGraphics;
 
+    private TextGraphics uiGraphics;
+
     private Player player;
 
     private DatagramSocket socket;
@@ -39,8 +42,12 @@ public class Client {
 
     private InetAddress address;
 
+    private HpBar hpBar;
+
     public Client(String playerName, String address) throws IOException, NotBoundException {
-        terminal = new DefaultTerminalFactory().setPreferTerminalEmulator(true).createTerminal();
+        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
+        terminalFactory.setInitialTerminalSize(new TerminalSize(80, 27));
+        terminal = terminalFactory.setPreferTerminalEmulator(true).createTerminal();
         screen = new TerminalScreen(terminal);
         playerGraphics = screen.newTextGraphics();
         this.player = new Player(playerName, 5, 5);
@@ -50,6 +57,8 @@ public class Client {
         this.cp = new ClientPacket(new DatagramPacket(new byte[1024], 1024, InetAddress.getByName(address), 6969));
         this.players = new ConcurrentHashMap<>();
         this.terrainGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.BLACK).setBackgroundColor(TextColor.ANSI.WHITE);
+        this.uiGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.RED);
+        this.hpBar = new HpBar(player);
 
     }
 
@@ -95,6 +104,7 @@ public class Client {
             //tg.putString(player.getX(), player.getY(), player.getName());
             renderPlayers();
             renderTerrain();
+            renderUI();
 
 
 
@@ -106,6 +116,10 @@ public class Client {
 
     }
 
+    private void renderUI() {
+        uiGraphics.putString(HpBar.POSITION, hpBar.getString());
+    }
+
     private void renderPlayers(){
         players.values().forEach(p -> {
             playerGraphics.putString(p.getX(), p.getY(), p.getName());
@@ -115,6 +129,7 @@ public class Client {
     private void renderTerrain(){
         terrainGraphics.drawLine(0, 0, 0, 23, 'E');
         terrainGraphics.drawLine(0, 23, 40, 23, '@');
+
     }
 
     public static void main(String[] args) throws IOException, InterruptedException, NotBoundException {
