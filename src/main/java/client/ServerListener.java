@@ -51,6 +51,7 @@ public class ServerListener implements Runnable{
                 Player player = players.get(data.getPlayerNames()[i]);
                 player.setX(data.getX()[i]);
                 player.setY(data.getY()[i]);
+                player.setCurrHp(data.getCurrHps()[i]);
             }
 
 
@@ -77,7 +78,7 @@ public class ServerListener implements Runnable{
     private void printPlayers(ServerData data){
         System.out.println(data.getPlayerCount());
         for (int i = 0; i < data.getPlayerCount(); i++) {
-            System.out.printf("%s %d %d", data.getPlayerNames()[i], data.getX()[i], data.getY()[i]);
+            System.out.printf("%s %d %d %d", data.getPlayerNames()[i], data.getX()[i], data.getY()[i], data.getCurrHps()[i]);
         }
     }
 }

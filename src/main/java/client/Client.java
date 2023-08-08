@@ -9,10 +9,12 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import game.actions.Action;
+import game.actions.Attack;
 import game.actions.Move;
 import game.Direction;
 import game.Player;
-import protocol.ClientData;
+import protocol.AttackData;
+import protocol.MoveData;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -58,6 +60,7 @@ public class Client {
         this.threadPool = Executors.newCachedThreadPool();
         this.packet = new DatagramPacket(new byte[1024], 1024, InetAddress.getByName(address), 6969);
         this.players = new ConcurrentHashMap<>();
+        players.put(playerName, player);
         this.terrainGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.BLACK).setBackgroundColor(TextColor.ANSI.WHITE);
         this.uiGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.RED);
         this.hpBar = new HpBar(player);
@@ -92,19 +95,22 @@ public class Client {
                 switch (keyStroke.getKeyType()) {
                     case ArrowUp -> {
                         moveUp.perform();
-                        packet.setData(new ClientData(player.getName(), Direction.UP).read());
+                        packet.setData(new MoveData(player.getName(), Direction.UP).read());
                     }
                     case ArrowDown -> {
                         moveDown.perform();
-                        packet.setData(new ClientData(player.getName(), Direction.DOWN).read());
+                        packet.setData(new MoveData(player.getName(), Direction.DOWN).read());
                     }
                     case ArrowLeft -> {
                         moveLeft.perform();
-                        packet.setData(new ClientData(player.getName(), Direction.LEFT).read());
+                        packet.setData(new MoveData(player.getName(), Direction.LEFT).read());
                     }
                     case ArrowRight -> {
                         moveRight.perform();
-                        packet.setData(new ClientData(player.getName(), Direction.RIGHT).read());
+                        packet.setData(new MoveData(player.getName(), Direction.RIGHT).read());
+                    }
+                    case Backspace -> {
+                        packet.setData(new AttackData(player.getName(), player.getName()).read());
                     }
                     case Escape -> {
                         isRunning = false;

@@ -13,11 +13,14 @@ public class ServerData implements Data{
     private int[] x;
     private int[] y;
 
+    private int[] currHps;
+
     public ServerData(Collection<Player> players) {
         playerCount = players.size();
         playerNames = new String[playerCount];
         x = new int[playerCount];
         y = new int[playerCount];
+        currHps = new int[playerCount];
 
         ArrayList<Player> playerList = new ArrayList<>(players);
 
@@ -25,6 +28,7 @@ public class ServerData implements Data{
             playerNames[i] = playerList.get(i).getName();
             x[i] = playerList.get(i).getX();
             y[i] = playerList.get(i).getY();
+            currHps[i] = playerList.get(i).getCurrHp();
         }
     }
 
@@ -41,11 +45,13 @@ public class ServerData implements Data{
         playerNames = new String[playerCount];
         x = new int[playerCount];
         y = new int[playerCount];
+        currHps = new int[playerCount];
 
         for (int i = 0; i < playerCount; i++){
             playerNames[i] = dis.readUTF();
             x[i] = dis.readInt();
             y[i] = dis.readInt();
+            currHps[i] = dis.readInt();
         }
 
 
@@ -64,6 +70,7 @@ public class ServerData implements Data{
             dos.writeUTF(playerNames[i]);
             dos.writeInt(x[i]);
             dos.writeInt(y[i]);
+            dos.writeInt(currHps[i]);
         }
 
         bytes = bos.toByteArray();
@@ -85,5 +92,9 @@ public class ServerData implements Data{
 
     public int[] getY() {
         return y;
+    }
+
+    public int[] getCurrHps() {
+        return currHps;
     }
 }

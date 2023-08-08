@@ -1,9 +1,8 @@
 package server;
 
 import game.Player;
-import protocol.ActionBuilder;
-import protocol.ClientData;
-import protocol.Data;
+import protocol.ActionData;
+import protocol.ActionDataFactory;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -32,10 +31,10 @@ public class ClientHandler implements Runnable{
     public void run() {
 
         while (true){
-            ClientData data;
+            ActionData data;
             try {
                 socket.receive(packet);
-                data = new ClientData(packet.getData());
+                data = ActionDataFactory.createData(packet.getData());
             } catch (IOException e) {
                 System.err.println(e);
                 continue;
@@ -50,7 +49,8 @@ public class ClientHandler implements Runnable{
                 gameState.put(data.getPlayerName(), new Player(data.getPlayerName(), 10, 10));
             }
             else {
-                new ActionBuilder(gameState).setPlayer(data.getPlayerName()).setDirection(data.getDirection()).build().perform();
+                //new ActionBuilder(gameState).setPlayer(data.getPlayerName()).setDirection(data.getDirection()).build().perform();
+                ActionDataFactory.createAction(gameState, data).perform();
             }
 
 

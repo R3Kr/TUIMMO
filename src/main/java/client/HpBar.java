@@ -25,7 +25,7 @@ public class HpBar {
         int emptyBars = BAR_COUNT - filledBars;
 
 
-        return "|".repeat(filledBars) + " ".repeat(emptyBars);
+        return "|".repeat(Math.max(filledBars, 0)) + " ".repeat(Math.min(emptyBars, BAR_COUNT));
 
     }
 

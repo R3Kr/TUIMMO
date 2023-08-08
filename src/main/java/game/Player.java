@@ -55,6 +55,10 @@ public class Player implements Movable {
         return currHp;
     }
 
+    public void setCurrHp(int currHp) {
+        this.currHp = currHp;
+    }
+
     public void setX(int x) {
         this.x = x;
     }

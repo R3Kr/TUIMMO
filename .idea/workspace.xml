@@ -4,14 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="big refactor">
-      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/ActionBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/DataType.java" afterDir="false" />
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="server now performs actions and sends back resulting gamestate">
+      <change afterPath="$PROJECT_DIR$/src/main/java/game/actions/Attack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/ActionData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/ActionDataFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/AttackData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Direction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/ClientData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/ClientData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/HpBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/HpBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/ServerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ServerListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/ActionBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/ClientData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/MoveData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/DataType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/DataType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/ServerData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/ServerData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/protocol/ServerPacketTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/protocol/ServerPacketTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,9 +30,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
-        <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -141,7 +149,7 @@
       <module name="TUIMMO" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="protocol.*" />
+          <option name="PATTERN" value="protocol.MoveData" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -156,7 +164,7 @@
       <module name="TUIMMO" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="protocol.*" />
+          <option name="PATTERN" value="protocol.MoveData" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -201,7 +209,7 @@
       <workItem from="1690704697867" duration="16155000" />
       <workItem from="1691062107434" duration="40466000" />
       <workItem from="1691351587961" duration="7663000" />
-      <workItem from="1691425227011" duration="20015000" />
+      <workItem from="1691425227011" duration="25598000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>
@@ -273,7 +281,14 @@
       <option name="project" value="LOCAL" />
       <updated>1691444796647</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="server now performs actions and sends back resulting gamestate">
+      <created>1691449474926</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1691449474926</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,6 +303,7 @@
     <MESSAGE value="now builds both client and server jars" />
     <MESSAGE value="hp implemented" />
     <MESSAGE value="big refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="big refactor" />
+    <MESSAGE value="server now performs actions and sends back resulting gamestate" />
+    <option name="LAST_COMMIT_MESSAGE" value="server now performs actions and sends back resulting gamestate" />
   </component>
 </project>

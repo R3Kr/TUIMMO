@@ -4,17 +4,17 @@ import game.Direction;
 
 import java.io.*;
 
-public class ClientData implements Data {
+public class MoveData implements ActionData {
 
     private static final short MOVE = DataType.MOVEDATA.getId();
     private String playerName;
     private Direction direction;
 
-    public ClientData(byte[] bytes) throws IOException {
+    public MoveData(byte[] bytes) throws IOException {
         write(bytes);
     }
 
-    public ClientData(String playerName, Direction direction) {
+    public MoveData(String playerName, Direction direction) {
         this.playerName = playerName;
         this.direction = direction;
     }
@@ -46,8 +46,14 @@ public class ClientData implements Data {
         return bytes;
     }
 
+    @Override
     public String getPlayerName() {
         return playerName;
+    }
+
+    @Override
+    public DataType getDataType() {
+        return DataType.MOVEDATA;
     }
 
     public Direction getDirection() {
