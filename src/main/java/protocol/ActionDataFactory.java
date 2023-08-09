@@ -9,6 +9,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 public class ActionDataFactory {
     public static ActionData createData(byte[] bytes) throws IOException {
@@ -29,16 +30,24 @@ public class ActionDataFactory {
         }
     }
 
-    public static Action createAction(Map<String, Player> players, ActionData data){
+    public static Optional<Action> createAction(Map<String, Player> players, ActionData data){
         Player player = players.get(data.getPlayerName());
+        if (player == null){
+            return Optional.empty();
+        }
+
         DataType dataType = data.getDataType();
 
         switch (dataType){
             case MOVEDATA -> {
-                return new Move(player, ((MoveData) data).getDirection());
+                return Optional.of(new Move(player, ((MoveData) data).getDirection()));
             }
             case ATTACKDATA -> {
-                return new Attack(player, players.get(((AttackData) data).getTargetName()));
+                Player player2 = players.get(((AttackData) data).getTargetName());
+                if (player2 == null){
+                    return Optional.empty();
+                }
+                return Optional.of(new Attack(player, players.get(((AttackData) data).getTargetName())));
             }
             default -> throw new IllegalArgumentException("illegal datya");
         }

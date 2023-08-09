@@ -3,13 +3,15 @@ package game.actions;
 import game.Direction;
 import game.Movable;
 
+import java.util.Objects;
+
 public class Move implements Action{
     private Movable movable;
     private Direction direction;
 
-    public Move(Movable movable, Direction direction) {
-        this.movable = movable;
-        this.direction = direction;
+    public Move(Movable movable, Direction direction){
+        this.movable = Objects.requireNonNull(movable);
+        this.direction = Objects.requireNonNull(direction);
     }
 
     @Override

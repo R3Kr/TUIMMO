@@ -21,6 +21,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.rmi.NotBoundException;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -110,7 +111,10 @@ public class Client {
                         packet.setData(new MoveData(player.getName(), Direction.RIGHT).read());
                     }
                     case Backspace -> {
-                        packet.setData(new AttackData(player.getName(), player.getName()).read());
+                        Optional<Player> player2 = players.values().stream().filter(p -> p != player && player.isCloseTo(p)).findFirst();
+                        if (player2.isPresent()){
+                            packet.setData(new AttackData(player.getName(), player2.get().getName()).read());
+                        }
                     }
                     case Escape -> {
                         isRunning = false;

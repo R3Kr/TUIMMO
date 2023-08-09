@@ -1,6 +1,7 @@
 package server;
 
 import game.Player;
+import game.actions.Action;
 import protocol.ActionData;
 import protocol.ActionDataFactory;
 
@@ -50,7 +51,7 @@ public class ClientHandler implements Runnable{
             }
             else {
                 //new ActionBuilder(gameState).setPlayer(data.getPlayerName()).setDirection(data.getDirection()).build().perform();
-                ActionDataFactory.createAction(gameState, data).perform();
+                ActionDataFactory.createAction(gameState, data).ifPresent(Action::perform);
             }
 
 

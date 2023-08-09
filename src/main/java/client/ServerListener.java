@@ -37,7 +37,7 @@ public class ServerListener implements Runnable{
                 System.err.println(e);
                 continue;
             }
-            printPlayers(data);
+            printServerPacket(data);
 
             if (players.size() < data.getPlayerCount()){
                 addPlayer(data);
@@ -54,14 +54,20 @@ public class ServerListener implements Runnable{
                 player.setCurrHp(data.getCurrHps()[i]);
             }
 
+            System.out.println(players);
+
 
         }
     }
 
     private void removePlayer(ServerData data) {
+        System.out.println("removePlayer");
         Iterator<String> it = players.keys().asIterator();
 
-        for (String player = it.next(); it.hasNext(); player = it.next()) {
+
+        while (it.hasNext()) {
+            String player = it.next();
+            System.out.println(player);
             if (!Arrays.asList(data.getPlayerNames()).contains(player)){
                 players.remove(player);
             }
@@ -75,7 +81,7 @@ public class ServerListener implements Runnable{
 
     }
 
-    private void printPlayers(ServerData data){
+    private void printServerPacket(ServerData data){
         System.out.println(data.getPlayerCount());
         for (int i = 0; i < data.getPlayerCount(); i++) {
             System.out.printf("%s %d %d %d", data.getPlayerNames()[i], data.getX()[i], data.getY()[i], data.getCurrHps()[i]);

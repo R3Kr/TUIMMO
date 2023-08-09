@@ -16,7 +16,7 @@ public class Player implements Movable {
         this.x = x;
         this.y = y;
         this.maxHp = 100;
-        this.currHp = 80;
+        this.currHp = 100;
     }
 
     public void move(Direction direction){
@@ -65,5 +65,9 @@ public class Player implements Movable {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public boolean isCloseTo(Player player){
+        return x - player.x <= 2 && x - player.x >= -2 && y - player.y <= 1 && y - player.y >= -1;
     }
 }
