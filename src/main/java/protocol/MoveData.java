@@ -4,16 +4,31 @@ import game.Direction;
 
 import java.io.*;
 
+/**
+ * The MoveData class represents data related to player movement actions.
+ */
 public class MoveData implements ActionData {
 
     private static final short MOVE = DataType.MOVEDATA.getId();
     private String playerName;
     private Direction direction;
 
+    /**
+     * Constructs a MoveData object by reading data from a byte array.
+     *
+     * @param bytes The byte array containing the data.
+     * @throws IOException If an I/O error occurs while reading the data.
+     */
     public MoveData(byte[] bytes) throws IOException {
         write(bytes);
     }
 
+    /**
+     * Constructs a MoveData object with the specified player name and direction.
+     *
+     * @param playerName The name of the player performing the movement.
+     * @param direction  The direction of the movement.
+     */
     public MoveData(String playerName, Direction direction) {
         this.playerName = playerName;
         this.direction = direction;
@@ -56,6 +71,11 @@ public class MoveData implements ActionData {
         return DataType.MOVEDATA;
     }
 
+    /**
+     * Retrieves the direction of the movement.
+     *
+     * @return The direction of the movement.
+     */
     public Direction getDirection() {
         return direction;
     }

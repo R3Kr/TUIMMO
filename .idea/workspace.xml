@@ -4,15 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="reworks on packet data and added factory for data, can now send attack actions to server">
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="attack feature fully works, bug fixes">
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/ClientContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/states/ClientState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/states/LoginState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/HpBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/HpBar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/ServerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ServerListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/StayAliveSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/StayAliveSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Direction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Movable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Movable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/actions/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/actions/Action.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/actions/Attack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/actions/Attack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/actions/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/actions/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/ActionData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/ActionData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/protocol/ActionDataFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/ActionDataFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/AttackData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/AttackData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/Data.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/DataType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/DataType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/MoveData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/MoveData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/ServerData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/ServerData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/StayAliveData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/StayAliveData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/StateTransmitter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/StateTransmitter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/StayAliveHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/StayAliveHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +43,8 @@
       <list>
         <option value="JUnit5 Test Class" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -61,6 +80,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/petter/dev/TUIMMO_Client&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -93,7 +113,7 @@
       <command value="mvn clean package" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Game2">
+  <component name="RunManager" selected="Application.Game">
     <configuration name="Game" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="client.Client" />
       <module name="TUIMMO" />
@@ -202,7 +222,9 @@
       <workItem from="1690704697867" duration="16155000" />
       <workItem from="1691062107434" duration="40466000" />
       <workItem from="1691351587961" duration="7663000" />
-      <workItem from="1691425227011" duration="33066000" />
+      <workItem from="1691425227011" duration="34580000" />
+      <workItem from="1691621145369" duration="2199000" />
+      <workItem from="1691688581971" duration="9404000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>
@@ -288,11 +310,29 @@
       <option name="project" value="LOCAL" />
       <updated>1691532391238</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="attack feature fully works, bug fixes">
+      <created>1691616179115</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1691616179115</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="kan bygga en fucking jar" />
@@ -305,21 +345,7 @@
     <MESSAGE value="big refactor" />
     <MESSAGE value="server now performs actions and sends back resulting gamestate" />
     <MESSAGE value="reworks on packet data and added factory for data, can now send attack actions to server" />
-    <option name="LAST_COMMIT_MESSAGE" value="reworks on packet data and added factory for data, can now send attack actions to server" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/client/ServerListener.java</url>
-          <line>62</line>
-          <properties class="client.ServerListener" method="removePlayer">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="attack feature fully works, bug fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="attack feature fully works, bug fixes" />
   </component>
 </project>
