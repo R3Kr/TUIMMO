@@ -3,6 +3,7 @@ package client.states;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class LoginState implements ClientState{
     }
 
     @Override
-    public void tick() throws IOException {
+    public StateResult tick() throws IOException {
         screen.refresh();
         screen.clear();
 
@@ -35,8 +36,18 @@ public class LoginState implements ClientState{
         if (keyStroke != null){
             test = !test;
             System.out.println("pressing");
+
+            if (keyStroke.getKeyType() == KeyType.Escape){
+                return StateResult.EXIT;
+            }
         }
         render();
+        return StateResult.OK;
+
+    }
+
+    @Override
+    public void shutDown() {
 
     }
 
