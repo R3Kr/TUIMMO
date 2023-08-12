@@ -2,9 +2,18 @@ package protocol;
 
 import java.io.*;
 
-public class StayAliveData implements Data{
+/**
+ * The StayAliveData class represents data to keep a player connected on the server.
+ */
+public class StayAliveData implements Data {
+
     private String player;
 
+    /**
+     * Constructs a StayAliveData object for the specified player.
+     *
+     * @param player The name of the player to keep alive.
+     */
     public StayAliveData(String player) {
         this.player = player;
     }
@@ -35,6 +44,11 @@ public class StayAliveData implements Data{
         return bytes;
     }
 
+    /**
+     * Retrieves the name of the player for whom the stay-alive data is intended.
+     *
+     * @return The player's name.
+     */
     public String getPlayer() {
         return player;
     }
