@@ -44,10 +44,10 @@ public class Client {
      * @throws IOException       If an I/O error occurs.
      * @throws NotBoundException If a binding-related error occurs.
      */
-    public Client(String playerName, String address) throws IOException, NotBoundException {
+    public Client(String playerName, String address, boolean emulated) throws IOException, NotBoundException {
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
         terminalFactory.setInitialTerminalSize(new TerminalSize(80, 27));
-        terminal = terminalFactory.setPreferTerminalEmulator(true).createTerminal();
+        terminal = terminalFactory.setPreferTerminalEmulator(emulated).createTerminal();
         screen = new TerminalScreen(terminal);
 
         this.context = new ClientContext(new LoginState(screen), new PlayingState(screen, playerName, address));
@@ -63,10 +63,18 @@ public class Client {
      * @throws NotBoundException    If a binding-related error occurs.
      */
     public static void main(String[] args) throws IOException, InterruptedException, NotBoundException {
-        if (args.length != 2) {
+        Client client;
+
+        if (args.length == 2) {
+
+            client = new Client(args[0].substring(0, 2), args[1], true);
+        } else if (args.length == 3) {
+            client = new Client(args[0].substring(0, 2), args[1], false);
+        }
+        else {
             throw new IllegalArgumentException("Needs 2 arguments, name and ipaddress");
         }
-        Client client = new Client(args[0].substring(0, 2), args[1]);
+
         //client.run();   //temporärt
         client.context.run();
         client.context.shutdown();
