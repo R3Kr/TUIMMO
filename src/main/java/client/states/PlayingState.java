@@ -1,16 +1,15 @@
 package client.states;
 
-import client.ClientContext;
 import client.HpBar;
 import client.ServerListener;
 import client.StayAliveSender;
-import com.googlecode.lanterna.TerminalSize;
+import client.animations.Animation;
+import client.animations.AnimationList;
+import client.animations.AttackAnimation;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import game.Direction;
 import game.Player;
 import game.actions.Action;
@@ -22,7 +21,8 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.rmi.NotBoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -40,8 +40,8 @@ public class PlayingState implements ClientState {
     private ConcurrentHashMap<String, Player> players;
     private InetAddress address;
     private HpBar hpBar;
-    private int frames = 0;
 
+    private List<Animation> animations = new AnimationList();
 
     private final Action moveUp;
 
@@ -96,38 +96,45 @@ public class PlayingState implements ClientState {
                 case ArrowUp:
                     moveUp.perform();
                     packet.setData(new MoveData(player.getName(), Direction.UP).read());
+                    socket.send(packet);
                     break;
                 case ArrowDown:
                     moveDown.perform();
                     packet.setData(new MoveData(player.getName(), Direction.DOWN).read());
+                    socket.send(packet);
                     break;
                 case ArrowLeft:
                     moveLeft.perform();
                     packet.setData(new MoveData(player.getName(), Direction.LEFT).read());
+                    socket.send(packet);
                     break;
                 case ArrowRight:
                     moveRight.perform();
                     packet.setData(new MoveData(player.getName(), Direction.RIGHT).read());
+                    socket.send(packet);
                     break;
                 case Backspace:
                     Optional<Player> player2 = players.values().stream().filter(p -> p != player && player.isCloseTo(p)).findFirst();
                     if (player2.isPresent()) {
                         packet.setData(new AttackData(player.getName(), player2.get().getName()).read());
+                        socket.send(packet);
                     }
+                    animations.add(new AttackAnimation(player, uiGraphics));
                     break;
                 case Escape:
                     return StateResult.EXIT;
                 default:
                     break;
             }
-            socket.send(packet);
+
         }
 
-        renderAnimation();
+
+        renderAnimations();
         renderPlayers();
         renderTerrain();
         renderUI();
-        frames++;
+
 
 
         //threadPool.shutdownNow();
@@ -142,20 +149,27 @@ public class PlayingState implements ClientState {
 
 
 
-    private void renderAnimation(){
-
-        switch (frames%11){
-            case 1 -> uiGraphics.setCharacter(player.getX()-1, player.getY(), '|');
-            case 2 -> uiGraphics.setCharacter(player.getX()-1, player.getY() -1, '°');
-            case 3 -> uiGraphics.setCharacter(player.getX(), player.getY() -1, '-');
-            case 4 -> uiGraphics.setCharacter(player.getX()+1, player.getY() -1, '-');
-            case 5 -> uiGraphics.setCharacter(player.getX()+2, player.getY() -1, '°');
-            case 6 -> uiGraphics.setCharacter(player.getX()+2, player.getY(), '|');
-            case 7 -> uiGraphics.setCharacter(player.getX()+2, player.getY() +1, '°');
-            case 8 -> uiGraphics.setCharacter(player.getX(), player.getY() +1, '-');
-            case 9 -> uiGraphics.setCharacter(player.getX() + 1, player.getY() +1, '-');
-            case 10 -> uiGraphics.setCharacter(player.getX()-1, player.getY() +1, '°');
+    private void renderAnimations(){
+        for (Animation a : animations){
+            a.render();
         }
+
+
+//        switch (frames%11){
+//            case 1 -> uiGraphics.setCharacter(player.getX()-1, player.getY(), '|');
+//            case 2 -> uiGraphics.setCharacter(player.getX()-1, player.getY() -1, '°');
+//            case 3 -> uiGraphics.setCharacter(player.getX(), player.getY() -1, '-');
+//            case 4 -> uiGraphics.setCharacter(player.getX()+1, player.getY() -1, '-');
+//            case 5 -> uiGraphics.setCharacter(player.getX()+2, player.getY() -1, '°');
+//            case 6 -> uiGraphics.setCharacter(player.getX()+2, player.getY(), '|');
+//            case 7 -> uiGraphics.setCharacter(player.getX()+2, player.getY() +1, '°');
+//            case 8 -> uiGraphics.setCharacter(player.getX(), player.getY() +1, '-');
+//            case 9 -> uiGraphics.setCharacter(player.getX() + 1, player.getY() +1, '-');
+//            case 10 -> {
+//                uiGraphics.setCharacter(player.getX()-1, player.getY() +1, '°');
+//                attacking = false;
+//            }
+//        }
 
     }
     private void renderPlayers() {

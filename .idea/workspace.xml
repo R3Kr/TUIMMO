@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="experimentations">
-      <change afterPath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" afterDir="false" />
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="animations??">
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/animations/Animation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/animations/AnimationList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/animations/AttackAnimation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/ClientContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ClientContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/states/ClientState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/states/ClientState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/states/LoginState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/states/LoginState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +27,25 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="statemachine_client" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="40eec0e5-0eb7-4d29-9278-66e17563e3d5" />
+        <option name="url" value="https://github.com/R3Kr/TUIMMO.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -92,7 +109,7 @@
       <command value="mvn clean package" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Game">
+  <component name="RunManager" selected="Application.Game2">
     <configuration name="Game" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="client.Client" />
       <module name="TUIMMO" />
@@ -203,7 +220,7 @@
       <workItem from="1691351587961" duration="7663000" />
       <workItem from="1691425227011" duration="34580000" />
       <workItem from="1691621145369" duration="2199000" />
-      <workItem from="1691688581971" duration="19422000" />
+      <workItem from="1691688581971" duration="26150000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>
@@ -303,7 +320,14 @@
       <option name="project" value="LOCAL" />
       <updated>1691701049132</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="animations??">
+      <created>1691850973450</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1691850973450</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -333,6 +357,7 @@
     <MESSAGE value="reworks on packet data and added factory for data, can now send attack actions to server" />
     <MESSAGE value="attack feature fully works, bug fixes" />
     <MESSAGE value="experimentations" />
-    <option name="LAST_COMMIT_MESSAGE" value="experimentations" />
+    <MESSAGE value="animations??" />
+    <option name="LAST_COMMIT_MESSAGE" value="animations??" />
   </component>
 </project>
