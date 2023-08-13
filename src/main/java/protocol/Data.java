@@ -22,4 +22,6 @@ public interface Data {
      * @throws IOException If an I/O error occurs while reading the data.
      */
     byte[] read() throws IOException;
+
+    DataType getDataType();
 }

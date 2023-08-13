@@ -9,7 +9,7 @@ import java.util.Collection;
 /**
  * The ServerData class represents data related to the current state of players on the server.
  */
-public class ServerData implements Data {
+public class StateData implements Data {
 
     private int playerCount;
     private String[] playerNames;
@@ -22,7 +22,7 @@ public class ServerData implements Data {
      *
      * @param players The collection of players to represent the server state.
      */
-    public ServerData(Collection<Player> players) {
+    public StateData(Collection<Player> players) {
         playerCount = players.size();
         playerNames = new String[playerCount];
         x = new int[playerCount];
@@ -39,7 +39,7 @@ public class ServerData implements Data {
         }
     }
 
-    public ServerData(byte[] bytes) throws IOException {
+    public StateData(byte[] bytes) throws IOException {
         write(bytes);
     }
 
@@ -48,6 +48,7 @@ public class ServerData implements Data {
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         DataInputStream dis = new DataInputStream(bis);
 
+        dis.readShort(); //id already known
         playerCount = dis.readInt();
         playerNames = new String[playerCount];
         x = new int[playerCount];
@@ -70,6 +71,7 @@ public class ServerData implements Data {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(bos);
 
+        dos.writeShort(DataType.STATEDATA.getId());
         dos.writeInt(playerCount);
 
         for (int i = 0; i < playerCount; i++) {
@@ -82,6 +84,11 @@ public class ServerData implements Data {
         bytes = bos.toByteArray();
         dos.close();
         return bytes;
+    }
+
+    @Override
+    public DataType getDataType() {
+        return DataType.STATEDATA;
     }
 
     /**

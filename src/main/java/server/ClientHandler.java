@@ -4,12 +4,16 @@ import game.Player;
 import game.actions.Action;
 import protocol.ActionData;
 import protocol.ActionDataFactory;
+import protocol.AnimationData;
+import protocol.AnimationDataFactory;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketAddress;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * The ClientHandler class manages incoming client messages and performs actions based on the received data.
@@ -21,6 +25,8 @@ public class ClientHandler implements Runnable {
     private DatagramPacket packet;
     private List<SocketAddress> clients;
 
+    private Queue<AnimationData> animationDataQueue;
+
     /**
      * Constructs a ClientHandler object with the specified game state, socket, and list of clients.
      *
@@ -28,11 +34,12 @@ public class ClientHandler implements Runnable {
      * @param socket    The DatagramSocket used to communicate with clients.
      * @param clients   The list of client socket addresses.
      */
-    public ClientHandler(GameState gameState, DatagramSocket socket, List<SocketAddress> clients) {
+    public ClientHandler(GameState gameState, DatagramSocket socket, List<SocketAddress> clients, Queue<AnimationData> animationDataQueue) {
         this.gameState = gameState;
         this.socket = socket;
         this.packet = new DatagramPacket(new byte[1024], 1024);
         this.clients = clients;
+        this.animationDataQueue = animationDataQueue;
     }
 
     @Override
@@ -55,6 +62,7 @@ public class ClientHandler implements Runnable {
             if (player == null) {
                 gameState.put(data.getPlayerName(), new Player(data.getPlayerName(), 10, 10));
             } else {
+                AnimationDataFactory.createAnimation(data).ifPresent(a -> animationDataQueue.offer(a));
                 ActionDataFactory.createAction(gameState, data).ifPresent(Action::perform);
             }
 

@@ -1,14 +1,13 @@
 package server;
 
 import game.Player;
+import protocol.AnimationData;
 
 import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 /**
  * The Server class represents the game server that handles incoming connections and manages game state.
@@ -23,6 +22,8 @@ public class Server {
 
     private List<SocketAddress> clients;
 
+    private BlockingQueue<AnimationData> animationDataBlockingQueue;
+
     /**
      * Constructs a Server object, initializes the socket, game state, and clients list.
      *
@@ -33,6 +34,7 @@ public class Server {
         this.socket = new DatagramSocket(6969, InetAddress.getByName("0.0.0.0"));
         this.gameState = new GameState();
         this.clients = new ArrayList<>();
+        this.animationDataBlockingQueue = new LinkedBlockingQueue<>();
     }
 
     /**
@@ -51,9 +53,10 @@ public class Server {
      * @throws IOException If there is an I/O error.
      */
     private void run() throws IOException {
-        ClientHandler clientHandler = new ClientHandler(gameState, socket, clients);
+        ClientHandler clientHandler = new ClientHandler(gameState, socket, clients, animationDataBlockingQueue);
         executorService.execute(clientHandler);
         executorService.execute(new StateTransmitter(gameState, socket, clients));
         executorService.execute(new StayAliveHandler(gameState, clients));
+        executorService.execute(new AnimationDataTransmitter(animationDataBlockingQueue, clients, socket));
     }
 }

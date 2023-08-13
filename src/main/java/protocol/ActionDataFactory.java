@@ -60,10 +60,7 @@ public class ActionDataFactory {
                 return Optional.of(new Move(player, ((MoveData) data).getDirection()));
             }
             case ATTACKDATA -> {
-                Player player2 = players.get(((AttackData) data).getTargetName());
-                if (player2 == null) {
-                    return Optional.empty();
-                }
+
                 return Optional.of(new Attack(player, players.get(((AttackData) data).getTargetName())));
             }
             default -> throw new IllegalArgumentException("illegal data");

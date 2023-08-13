@@ -12,7 +12,11 @@ public enum DataType {
     /**
      * Represents attack data.
      */
-    ATTACKDATA((short) 1);
+    ATTACKDATA((short) 1),
+    STATEDATA((short) 2),
+    ANIMATIONDATA((short) 3),
+
+    STAYALIVEDATA((short) 4);
 
     private final short id;
 

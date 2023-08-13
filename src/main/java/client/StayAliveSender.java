@@ -40,9 +40,9 @@ public class StayAliveSender implements Runnable {
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                System.out.println("going to send");
+                //System.out.println("going to send");
                 socket.send(packet);
-                System.out.println("just sent");
+                //System.out.println("just sent");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -2,23 +2,17 @@ package protocol;
 
 import java.io.*;
 
-/**
- * The StayAliveData class represents data to keep a player connected on the server.
- */
-public class StayAliveData implements Data {
+
+public class AnimationData implements Data {
 
     private String player;
 
-    /**
-     * Constructs a StayAliveData object for the specified player.
-     *
-     * @param player The name of the player to keep alive.
-     */
-    public StayAliveData(String player) {
+
+    public AnimationData(String player) {
         this.player = player;
     }
 
-    public StayAliveData(byte[] bytes) throws IOException {
+    public AnimationData(byte[] bytes) throws IOException {
         write(bytes);
     }
 
@@ -27,7 +21,7 @@ public class StayAliveData implements Data {
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         DataInputStream dis = new DataInputStream(bis);
 
-        dis.readShort(); //id already known
+        dis.readShort(); // id already known
         player = dis.readUTF();
         dis.close();
     }
@@ -38,7 +32,7 @@ public class StayAliveData implements Data {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(bos);
 
-        dos.writeShort(DataType.STAYALIVEDATA.getId());
+        dos.writeShort(DataType.ANIMATIONDATA.getId());
         dos.writeUTF(player);
 
         bytes = bos.toByteArray();
@@ -48,14 +42,9 @@ public class StayAliveData implements Data {
 
     @Override
     public DataType getDataType() {
-        return DataType.STAYALIVEDATA;
+        return DataType.ANIMATIONDATA;
     }
 
-    /**
-     * Retrieves the name of the player for whom the stay-alive data is intended.
-     *
-     * @return The player's name.
-     */
     public String getPlayer() {
         return player;
     }

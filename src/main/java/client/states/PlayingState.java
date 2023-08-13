@@ -41,7 +41,7 @@ public class PlayingState implements ClientState {
     private InetAddress address;
     private HpBar hpBar;
 
-    private List<Animation> animations = new AnimationList();
+    private List<Animation> animations;
 
     private final Action moveUp;
 
@@ -66,8 +66,9 @@ public class PlayingState implements ClientState {
         this.terrainGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.BLACK).setBackgroundColor(TextColor.ANSI.WHITE);
         this.uiGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.RED);
         this.hpBar = new HpBar(player);
+        this.animations = new AnimationList(uiGraphics);
 
-        threadPool.execute(new ServerListener(players, socket));
+        threadPool.execute(new ServerListener(players, socket, animations));
         threadPool.execute(new StayAliveSender(player, socket, this.address));
         screen.startScreen();
         screen.clear();
@@ -115,10 +116,8 @@ public class PlayingState implements ClientState {
                     break;
                 case Backspace:
                     Optional<Player> player2 = players.values().stream().filter(p -> p != player && player.isCloseTo(p)).findFirst();
-                    if (player2.isPresent()) {
-                        packet.setData(new AttackData(player.getName(), player2.get().getName()).read());
-                        socket.send(packet);
-                    }
+                    packet.setData(new AttackData(player.getName(), player2.map(Player::getName).orElse("")).read());
+                    socket.send(packet);
                     animations.add(new AttackAnimation(player, uiGraphics));
                     break;
                 case Escape:

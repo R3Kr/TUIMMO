@@ -3,6 +3,7 @@ package game.actions;
 import game.Player;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * The Attack class represents an action of attacking another player in the game.
@@ -10,7 +11,7 @@ import java.util.Objects;
 public class Attack implements Action {
     private static final int DMG = 5;
     private Player attacker;
-    private Player target;
+    private Optional<Player> target;
 
     /**
      * Constructs a new Attack instance.
@@ -20,7 +21,7 @@ public class Attack implements Action {
      */
     public Attack(Player attacker, Player target) {
         this.attacker = Objects.requireNonNull(attacker);
-        this.target = Objects.requireNonNull(target);
+        this.target = Optional.ofNullable(target);
     }
 
     /**
@@ -30,7 +31,7 @@ public class Attack implements Action {
      */
     @Override
     public Action perform() {
-        target.setCurrHp(target.getCurrHp() - DMG);
+        target.ifPresent(p -> p.setCurrHp(p.getCurrHp() - DMG));
         return this;
     }
 
@@ -41,7 +42,7 @@ public class Attack implements Action {
      */
     @Override
     public Action undo() {
-        target.setCurrHp(target.getCurrHp() + DMG);
+        target.ifPresent(p -> p.setCurrHp(p.getCurrHp() + DMG));
         return this;
     }
 }

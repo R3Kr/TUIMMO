@@ -1,13 +1,19 @@
 package client;
 
+import client.animations.Animation;
+import client.animations.AnimationBuilder;
+import client.animations.AnimationBuilderFactory;
+import client.animations.AnimationList;
 import game.Player;
-import protocol.ServerData;
+import protocol.*;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -19,16 +25,19 @@ public class ServerListener implements Runnable {
     private DatagramPacket packet;
     private ConcurrentHashMap<String, Player> players;
 
+    private AnimationList animations;
+
     /**
      * Constructs a new ServerListener instance.
      *
      * @param players The ConcurrentHashMap containing player information.
      * @param socket  The DatagramSocket for communication.
      */
-    public ServerListener(ConcurrentHashMap<String, Player> players, DatagramSocket socket) {
+    public ServerListener(ConcurrentHashMap<String, Player> players, DatagramSocket socket, List<Animation> animations) {
         this.socket = socket;
         this.players = players;
         this.packet = new DatagramPacket(new byte[1024], 1024);
+        this.animations = (AnimationList) animations;
     }
 
     /**
@@ -37,20 +46,35 @@ public class ServerListener implements Runnable {
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
-            ServerData data;
+            Data data;
             try {
                 socket.receive(packet);
-                data = new ServerData(packet.getData());
+                data = ServerDataFactory.createData(packet.getData());
             } catch (IOException e) {
                 System.err.println(e);
                 continue;
             }
-            processServerPacket(data);
+
+            if (data.getDataType() == DataType.STATEDATA){
+
+                processStatePacket((StateData) data);
+            }
+
+            else if (data.getDataType() == DataType.ANIMATIONDATA){
+                System.out.println(data.getDataType());
+                Optional<AnimationBuilder> builderOptional = AnimationBuilderFactory.createAnimation(players, (AnimationData) data);
+                builderOptional.ifPresent(b -> animations.add(b));
+            }
+
+            else {
+                System.out.println(data.getDataType());
+            }
+
         }
         System.out.println("Server listener shutting down");
     }
 
-    private void processServerPacket(ServerData data) {
+    private void processStatePacket(StateData data) {
         if (players.size() < data.getPlayerCount()) {
             addNewPlayers(data);
         } else if (players.size() > data.getPlayerCount()) {
@@ -67,13 +91,13 @@ public class ServerListener implements Runnable {
         }
     }
 
-    private void addNewPlayers(ServerData data) {
+    private void addNewPlayers(StateData data) {
         for (int i = 0; i < data.getPlayerCount(); i++) {
             players.putIfAbsent(data.getPlayerNames()[i], new Player(data.getPlayerNames()[i], data.getX()[i], data.getY()[i]));
         }
     }
 
-    private void removeDisconnectedPlayers(ServerData data) {
+    private void removeDisconnectedPlayers(StateData data) {
         Iterator<String> it = players.keys().asIterator();
 
         while (it.hasNext()) {

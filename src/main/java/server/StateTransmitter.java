@@ -1,6 +1,6 @@
 package server;
 
-import protocol.ServerData;
+import protocol.StateData;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -57,7 +57,7 @@ public class StateTransmitter implements Runnable {
      */
     private void sendData() {
         try {
-            packet.setData(new ServerData(gameState.values()).read());
+            packet.setData(new StateData(gameState.values()).read());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
