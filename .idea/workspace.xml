@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="animations works online">
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="can now run non emulated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/ServerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ServerListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/Animation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/Animation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/AnimationBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/AnimationBuilderFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/AnimationFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/AnimationList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/AnimationList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/AttackAnimation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/AttackAnimation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,11 +37,11 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -106,7 +112,7 @@
       <command value="mvn clean package" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Server">
+  <component name="RunManager" selected="Application.Game">
     <configuration name="Game" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="client.Client" />
       <module name="TUIMMO" />
@@ -217,7 +223,8 @@
       <workItem from="1691351587961" duration="7663000" />
       <workItem from="1691425227011" duration="34580000" />
       <workItem from="1691621145369" duration="2199000" />
-      <workItem from="1691688581971" duration="36279000" />
+      <workItem from="1691688581971" duration="37923000" />
+      <workItem from="1691989454952" duration="798000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>
@@ -338,7 +345,14 @@
       <option name="project" value="LOCAL" />
       <updated>1691960695740</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="can now run non emulated">
+      <created>1691961670551</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1691961670551</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -371,6 +385,7 @@
     <MESSAGE value="animations??" />
     <MESSAGE value="animations work on clientside" />
     <MESSAGE value="animations works online" />
-    <option name="LAST_COMMIT_MESSAGE" value="animations works online" />
+    <MESSAGE value="can now run non emulated" />
+    <option name="LAST_COMMIT_MESSAGE" value="can now run non emulated" />
   </component>
 </project>

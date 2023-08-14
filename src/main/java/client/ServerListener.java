@@ -1,8 +1,7 @@
 package client;
 
 import client.animations.Animation;
-import client.animations.AnimationBuilder;
-import client.animations.AnimationBuilderFactory;
+import client.animations.AnimationFactory;
 import client.animations.AnimationList;
 import game.Player;
 import protocol.*;
@@ -62,7 +61,7 @@ public class ServerListener implements Runnable {
 
             else if (data.getDataType() == DataType.ANIMATIONDATA){
                 System.out.println(data.getDataType());
-                Optional<AnimationBuilder> builderOptional = AnimationBuilderFactory.createAnimation(players, (AnimationData) data);
+                Optional<Animation> builderOptional = AnimationFactory.createAnimation(players, (AnimationData) data);
                 builderOptional.ifPresent(b -> animations.add(b));
             }
 

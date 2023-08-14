@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -118,7 +117,7 @@ public class PlayingState implements ClientState {
                     Optional<Player> player2 = players.values().stream().filter(p -> p != player && player.isCloseTo(p)).findFirst();
                     packet.setData(new AttackData(player.getName(), player2.map(Player::getName).orElse("")).read());
                     socket.send(packet);
-                    animations.add(new AttackAnimation(player, uiGraphics));
+                    animations.add(new AttackAnimation(player));
                     break;
                 case Escape:
                     return StateResult.EXIT;
@@ -150,7 +149,7 @@ public class PlayingState implements ClientState {
 
     private void renderAnimations(){
         for (Animation a : animations){
-            a.render();
+            a.renderWith(uiGraphics);
         }
 
 

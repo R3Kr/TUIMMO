@@ -1,7 +1,6 @@
 package client.animations;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.screen.Screen;
 import game.Player;
 
 public abstract class Animation {
@@ -10,26 +9,24 @@ public abstract class Animation {
 
     protected Player player;
 
-    protected TextGraphics tg;
 
-    public Animation(int total_frames, Player player, TextGraphics tg) {
+    public Animation(int total_frames, Player player) {
         this.total_frames = total_frames;
         this.player = player;
-        this.tg = tg;
     }
 
-    public final void render(){
+    public final void renderWith(TextGraphics tg){
         if (elapsed_frames++ >= total_frames){
             return;
         }
-        _render();
+        _render(tg);
     }
 
     protected final boolean shouldDelete(){
         return elapsed_frames >= total_frames;
     }
 
-    protected abstract void _render();
+    protected abstract void _render(TextGraphics tg);
 
 
 }
