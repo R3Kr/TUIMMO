@@ -8,9 +8,10 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketAddress;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 
-public class AnimationDataTransmitter implements Runnable{
+public class AnimationDataTransmitter implements Runnable {
 
     private BlockingQueue<AnimationData> animationDataBlockingQueue;
     private Clients clients;
@@ -27,7 +28,7 @@ public class AnimationDataTransmitter implements Runnable{
 
     @Override
     public void run() {
-        while (true){
+        while (true) {
             try {
                 send(animationDataBlockingQueue.take());
             } catch (InterruptedException e) {
@@ -36,20 +37,24 @@ public class AnimationDataTransmitter implements Runnable{
         }
     }
 
-    private void send(AnimationData data){
+    private void send(AnimationData data) {
         try {
             packet.setData(data.read());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        clients.forEach(c -> {
-            packet.setSocketAddress(c);
-            try {
-                socket.send(packet);
-            } catch (IOException e) {
-                System.err.println(e);
-            }
-        });
+        clients.getEntrySet()
+                .stream()
+                .filter(e -> !e.getValue().equals(data.getPlayer()))    //not send animation to player who called it
+                .map(Map.Entry::getKey)
+                .forEach(c -> {
+                    packet.setSocketAddress(c);
+                    try {
+                        socket.send(packet);
+                    } catch (IOException e) {
+                        System.err.println(e);
+                    }
+                });
     }
 }

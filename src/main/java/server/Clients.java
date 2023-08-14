@@ -4,6 +4,7 @@ import game.Player;
 
 import java.net.SocketAddress;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
@@ -35,5 +36,9 @@ public class Clients {
 
     public void forEach(Consumer<SocketAddress> consumer) {
         clients.keySet().forEach(consumer);
+    }
+
+    public Set<Map.Entry<SocketAddress, String>> getEntrySet(){
+        return clients.entrySet();
     }
 }
