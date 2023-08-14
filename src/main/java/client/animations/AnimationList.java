@@ -6,11 +6,7 @@ import java.util.ArrayList;
 
 public class AnimationList extends ArrayList<Animation> {
 
-    private TextGraphics tg;
 
-    public AnimationList(TextGraphics tg) {
-        this.tg = tg;
-    }
 
     @Override
     public boolean add(Animation animation) {

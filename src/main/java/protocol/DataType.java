@@ -16,7 +16,8 @@ public enum DataType {
     STATEDATA((short) 2),
     ANIMATIONDATA((short) 3),
 
-    STAYALIVEDATA((short) 4);
+    STAYALIVEDATA((short) 4),
+    COOLDATA((short) 5);
 
     private final short id;
 

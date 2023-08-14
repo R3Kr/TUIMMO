@@ -4,15 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="can now run non emulated">
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="refactors">
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/animations/CoolAnimation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/CoolData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/ServerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ServerListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/Animation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/Animation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/AnimationBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/AnimationBuilderFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/AnimationFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/AnimationFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/AnimationFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/AnimationList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/AnimationList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/AttackAnimation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/AttackAnimation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/ActionDataFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/ActionDataFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/AnimationData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/AnimationData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/AnimationDataFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/AnimationDataFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/DataType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/DataType.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,7 +227,7 @@
       <workItem from="1691425227011" duration="34580000" />
       <workItem from="1691621145369" duration="2199000" />
       <workItem from="1691688581971" duration="37923000" />
-      <workItem from="1691989454952" duration="798000" />
+      <workItem from="1691989454952" duration="5971000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>
@@ -352,7 +355,14 @@
       <option name="project" value="LOCAL" />
       <updated>1691961670551</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="refactors">
+      <created>1691990287622</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1691990287623</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -386,6 +396,7 @@
     <MESSAGE value="animations work on clientside" />
     <MESSAGE value="animations works online" />
     <MESSAGE value="can now run non emulated" />
-    <option name="LAST_COMMIT_MESSAGE" value="can now run non emulated" />
+    <MESSAGE value="refactors" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactors" />
   </component>
 </project>

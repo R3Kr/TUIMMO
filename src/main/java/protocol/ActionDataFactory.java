@@ -36,6 +36,10 @@ public class ActionDataFactory {
             case ATTACKDATA -> {
                 return new AttackData(bytes);
             }
+            case COOLDATA -> {
+
+                return new CoolData(bytes);
+            }
             default -> throw new IllegalArgumentException("illegal packet datatype");
         }
     }
@@ -63,7 +67,9 @@ public class ActionDataFactory {
 
                 return Optional.of(new Attack(player, players.get(((AttackData) data).getTargetName())));
             }
-            default -> throw new IllegalArgumentException("illegal data");
+            default -> {
+                return Optional.empty();
+            }
         }
 
     }

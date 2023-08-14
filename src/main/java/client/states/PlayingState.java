@@ -6,6 +6,7 @@ import client.StayAliveSender;
 import client.animations.Animation;
 import client.animations.AnimationList;
 import client.animations.AttackAnimation;
+import client.animations.CoolAnimation;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -15,6 +16,7 @@ import game.Player;
 import game.actions.Action;
 import game.actions.Move;
 import protocol.AttackData;
+import protocol.CoolData;
 import protocol.MoveData;
 
 import java.io.IOException;
@@ -65,7 +67,7 @@ public class PlayingState implements ClientState {
         this.terrainGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.BLACK).setBackgroundColor(TextColor.ANSI.WHITE);
         this.uiGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.RED);
         this.hpBar = new HpBar(player);
-        this.animations = new AnimationList(uiGraphics);
+        this.animations = new AnimationList();
 
         threadPool.execute(new ServerListener(players, socket, animations));
         threadPool.execute(new StayAliveSender(player, socket, this.address));
@@ -118,6 +120,12 @@ public class PlayingState implements ClientState {
                     packet.setData(new AttackData(player.getName(), player2.map(Player::getName).orElse("")).read());
                     socket.send(packet);
                     animations.add(new AttackAnimation(player));
+                    break;
+                case Enter:
+                    System.out.println("Enter");
+                    packet.setData(new CoolData(player.getName()).read());
+                    socket.send(packet);
+                    animations.add(new CoolAnimation(player));
                     break;
                 case Escape:
                     return StateResult.EXIT;

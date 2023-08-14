@@ -3,29 +3,17 @@ package client;
 import client.states.LoginState;
 import client.states.PlayingState;
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.input.KeyStroke;
+
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
-import game.actions.Action;
-import game.actions.Move;
-import game.Direction;
-import game.Player;
-import protocol.AttackData;
-import protocol.MoveData;
+
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
+
 import java.rmi.NotBoundException;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 
 /**
  * The Client class represents a game client using Lanterna library for terminal-based UI.
@@ -70,8 +58,7 @@ public class Client {
             client = new Client(args[0].substring(0, 2), args[1], true);
         } else if (args.length == 3) {
             client = new Client(args[0].substring(0, 2), args[1], false);
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Needs 2 arguments, name and ipaddress");
         }
 
