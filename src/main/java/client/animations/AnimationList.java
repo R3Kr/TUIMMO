@@ -15,9 +15,5 @@ public class AnimationList extends CopyOnWriteArrayList<Animation> {
         return super.add(animation);
     }
 
-//    public boolean add(AnimationBuilder builder){
-//        //player is already set
-//        Animation animation = builder.set(tg).build();
-//        return add(animation);
-//    }
+
 }
