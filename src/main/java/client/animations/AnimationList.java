@@ -3,8 +3,9 @@ package client.animations;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-public class AnimationList extends ArrayList<Animation> {
+public class AnimationList extends CopyOnWriteArrayList<Animation> {
 
 
 
