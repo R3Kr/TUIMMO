@@ -13,12 +13,12 @@ import java.util.concurrent.BlockingQueue;
 public class AnimationDataTransmitter implements Runnable{
 
     private BlockingQueue<AnimationData> animationDataBlockingQueue;
-    private List<SocketAddress> clients;
+    private Clients clients;
 
     private DatagramSocket socket;
     private DatagramPacket packet;
 
-    public AnimationDataTransmitter(BlockingQueue<AnimationData> animationDataBlockingQueue, List<SocketAddress> clients, DatagramSocket socket) {
+    public AnimationDataTransmitter(BlockingQueue<AnimationData> animationDataBlockingQueue, Clients clients, DatagramSocket socket) {
         this.animationDataBlockingQueue = animationDataBlockingQueue;
         this.clients = clients;
         this.socket = socket;

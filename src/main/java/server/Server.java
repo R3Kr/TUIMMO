@@ -20,7 +20,7 @@ public class Server {
 
     private ExecutorService executorService = Executors.newCachedThreadPool();
 
-    private List<SocketAddress> clients;
+    private Clients clients;
 
     private BlockingQueue<AnimationData> animationDataBlockingQueue;
 
@@ -33,7 +33,7 @@ public class Server {
     public Server() throws SocketException, UnknownHostException {
         this.socket = new DatagramSocket(6969, InetAddress.getByName("0.0.0.0"));
         this.gameState = new GameState();
-        this.clients = new ArrayList<>();
+        this.clients = new Clients(gameState);
         this.animationDataBlockingQueue = new LinkedBlockingQueue<>();
     }
 

@@ -35,6 +35,21 @@ public class GameState extends ConcurrentHashMap<String, Player> {
         return super.put(key, value);
     }
 
+    @Override
+    public boolean remove(Object key, Object value) {
+        sentStateUpdate.set(false);
+        return super.remove(key, value);
+    }
+
+    @Override
+    public Player putIfAbsent(String key, Player value) {
+        Player player = super.putIfAbsent(key, value);
+        if (player == null){
+            sentStateUpdate.set(false);
+        }
+        return player;
+    }
+
     /**
      * Retrieves a player object associated with the specified key and sets the sentStateUpdate flag to false.
      *

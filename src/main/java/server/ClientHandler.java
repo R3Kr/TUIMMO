@@ -23,7 +23,7 @@ public class ClientHandler implements Runnable {
     private GameState gameState;
     private DatagramSocket socket;
     private DatagramPacket packet;
-    private List<SocketAddress> clients;
+    private Clients clients;
 
     private Queue<AnimationData> animationDataQueue;
 
@@ -34,7 +34,7 @@ public class ClientHandler implements Runnable {
      * @param socket    The DatagramSocket used to communicate with clients.
      * @param clients   The list of client socket addresses.
      */
-    public ClientHandler(GameState gameState, DatagramSocket socket, List<SocketAddress> clients, Queue<AnimationData> animationDataQueue) {
+    public ClientHandler(GameState gameState, DatagramSocket socket, Clients clients, Queue<AnimationData> animationDataQueue) {
         this.gameState = gameState;
         this.socket = socket;
         this.packet = new DatagramPacket(new byte[1024], 1024);
@@ -54,7 +54,7 @@ public class ClientHandler implements Runnable {
                 continue;
             }
             if (!clients.contains(packet.getSocketAddress())) {
-                clients.add(packet.getSocketAddress());
+                clients.connect(packet.getSocketAddress(), data.getPlayerName());
             }
 
             Player player = gameState.getMut(data.getPlayerName());

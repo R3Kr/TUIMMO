@@ -21,12 +21,12 @@ public class StayAliveHandler implements Runnable {
     private GameState gameState;
     private DatagramSocket socket;
 
-    private List<SocketAddress> clients;
+    private Clients clients;
 
     private DatagramPacket packet;
 
     private Map<SocketAddress, Long> clientTimeStamps;
-    private Map<String, Long> playerTimeStamps;
+    //private Map<String, Long> playerTimeStamps;
 
     /**
      * Constructs a StayAliveHandler object with the specified game state and client list.
@@ -35,13 +35,13 @@ public class StayAliveHandler implements Runnable {
      * @param clients   The list of client SocketAddresses.
      * @throws SocketException if there is an issue with the DatagramSocket.
      */
-    public StayAliveHandler(GameState gameState, List<SocketAddress> clients) throws SocketException {
+    public StayAliveHandler(GameState gameState, Clients clients) throws SocketException {
         this.gameState = gameState;
         this.socket = new DatagramSocket(6970);
         this.clients = clients;
         this.packet = new DatagramPacket(new byte[1024], 1024);
         this.clientTimeStamps = new HashMap<>();
-        this.playerTimeStamps = new HashMap();
+        //this.playerTimeStamps = new HashMap<>();
     }
 
     /**
@@ -51,13 +51,13 @@ public class StayAliveHandler implements Runnable {
     public void run() {
         while (true) {
             System.out.println(clientTimeStamps);
-            System.out.println(playerTimeStamps);
+            //System.out.println(playerTimeStamps);
 
             // Ensure clientTimeStamps map is up-to-date
             clients.forEach(client -> clientTimeStamps.putIfAbsent(client, System.currentTimeMillis()));
 
-            // Ensure playerTimeStamps map is up-to-date
-            gameState.values().stream().map(Player::getName).forEach(player -> playerTimeStamps.putIfAbsent(player, System.currentTimeMillis()));
+//            // Ensure playerTimeStamps map is up-to-date
+//            gameState.values().stream().map(Player::getName).forEach(player -> playerTimeStamps.putIfAbsent(player, System.currentTimeMillis()));
 
             StayAliveData data;
             try {
@@ -69,26 +69,26 @@ public class StayAliveHandler implements Runnable {
 
             // Update timestamps for the client and player
             clientTimeStamps.put(packet.getSocketAddress(), System.currentTimeMillis());
-            playerTimeStamps.put(data.getPlayer(), System.currentTimeMillis());
+            //playerTimeStamps.put(data.getPlayer(), System.currentTimeMillis());
 
             disconnectClients();
-            disconnectPlayer();
+            //disconnectPlayer();
         }
     }
 
     /**
      * Disconnects inactive players.
      */
-    private void disconnectPlayer() {
-        Predicate<Map.Entry<String, Long>> predicate = entry -> System.currentTimeMillis() - entry.getValue() > 10000;
-
-        playerTimeStamps.entrySet()
-                .stream()
-                .filter(predicate)
-                .forEach(entry -> gameState.remove(entry.getKey()));
-
-        playerTimeStamps.entrySet().removeIf(predicate);
-    }
+//    private void disconnectPlayer() {
+//        Predicate<Map.Entry<String, Long>> predicate = entry -> System.currentTimeMillis() - entry.getValue() > 10000;
+//
+//        playerTimeStamps.entrySet()
+//                .stream()
+//                .filter(predicate)
+//                .forEach(entry -> gameState.remove(entry.getKey()));
+//
+//        playerTimeStamps.entrySet().removeIf(predicate);
+//    }
 
     /**
      * Disconnects inactive clients.
@@ -99,7 +99,7 @@ public class StayAliveHandler implements Runnable {
         clientTimeStamps.entrySet()
                 .stream()
                 .filter(predicate)
-                .forEach(entry -> clients.remove(entry.getKey()));
+                .forEach(entry -> clients.disconnect(entry.getKey()));
 
         clientTimeStamps.entrySet().removeIf(predicate);
     }

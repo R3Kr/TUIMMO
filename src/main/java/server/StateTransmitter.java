@@ -17,7 +17,9 @@ public class StateTransmitter implements Runnable {
     private DatagramSocket socket;
 
     private DatagramPacket packet;
-    private List<SocketAddress> clients;
+    private Clients clients;
+
+    private int elapsed_ticks = 0;
 
     /**
      * Constructs a StateTransmitter object with the specified game state, socket, and clients list.
@@ -26,7 +28,7 @@ public class StateTransmitter implements Runnable {
      * @param socket    The DatagramSocket used for sending packets.
      * @param clients   The list of client SocketAddresses.
      */
-    public StateTransmitter(GameState gameState, DatagramSocket socket, List<SocketAddress> clients) {
+    public StateTransmitter(GameState gameState, DatagramSocket socket, Clients clients) {
         this.gameState = gameState;
         this.socket = socket;
         this.packet = new DatagramPacket(new byte[1024], 1024);
@@ -44,8 +46,11 @@ public class StateTransmitter implements Runnable {
                 gameState.sentStateUpdate.compareAndSet(false, true);
             }
 
+
+
             try {
                 Thread.sleep(1000 / TICKS);
+                elapsed_ticks++;
             } catch (InterruptedException e) {
                 System.err.println(e);
             }
