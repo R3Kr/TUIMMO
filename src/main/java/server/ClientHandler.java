@@ -10,10 +10,7 @@ import protocol.AnimationDataFactory;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.SocketAddress;
-import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.BlockingQueue;
 
 /**
  * The ClientHandler class manages incoming client messages and performs actions based on the received data.
@@ -57,7 +54,7 @@ public class ClientHandler implements Runnable {
                 clients.connect(packet.getSocketAddress(), data.getPlayerName());
             }
 
-            Player player = gameState.getMut(data.getPlayerName());
+            Player player = gameState.getPlayerMut(data.getPlayerName());
 
             if (player == null) {
                 gameState.put(data.getPlayerName(), new Player(data.getPlayerName(), 10, 10));

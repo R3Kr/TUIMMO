@@ -1,5 +1,6 @@
 package game.actions;
 
+import game.Combat;
 import game.Player;
 
 import java.util.Objects;
@@ -10,8 +11,8 @@ import java.util.Optional;
  */
 public class Attack implements Action {
     private static final int DMG = 5;
-    private Player attacker;
-    private Optional<Player> target;
+    private Combat attacker;
+    private Optional<Combat> target;
 
     /**
      * Constructs a new Attack instance.
@@ -19,7 +20,7 @@ public class Attack implements Action {
      * @param attacker The player initiating the attack.
      * @param target   The player being targeted by the attack.
      */
-    public Attack(Player attacker, Player target) {
+    public Attack(Combat attacker, Combat target) {
         this.attacker = Objects.requireNonNull(attacker);
         this.target = Optional.ofNullable(target);
     }

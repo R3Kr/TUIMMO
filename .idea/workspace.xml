@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="refactors + clients class">
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/AnimationDataTransmitter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/AnimationDataTransmitter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/Clients.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Clients.java" afterDir="false" />
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="animation is now not sent back to caller">
+      <change afterPath="$PROJECT_DIR$/src/main/java/game/Combat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/game/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Movable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Movable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/actions/Attack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/actions/Attack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/GameState.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +24,8 @@
       <list>
         <option value="JUnit5 Test Class" />
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -218,7 +224,7 @@
       <workItem from="1691425227011" duration="34580000" />
       <workItem from="1691621145369" duration="2199000" />
       <workItem from="1691688581971" duration="37923000" />
-      <workItem from="1691989454952" duration="12142000" />
+      <workItem from="1691989454952" duration="15083000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>
@@ -367,7 +373,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692023034260</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="animation is now not sent back to caller">
+      <created>1692023645136</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1692023645136</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -404,6 +417,7 @@
     <MESSAGE value="refactors" />
     <MESSAGE value="CoolAnimation added" />
     <MESSAGE value="refactors + clients class" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactors + clients class" />
+    <MESSAGE value="animation is now not sent back to caller" />
+    <option name="LAST_COMMIT_MESSAGE" value="animation is now not sent back to caller" />
   </component>
 </project>

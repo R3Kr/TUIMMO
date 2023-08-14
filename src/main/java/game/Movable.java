@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * The Movable interface represents an object that can be moved in different directions.
  */
-public interface Movable extends Serializable {
+public interface Movable extends Entity {
 
     /**
      * Moves the object in the specified direction.

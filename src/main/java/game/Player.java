@@ -3,7 +3,7 @@ package game;
 /**
  * The Player class represents a player in the game.
  */
-public class Player implements Movable {
+public class Player implements Combat {
     private final String name;
     private int x;
     private int y;
@@ -25,6 +25,7 @@ public class Player implements Movable {
         this.y = y;
         this.maxHp = 100;
         this.currHp = 100;
+
     }
 
     /**
@@ -129,5 +130,10 @@ public class Player implements Movable {
      */
     public boolean isCloseTo(Player player) {
         return x - player.x <= 2 && x - player.x >= -2 && y - player.y <= 1 && y - player.y >= -1;
+    }
+
+    @Override
+    public String getId() {
+        return getName();
     }
 }
