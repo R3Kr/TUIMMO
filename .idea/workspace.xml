@@ -4,15 +4,50 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="animation is now not sent back to caller">
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/Combat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/Entity.java" afterDir="false" />
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="hotfix">
+      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/Hello.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/KryoFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Movable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Movable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ClientMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/HpBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/HpBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/ServerListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/StayAliveSender.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/Animation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/Animation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/AnimationFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/AnimationFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/AttackAnimation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/AttackAnimation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/CoolAnimation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/CoolAnimation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Combat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/actions/Direction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Entity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Movable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Player.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/actions/Attack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/actions/Attack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/actions/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/actions/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/ActionData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/ActionDataFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/AnimationData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/AnimationDataFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/AttackData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/CoolData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/Data.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/DataType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/MoveData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/ServerDataFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/StateData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/StayAliveData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/AnimationDataTransmitter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/ClientHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/Clients.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/GameState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/StateTransmitter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/StayAliveHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/protocol/ServerPacketTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/protocol/ServerPacketTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +59,8 @@
       <list>
         <option value="JUnit5 Test Class" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -114,7 +149,7 @@
   </component>
   <component name="RunManager" selected="Application.Game">
     <configuration name="Game" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="client.Client" />
+      <option name="MAIN_CLASS_NAME" value="client.ClientMain" />
       <module name="TUIMMO" />
       <option name="PROGRAM_PARAMETERS" value="Petter 127.0.0.1" />
       <extension name="coverage">
@@ -128,15 +163,15 @@
       </method>
     </configuration>
     <configuration name="Game2" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="client.Client" />
+      <option name="MAIN_CLASS_NAME" value="client.ClientMain" />
       <module name="TUIMMO" />
       <option name="PROGRAM_PARAMETERS" value="DinMammaBrooooooooor 127.0.0.1" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Server" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="server.Server" />
+    <configuration name="ServerMain" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="server.ServerMain" />
       <module name="TUIMMO" />
       <option name="PROGRAM_PARAMETERS" value="-Djava.security.manager -Djava.security.policy=$PROJECT_DIR$/../src/main/resources/policy.txt" />
       <extension name="coverage">
@@ -150,7 +185,7 @@
       </method>
     </configuration>
     <configuration name="Test" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="client.Client" />
+      <option name="MAIN_CLASS_NAME" value="client.ClientMain" />
       <module name="TUIMMO" />
       <option name="PROGRAM_PARAMETERS" value="Petter 83.252.255.104" />
       <method v="2">
@@ -193,10 +228,10 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.ServerMain" />
       <item itemvalue="Application.Test" />
       <item itemvalue="Application.Game" />
       <item itemvalue="Application.Game2" />
-      <item itemvalue="Application.Server" />
       <item itemvalue="JAR Application.TUIMMO-1.0-SNAPSHOT.jar" />
       <item itemvalue="JUnit.ServerPacketTest" />
       <item itemvalue="JUnit.ServerPacketTest.readData" />
@@ -225,6 +260,7 @@
       <workItem from="1691621145369" duration="2199000" />
       <workItem from="1691688581971" duration="37923000" />
       <workItem from="1691989454952" duration="15083000" />
+      <workItem from="1692125722782" duration="6356000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>

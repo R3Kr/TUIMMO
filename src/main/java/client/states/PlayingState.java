@@ -1,8 +1,6 @@
 package client.states;
 
 import client.HpBar;
-import client.ServerListener;
-import client.StayAliveSender;
 import client.animations.Animation;
 import client.animations.AnimationList;
 import client.animations.AttackAnimation;
@@ -11,13 +9,9 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
-import game.Direction;
-import game.Player;
+import game.actions.Direction;
 import game.actions.Action;
 import game.actions.Move;
-import protocol.AttackData;
-import protocol.CoolData;
-import protocol.MoveData;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -34,52 +28,40 @@ public class PlayingState implements ClientState {
     private TextGraphics playerGraphics;
     private TextGraphics terrainGraphics;
     private TextGraphics uiGraphics;
-    private Player player;
+
     private DatagramSocket socket;
     private DatagramPacket packet;
     private ExecutorService threadPool;
-    private ConcurrentHashMap<String, Player> players;
+
     private InetAddress address;
     private HpBar hpBar;
 
     private List<Animation> animations;
 
-    private final Action moveUp;
 
-    private final Action moveDown;
-
-    private final Action moveLeft;
-
-    private final Action moveRight;
 
 
     public PlayingState(Screen screen, String playerName, String address) throws IOException {
 
         this.screen = screen;
         playerGraphics = screen.newTextGraphics();
-        this.player = new Player(playerName, 5, 5);
+
         this.socket = new DatagramSocket();
         this.address = InetAddress.getByName(address);
         this.threadPool = Executors.newCachedThreadPool();
         this.packet = new DatagramPacket(new byte[1024], 1024, InetAddress.getByName(address), 6969);
-        this.players = new ConcurrentHashMap<>();
-        players.put(playerName, player);
         this.terrainGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.BLACK).setBackgroundColor(TextColor.ANSI.WHITE);
         this.uiGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.RED);
-        this.hpBar = new HpBar(player);
+        this.hpBar = new HpBar();
         this.animations = new AnimationList();
 
-        threadPool.execute(new ServerListener(players, socket, animations));
-        threadPool.execute(new StayAliveSender(player, socket, this.address));
+
         screen.startScreen();
         screen.clear();
         playerGraphics.setForegroundColor(TextColor.ANSI.WHITE);
         playerGraphics.setBackgroundColor(TextColor.ANSI.BLUE);
 
-        moveUp = new Move(player, Direction.UP);
-        moveDown = new Move(player, Direction.DOWN);
-        moveLeft = new Move(player, Direction.LEFT);
-        moveRight = new Move(player, Direction.RIGHT);
+
 
     }
 
@@ -96,36 +78,28 @@ public class PlayingState implements ClientState {
         if (keyStroke != null) {
             switch (keyStroke.getKeyType()) {
                 case ArrowUp:
-                    moveUp.perform();
-                    packet.setData(new MoveData(player.getName(), Direction.UP).read());
-                    socket.send(packet);
+                    //moveUp.perform();
+
                     break;
                 case ArrowDown:
-                    moveDown.perform();
-                    packet.setData(new MoveData(player.getName(), Direction.DOWN).read());
-                    socket.send(packet);
+                    //moveDown.perform();
+
                     break;
                 case ArrowLeft:
-                    moveLeft.perform();
-                    packet.setData(new MoveData(player.getName(), Direction.LEFT).read());
-                    socket.send(packet);
+                    //moveLeft.perform();
+
                     break;
                 case ArrowRight:
-                    moveRight.perform();
-                    packet.setData(new MoveData(player.getName(), Direction.RIGHT).read());
-                    socket.send(packet);
+                    //moveRight.perform();
+
                     break;
                 case Backspace:
-                    Optional<Player> player2 = players.values().stream().filter(p -> p != player && player.isCloseTo(p)).findFirst();
-                    packet.setData(new AttackData(player.getName(), player2.map(Player::getName).orElse("")).read());
-                    socket.send(packet);
-                    animations.add(new AttackAnimation(player));
+
+                    //animations.add(new AttackAnimation(player));
                     break;
                 case Enter:
-                    System.out.println("Enter");
-                    packet.setData(new CoolData(player.getName()).read());
-                    socket.send(packet);
-                    animations.add(new CoolAnimation(player));
+
+                    //animations.add(new CoolAnimation(player));
                     break;
                 case Escape:
                     return StateResult.EXIT;
@@ -137,7 +111,7 @@ public class PlayingState implements ClientState {
 
 
         renderAnimations();
-        renderPlayers();
+
         renderTerrain();
         renderUI();
 
@@ -178,11 +152,7 @@ public class PlayingState implements ClientState {
 //        }
 
     }
-    private void renderPlayers() {
-        players.values().forEach(p -> {
-            playerGraphics.putString(p.getX(), p.getY(), p.getName());
-        });
-    }
+
 
     private void renderTerrain() {
         terrainGraphics.drawLine(0, 0, 0, 23, 'E');

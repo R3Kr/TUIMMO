@@ -1,8 +1,5 @@
 package game.actions;
 
-import game.Combat;
-import game.Player;
-
 import java.util.Objects;
 import java.util.Optional;
 
@@ -11,8 +8,7 @@ import java.util.Optional;
  */
 public class Attack implements Action {
     private static final int DMG = 5;
-    private Combat attacker;
-    private Optional<Combat> target;
+
 
     /**
      * Constructs a new Attack instance.
@@ -20,9 +16,8 @@ public class Attack implements Action {
      * @param attacker The player initiating the attack.
      * @param target   The player being targeted by the attack.
      */
-    public Attack(Combat attacker, Combat target) {
-        this.attacker = Objects.requireNonNull(attacker);
-        this.target = Optional.ofNullable(target);
+    public Attack() {
+
     }
 
     /**
@@ -32,7 +27,7 @@ public class Attack implements Action {
      */
     @Override
     public Action perform() {
-        target.ifPresent(p -> p.setCurrHp(p.getCurrHp() - DMG));
+
         return this;
     }
 
@@ -43,7 +38,7 @@ public class Attack implements Action {
      */
     @Override
     public Action undo() {
-        target.ifPresent(p -> p.setCurrHp(p.getCurrHp() + DMG));
+
         return this;
     }
 }

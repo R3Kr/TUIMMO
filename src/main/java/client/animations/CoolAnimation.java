@@ -1,17 +1,15 @@
 package client.animations;
 
-import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import game.Player;
 
 public class CoolAnimation extends Animation{
 
-    private final int x;
-    private final int y;
-    public CoolAnimation(Player player) {
-        super(1000, player);
-        x = player.getX();
-        y = player.getY();
+    private final int x = 0;
+    private final int y = 0;
+    public CoolAnimation() {
+        super(1000);
+//        x = player.getX();
+//        y = player.getY();
     }
 
     @Override

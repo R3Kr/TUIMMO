@@ -1,18 +1,17 @@
 package client.animations;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
-import game.Player;
 
 public abstract class Animation {
     protected int elapsed_frames = 0;
     private int total_frames;
 
-    protected Player player;
+    //protected Player player;
 
 
-    public Animation(int total_frames, Player player) {
+    public Animation(int total_frames) {
         this.total_frames = total_frames;
-        this.player = player;
+        //this.player = player;
     }
 
     public final void renderWith(TextGraphics tg){

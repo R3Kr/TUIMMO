@@ -1,4 +1,4 @@
-package game;
+package game.actions;
 
 /**
  * The Direction enum represents different directions for movement in the game.
