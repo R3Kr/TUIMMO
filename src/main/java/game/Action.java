@@ -1,4 +1,7 @@
-package game.actions;
+package game;
+
+import game.components.Component;
+import game.components.Player;
 
 import java.io.Serializable;
 
@@ -20,4 +23,6 @@ public interface Action extends Serializable {
      * @return The action instance after undoing.
      */
     Action undo();
+
+    Player getPerformer();
 }

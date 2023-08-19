@@ -19,25 +19,24 @@ public class ClientContext {
         this.loginState = loginState;
         this.playingState = playingState;
         this.currentState = loginState;
+        init();
+    }
+
+    private void init(){
+        loginState.setOnNext(() -> playingState);
+        playingState.setOnNext(() -> null);
     }
 
     public void run() throws IOException, InterruptedException {
         while (running){
-            if (currentState.tick() == ClientState.StateResult.EXIT){
-                changeState();
+            currentState = currentState.tick();
+            if (currentState == null){
+                running = false;
             }
             Thread.sleep(20);
         }
     }
 
-    private void changeState() {
-        if (currentState instanceof LoginState){
-            currentState = playingState;
-        }
-        else {
-            running = false;
-        }
-    }
 
 
     public void shutdown() {

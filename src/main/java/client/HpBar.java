@@ -1,8 +1,7 @@
 package client;
 
 import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import game.Player;
+import game.components.Player;
 
 /**
  * The HpBar class represents a health bar display for a player using the Lanterna library.
@@ -12,11 +11,7 @@ public class HpBar {
     private static final int BAR_COUNT = 20;
     private Player player;
 
-    /**
-     * Constructs a new HpBar instance for the given player.
-     *
-     * @param player The player associated with the health bar.
-     */
+
     public HpBar(Player player) {
         this.player = player;
     }
@@ -28,6 +23,7 @@ public class HpBar {
      */
     public String getString() {
         return String.format("HP: [%s] (%d/%d)", healthString(), player.getCurrHp(), player.getMaxHp());
+
     }
 
     private String healthString() {

@@ -5,8 +5,11 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
+import protocol.data.ConnectPlayer;
 
 import java.io.IOException;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class LoginState implements ClientState{
 
@@ -17,16 +20,22 @@ public class LoginState implements ClientState{
     private TextGraphics green;
 
     private boolean test = true;
+    private Supplier<ClientState> onNext;
+    private Consumer<ConnectPlayer> onLogin;
 
-    public LoginState(Screen screen) throws IOException {
+    private String playerName;
+
+    public LoginState(Screen screen, Consumer<ConnectPlayer> onLogin, String name) throws IOException {
         this.screen = screen;
+        this.onLogin = onLogin;
+        this.playerName = name;
         screen.startScreen();
         this.red = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.RED);
         this.green = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.GREEN);
     }
 
     @Override
-    public StateResult tick() throws IOException {
+    public ClientState tick() throws IOException {
         screen.refresh();
         screen.clear();
 
@@ -35,14 +44,15 @@ public class LoginState implements ClientState{
 
         if (keyStroke != null){
             test = !test;
-            System.out.println("pressing");
+
 
             if (keyStroke.getKeyType() == KeyType.Escape){
-                return StateResult.EXIT;
+                onLogin.accept(new ConnectPlayer(playerName));
+                return onNext.get();
             }
         }
         render();
-        return StateResult.OK;
+        return this;
 
     }
 
@@ -51,15 +61,23 @@ public class LoginState implements ClientState{
 
     }
 
+    @Override
+    public void setOnNext(Supplier<ClientState> onNext) {
+        this.onNext = onNext;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
 
     private void render(){
         //System.out.println("rendering");
         if (test){
-            System.out.println("red");
+
             red.putString(30,20, "tu madre es un caballo");
         }
         else {
-            System.out.println("green");
+
             green.putString(30,20, "tu madre es un caballo");
         }
 

@@ -22,7 +22,7 @@
                 <manifest>
                   <addClasspath>true</addClasspath>
                   <classpathPrefix>lib/</classpathPrefix>
-                  <mainClass>server.Server</mainClass>
+                  <mainClass>server.ServerMain</mainClass>
                 </manifest>
               </archive>
             </configuration>
@@ -33,7 +33,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>client.Client</mainClass>
+              <mainClass>client.ClientMain</mainClass>
             </manifest>
           </archive>
         </configuration>
