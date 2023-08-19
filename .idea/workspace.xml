@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+
     <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="KryoNet gigachad">
       <change afterPath="$PROJECT_DIR$/src/main/java/game/World.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/game/components/Component.java" afterDir="false" />
@@ -44,6 +45,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/protocol/Test.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" afterDir="false" />
     </list>
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,7 +65,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="statemachine_client" />
+        <entry key="$PROJECT_DIR$" value="bigchungus" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -425,6 +427,7 @@
       <option name="project" value="LOCAL" />
       <updated>1692023034260</updated>
     </task>
+
     <task id="LOCAL-00022" summary="animation is now not sent back to caller">
       <created>1692023645136</created>
       <option name="number" value="00022" />
@@ -440,6 +443,7 @@
       <updated>1692132240962</updated>
     </task>
     <option name="localTasksCounter" value="24" />
+
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -450,7 +454,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
