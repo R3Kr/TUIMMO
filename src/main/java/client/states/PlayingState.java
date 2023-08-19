@@ -1,166 +1,127 @@
 package client.states;
 
-import client.HpBar;
 import client.animations.Animation;
 import client.animations.AnimationList;
 import client.animations.AttackAnimation;
 import client.animations.CoolAnimation;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
+import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
+import com.esotericsoftware.minlog.Log;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
-import game.actions.Direction;
-import game.actions.Action;
-import game.actions.Move;
+import game.Attack;
+import game.World;
+import game.components.Player;
+import game.systems.InputHandlingSystem;
+import game.systems.RenderSystem;
+import game.systems.StateRecieverSystem;
+import protocol.data.AnimationData;
+import protocol.data.DisconnectPlayer;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Supplier;
 
 public class PlayingState implements ClientState {
+
+
     private Screen screen;
-    private TextGraphics playerGraphics;
-    private TextGraphics terrainGraphics;
-    private TextGraphics uiGraphics;
+    private Client client;
+    private List<Animation> animations = new AnimationList();
+    private Supplier<ClientState> onNext;
 
-    private DatagramSocket socket;
-    private DatagramPacket packet;
-    private ExecutorService threadPool;
+    private Queue<KeyStroke> keyStrokeQueue;
 
-    private InetAddress address;
-    private HpBar hpBar;
+    private Queue<Player> playersToUpdate;
 
-    private List<Animation> animations;
+    private World world = new World();
+    private Player player;
 
 
+    public PlayingState(Screen screen, Client client, Supplier<String> playerName, String address) throws IOException {
 
-
-    public PlayingState(Screen screen, String playerName, String address) throws IOException {
-
+        this.client = client;
         this.screen = screen;
-        playerGraphics = screen.newTextGraphics();
+        keyStrokeQueue = new LinkedList<>();
+        playersToUpdate = new LinkedList<>();
 
-        this.socket = new DatagramSocket();
-        this.address = InetAddress.getByName(address);
-        this.threadPool = Executors.newCachedThreadPool();
-        this.packet = new DatagramPacket(new byte[1024], 1024, InetAddress.getByName(address), 6969);
-        this.terrainGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.BLACK).setBackgroundColor(TextColor.ANSI.WHITE);
-        this.uiGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.RED);
-        this.hpBar = new HpBar();
-        this.animations = new AnimationList();
+        init(playerName.get());
 
 
-        screen.startScreen();
-        screen.clear();
-        playerGraphics.setForegroundColor(TextColor.ANSI.WHITE);
-        playerGraphics.setBackgroundColor(TextColor.ANSI.BLUE);
 
 
 
     }
+    private void init(String playerName) throws IOException {
+        client.addListener(new Listener(){
+            @Override
+            public void received(Connection connection, Object object) {
+                if (object instanceof Player){
+                    playersToUpdate.offer((Player) object);
+                } else if (object instanceof DisconnectPlayer) {
+                    world.remove(((DisconnectPlayer) object).player);
+                }
+                else if (object instanceof AnimationData){
+                    AnimationData ad = (AnimationData) object;
+                    Player p = world.query(ad.player).get();
+                    switch (ad.type){
+                        case ATTACK -> animations.add(new AttackAnimation(p));
+                        case COOL -> animations.add(new CoolAnimation(p));
+                    }
+
+                }
+                StringBuilder stringBuilder = new StringBuilder("Players: ");
+                world.query(Player.class, player -> true).forEach(p -> stringBuilder.append("\n"+p.toString()));
+                Log.info(stringBuilder.toString());
+            }
+        });
+
+        player = world.add(playerName, 10, 10);
+
+
+
+        world.addSystem(new InputHandlingSystem(keyStrokeQueue, animations, player, playerName, client::sendUDP, () -> world.createAttacks(player)))
+                .addSystem(new RenderSystem(screen, () -> world.query(Player.class, p -> true), player, animations))
+                .addSystem(new StateRecieverSystem(playersToUpdate, world.getPlayers()));
+
+    }
 
     @Override
-    public StateResult tick() throws IOException {
-
-
-        screen.refresh();
-        screen.clear();
+    public ClientState tick() throws IOException {
 
         KeyStroke keyStroke = screen.pollInput();
 
         // Handle input
         if (keyStroke != null) {
-            switch (keyStroke.getKeyType()) {
-                case ArrowUp:
-                    //moveUp.perform();
-
-                    break;
-                case ArrowDown:
-                    //moveDown.perform();
-
-                    break;
-                case ArrowLeft:
-                    //moveLeft.perform();
-
-                    break;
-                case ArrowRight:
-                    //moveRight.perform();
-
-                    break;
-                case Backspace:
-
-                    //animations.add(new AttackAnimation(player));
-                    break;
-                case Enter:
-
-                    //animations.add(new CoolAnimation(player));
-                    break;
-                case Escape:
-                    return StateResult.EXIT;
-                default:
-                    break;
+            if (keyStroke.getKeyType() == KeyType.Escape){
+                client.sendTCP(new DisconnectPlayer(player.getName()));
+                return onNext.get();
             }
+            keyStrokeQueue.offer(keyStroke);
 
         }
-
-
-        renderAnimations();
-
-        renderTerrain();
-        renderUI();
+        world.tick();
 
 
 
         //threadPool.shutdownNow();
         //screen.stopScreen();
-        return StateResult.OK;
+        return this;
     }
 
     @Override
     public void shutDown() {
-        threadPool.shutdownNow();
-    }
-
-
-
-    private void renderAnimations(){
-        for (Animation a : animations){
-            a.renderWith(uiGraphics);
-        }
-
-
-//        switch (frames%11){
-//            case 1 -> uiGraphics.setCharacter(player.getX()-1, player.getY(), '|');
-//            case 2 -> uiGraphics.setCharacter(player.getX()-1, player.getY() -1, '°');
-//            case 3 -> uiGraphics.setCharacter(player.getX(), player.getY() -1, '-');
-//            case 4 -> uiGraphics.setCharacter(player.getX()+1, player.getY() -1, '-');
-//            case 5 -> uiGraphics.setCharacter(player.getX()+2, player.getY() -1, '°');
-//            case 6 -> uiGraphics.setCharacter(player.getX()+2, player.getY(), '|');
-//            case 7 -> uiGraphics.setCharacter(player.getX()+2, player.getY() +1, '°');
-//            case 8 -> uiGraphics.setCharacter(player.getX(), player.getY() +1, '-');
-//            case 9 -> uiGraphics.setCharacter(player.getX() + 1, player.getY() +1, '-');
-//            case 10 -> {
-//                uiGraphics.setCharacter(player.getX()-1, player.getY() +1, '°');
-//                attacking = false;
-//            }
-//        }
 
     }
 
-
-    private void renderTerrain() {
-        terrainGraphics.drawLine(0, 0, 0, 23, 'E');
-        terrainGraphics.drawLine(0, 23, 40, 23, '@');
+    @Override
+    public void setOnNext(Supplier<ClientState> onNext) {
+        this.onNext = onNext;
     }
 
-    private void renderUI() {
-        uiGraphics.putString(HpBar.POSITION, hpBar.getString());
-    }
+
 
 }

@@ -1,4 +1,7 @@
-package game.actions;
+package game;
+
+import game.components.Component;
+import game.components.Player;
 
 import java.util.Objects;
 
@@ -6,6 +9,7 @@ import java.util.Objects;
  * The Move class represents an action of moving a movable object in a specified direction.
  */
 public class Move implements Action {
+    private Player player;
     private Direction direction;
 
     /**
@@ -14,8 +18,8 @@ public class Move implements Action {
      * @param movable   The movable object to be moved.
      * @param direction The direction in which to move the object.
      */
-    public Move(Direction direction) {
-
+    public Move(Player player, Direction direction) {
+        this.player = Objects.requireNonNull(player);
         this.direction = Objects.requireNonNull(direction);
     }
 
@@ -26,7 +30,12 @@ public class Move implements Action {
      */
     @Override
     public Action perform() {
-        //movable.move(direction);
+        switch (direction){
+            case UP -> player.setY(Math.max(player.getY() - 1, 0));
+            case DOWN -> player.setY(Math.min(player.getY() + 1, 25));
+            case LEFT -> player.setX(Math.max(player.getX() - 2, 0));
+            case RIGHT -> player.setX(Math.min(player.getX() + 2, 78));
+        }
         return this;
     }
 
@@ -44,5 +53,10 @@ public class Move implements Action {
 //            case LEFT -> movable.move(Direction.RIGHT);
 //        }
         return this;
+    }
+
+    @Override
+    public Player getPerformer() {
+        return player;
     }
 }
