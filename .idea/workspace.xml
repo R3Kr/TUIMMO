@@ -4,48 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="KryoNet gigachad">
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/World.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/components/Component.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/components/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/systems/ClientHandlingSystem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/systems/InputHandlingSystem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/systems/PlayerConnecterSystem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/systems/RenderSystem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/systems/StateBroadcasterSystem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/systems/StateRecieverSystem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/systems/System.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/data/AnimationData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/data/AttackSignal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/data/ConnectPlayer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/data/CoolSignal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/data/DisconnectPlayer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/data/EntityPosition.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/data/LoginData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/ClientListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/game/components/PlayerTest.java" afterDir="false" />
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="KryoNet refactor">
+      <change afterPath="$PROJECT_DIR$/src/main/java/game/components/NPC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/game/systems/NPCStateSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/ClientContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ClientContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ClientMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/HpBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/HpBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/Animation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/Animation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/AttackAnimation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/AttackAnimation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/CoolAnimation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/CoolAnimation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/states/ClientState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/states/ClientState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/states/LoginState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/states/LoginState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/actions/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/actions/Attack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Attack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/actions/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Direction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/actions/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Move.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/Hello.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/RenderSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/RenderSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/StateBroadcasterSystem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/StateRecieverSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/StateRecieverSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/protocol/KryoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/KryoFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/Test.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" afterDir="false" />
     </list>
-
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,6 +46,12 @@
   }
 }</component>
   <component name="GithubPullRequestsUISettings">
+    <option name="recentNewPullRequestHead">
+      <RepoCoordinatesHolder>
+        <option name="owner" value="R3Kr" />
+        <option name="repository" value="TUIMMO" />
+      </RepoCoordinatesHolder>
+    </option>
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
         <option name="accountId" value="40eec0e5-0eb7-4d29-9278-66e17563e3d5" />
@@ -104,23 +80,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/petter/dev/TUIMMO_Client&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "last_opened_file_path": "/Users/petter/dev/TUIMMO_Client",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="game" />
@@ -278,7 +257,7 @@
       <workItem from="1691688581971" duration="37923000" />
       <workItem from="1691989454952" duration="15083000" />
       <workItem from="1692125722782" duration="8108000" />
-      <workItem from="1692195914958" duration="57355000" />
+      <workItem from="1692195914958" duration="62273000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>
@@ -427,7 +406,6 @@
       <option name="project" value="LOCAL" />
       <updated>1692023034260</updated>
     </task>
-
     <task id="LOCAL-00022" summary="animation is now not sent back to caller">
       <created>1692023645136</created>
       <option name="number" value="00022" />
@@ -442,8 +420,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692132240962</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
-
+    <task id="LOCAL-00024" summary="KryoNet refactor">
+      <created>1692485732590</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1692485732590</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -494,6 +478,7 @@
     <MESSAGE value="refactors + clients class" />
     <MESSAGE value="animation is now not sent back to caller" />
     <MESSAGE value="KryoNet gigachad" />
-    <option name="LAST_COMMIT_MESSAGE" value="KryoNet gigachad" />
+    <MESSAGE value="KryoNet refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="KryoNet refactor" />
   </component>
 </project>

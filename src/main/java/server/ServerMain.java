@@ -6,8 +6,10 @@ import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.minlog.Log;
 import game.Action;
 import game.World;
+import game.components.NPC;
 import game.components.Player;
 import game.systems.ClientHandlingSystem;
+import game.systems.NPCStateSystem;
 import game.systems.PlayerConnecterSystem;
 import protocol.KryoFactory;
 import protocol.data.AnimationData;
@@ -68,18 +70,31 @@ public class ServerMain {
 
         });
 
+        Runnable broadcastState = () -> {
+            world.query(Player.class, (p) -> true).forEach(p -> server.sendToAllUDP(p));
+            world.query(NPC.class, n -> true).forEach(n -> server.sendToAllUDP(n));
+        };
 
-        world.addSystem(new ClientHandlingSystem(actionDataQueue, animationDataQueue, () -> world.query(Player.class, (p) -> true).forEach(p -> server.sendToAllUDP(p)), ((integer, o) -> server.sendToAllExceptUDP(integer, o))))
+        world.getNpcs().add(new NPC("albert", 20, 20));
+        world.getNpcs().add(new NPC("donkey", 21, 20));
+        world.getNpcs().add(new NPC("ernst", 22, 20));
+        world.getNpcs().add(new NPC("tu madre", 23, 20));
+        world.getNpcs().add(new NPC("bill clinton", 24, 20));
+
+        world.addSystem(new ClientHandlingSystem(actionDataQueue, animationDataQueue, broadcastState, ((integer, o) -> server.sendToAllExceptUDP(integer, o))))
                 .addSystem(new PlayerConnecterSystem(playersToConnect, playersToDisconnect,
                         s -> world.add(s, 10, 10),
                         s -> {
                             world.remove(s);
                             server.sendToAllUDP(new DisconnectPlayer(s));
                         },
-                        () -> world.query(Player.class, (p) -> true).forEach(p -> server.sendToAllUDP(p))));
+                        broadcastState))
+                        .addSystem(new NPCStateSystem(() ->world.query(NPC.class, n -> true).forEach(n -> server.sendToAllUDP(n)), () -> world.query(NPC.class, n -> true)));
+
         // .addSystem(new StateBroadcasterSystem(stringPositionMap -> server.sendToAllUDP(stringPositionMap), () -> world.getPositions()));
 
         run();
+
     }
 
     private void run() throws InterruptedException {

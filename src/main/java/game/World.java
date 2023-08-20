@@ -1,6 +1,7 @@
 package game;
 
 import com.esotericsoftware.minlog.Log;
+import game.components.NPC;
 import game.components.Player;
 import game.systems.System;
 
@@ -14,14 +15,17 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class World {
+
     //public record Entity(String id) {}
     private List<Player> players;
+    private List<NPC> npcs;
     public List<System> systems = new ArrayList<>();
 
     private ExecutorService threadPool;
 
     public World() {
         players = new ArrayList<>();
+        npcs = new ArrayList<>();
         threadPool = Executors.newSingleThreadExecutor();
     }
 
@@ -40,10 +44,20 @@ public class World {
 
     public <T> Stream<T> query(Class<T> tClass, Predicate<T> predicate) {
 
-        return players.stream()
-                .filter(tClass::isInstance)
-                .map(tClass::cast)
-                .filter(predicate);
+        if (tClass == Player.class){
+            return players.stream()
+                    .filter(tClass::isInstance)
+                    .map(tClass::cast)
+                    .filter(predicate);
+        }
+        else {
+            return npcs.stream()
+                    .filter(tClass::isInstance)
+                    .map(tClass::cast)
+                    .filter(predicate);
+        }
+
+
         //test.run();
     }
 
@@ -76,4 +90,7 @@ public class World {
     }
 
 
+    public List<NPC> getNpcs() {
+        return npcs;
+    }
 }

@@ -2,6 +2,7 @@ package protocol;
 
 import com.esotericsoftware.kryo.Kryo;
 import game.Direction;
+import game.components.NPC;
 import game.components.Player;
 import protocol.data.*;
 
@@ -18,5 +19,6 @@ public class KryoFactory {
         kryo.register(AnimationData.class);
         kryo.register(AnimationData.AnimationType.class);
         kryo.register(CoolSignal.class);
+        kryo.register(NPC.class);
     }
 }
