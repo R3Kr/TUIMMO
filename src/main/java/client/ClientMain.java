@@ -57,13 +57,9 @@ public class ClientMain {
      * @throws NotBoundException    If a binding-related error occurs.
      */
     public static void main(String[] args) throws IOException, InterruptedException, NotBoundException {
+
         ClientMain clientMain;
         Client client = new Client();
-        KryoFactory.init(client.getKryo());
-
-        client.start();
-        client.connect(5000, "127.0.0.1", 6969, 6970);
-
         if (args.length == 2) {
 
             clientMain = new ClientMain(args[0].substring(0, 2), client, args[1], true);
@@ -72,6 +68,12 @@ public class ClientMain {
         } else {
             throw new IllegalArgumentException("Needs 2 arguments, name and ipaddress");
         }
+
+
+        KryoFactory.init(client.getKryo());
+
+        client.start();
+        client.connect(5000, args[1], 6969, 6970);
 
 
         clientMain.context.run();

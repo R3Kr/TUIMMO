@@ -4,17 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="KryoNet refactor">
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/components/NPC.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/systems/NPCStateSystem.java" afterDir="false" />
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="npcs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/RenderSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/RenderSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/StateBroadcasterSystem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/StateRecieverSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/StateRecieverSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/KryoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/KryoFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ClientMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/NPCStateSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/NPCStateSystem.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -257,7 +250,7 @@
       <workItem from="1691688581971" duration="37923000" />
       <workItem from="1691989454952" duration="15083000" />
       <workItem from="1692125722782" duration="8108000" />
-      <workItem from="1692195914958" duration="62273000" />
+      <workItem from="1692195914958" duration="65011000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>
@@ -427,7 +420,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692485732590</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="npcs">
+      <created>1692490114978</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1692490114978</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -479,6 +479,7 @@
     <MESSAGE value="animation is now not sent back to caller" />
     <MESSAGE value="KryoNet gigachad" />
     <MESSAGE value="KryoNet refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="KryoNet refactor" />
+    <MESSAGE value="npcs" />
+    <option name="LAST_COMMIT_MESSAGE" value="npcs" />
   </component>
 </project>

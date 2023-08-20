@@ -21,7 +21,7 @@ public class NPCStateSystem implements System{
 
 
         npcSupplier.get()
-                .filter(npc -> npc.hashCode() % 20 == r.nextInt(21))
+                .filter(npc -> 0 == r.nextInt(21))
                 .forEach(npc -> {
             npc.setX(r.nextInt(79));
             npc.setY(r.nextInt(26));
