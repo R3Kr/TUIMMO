@@ -8,8 +8,12 @@ import game.effects.Effect;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,5 +48,26 @@ class EffectSystemTest {
 
         action.perform();
         assertEquals(95, player2.getCurrHp());
+    }
+
+
+    @Test
+    void randomTest(){
+        ArrayList<Integer> ints = new ArrayList<>();
+        Stream<Integer> ints2 = ints.stream();
+
+        ints.add(12);
+
+        assertTrue(ints2.toList().contains(12));
+
+
+
+
+
+    }
+
+    @Test
+    void anotherTest(){
+
     }
 }

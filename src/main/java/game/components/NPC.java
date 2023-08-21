@@ -2,10 +2,12 @@ package game.components;
 
 import java.util.Objects;
 
-public class NPC {
+public class NPC implements GameObject{
     private String name;
     private int x;
     private int y;
+
+    private int currHp;
 
     public NPC() {
     }
@@ -14,10 +16,36 @@ public class NPC {
         this.name = name;
         this.x = x;
         this.y = y;
+        currHp = getMaxHp();
     }
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int getCurrHp() {
+        return currHp;
+    }
+
+    @Override
+    public void setCurrHp(int currHp) {
+        this.currHp = currHp;
+    }
+
+    @Override
+    public int getMaxHp() {
+        return 100;
+    }
+
+    @Override
+    public void setMaxHp(int maxHp) {
+
+    }
+
+    @Override
+    public boolean isInvincible() {
+        return false;
     }
 
     public void setName(String name) {

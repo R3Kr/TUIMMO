@@ -1,6 +1,7 @@
 package game;
 
 import com.esotericsoftware.minlog.Log;
+import game.components.GameObject;
 import game.components.Player;
 
 /**
@@ -8,8 +9,8 @@ import game.components.Player;
  */
 public class Attack implements Action {
     private static final int DMG = 5;
-    private Player attacker;
-    private Player target;
+    private GameObject attacker;
+    private GameObject target;
 
 
     /**
@@ -18,7 +19,7 @@ public class Attack implements Action {
      * @param attacker The player initiating the attack.
      * @param target   The player being targeted by the attack.
      */
-    public Attack(Player attacker, Player target) {
+    public Attack(GameObject attacker, GameObject target) {
 
         this.attacker = attacker;
         this.target = target;
@@ -52,11 +53,11 @@ public class Attack implements Action {
     }
 
     @Override
-    public Player getPerformer() {
+    public GameObject getPerformer() {
         return attacker;
     }
 
-    public Player getTarget() {
+    public GameObject getTarget() {
         return target;
     }
 }

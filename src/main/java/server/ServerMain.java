@@ -80,24 +80,24 @@ public class ServerMain {
             world.query(NPC.class, n -> true).forEach(n -> server.sendToAllUDP(n));
         };
 
-        world.getNpcs().add(new NPC("albert", 20, 20));
-        world.getNpcs().add(new NPC("donkey", 21, 20));
-        world.getNpcs().add(new NPC("ernst", 22, 20));
-        world.getNpcs().add(new NPC("tu madre", 23, 20));
-        world.getNpcs().add(new NPC("bill clinton", 24, 20));
-        world.getNpcs().add(new NPC("bill wad", 24, 20));
-        world.getNpcs().add(new NPC("bill clintaon", 24, 20));
-        world.getNpcs().add(new NPC("bill ssadasdasd", 24, 20));
-        world.getNpcs().add(new NPC("bill wdwdw", 24, 20));
-        world.getNpcs().add(new NPC("bill clinqweqweqweton", 24, 20));
-        world.getNpcs().add(new NPC("bill qwew", 24, 20));
-        world.getNpcs().add(new NPC("bill clinqweqwwwweqweton", 24, 20));
-        world.getNpcs().add(new NPC("bill clinqweqqqqweqweton", 24, 20));
-        world.getNpcs().add(new NPC("bill clinqffffweqweqweton", 24, 20));
+        world.addNPC("albert", 20, 20);
+        world.addNPC("donkey", 21, 20);
+        world.addNPC("ernst", 22, 20);
+        world.addNPC("tu madre", 23, 20);
+        world.addNPC("bill clinton", 24, 20);
+        world.addNPC("bill wad", 24, 20);
+        world.addNPC("bill clintaon", 24, 20);
+        world.addNPC("bill ssadasdasd", 24, 20);
+        world.addNPC("bill wdwdw", 24, 20);
+        world.addNPC("bill clinqweqweqweton", 24, 20);
+        world.addNPC("bill qwew", 24, 20);
+        world.addNPC("bill clinqweqwwwweqweton", 24, 20);
+        world.addNPC("bill clinqweqqqqweqweton", 24, 20);
+        world.addNPC("bill clinqffffweqweqweton", 24, 20);
 
         world.addSystem(new ClientHandlingSystem(actionDataQueue, animationDataQueue, broadcastState, ((integer, o) -> server.sendToAllExceptUDP(integer, o))))
                 .addSystem(new PlayerConnecterSystem(playersToConnect, playersToDisconnect,
-                        s -> world.add(s, 10, 10),
+                        s -> world.addPlayer(s, 10, 10),
                         s -> {
                             world.remove(s);
                             server.sendToAllUDP(new DisconnectPlayer(s));

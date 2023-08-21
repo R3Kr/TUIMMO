@@ -1,26 +1,33 @@
 package game.systems;
 
+import game.components.GameObject;
 import game.components.NPC;
 import game.components.Player;
 
-import java.util.List;
 import java.util.Queue;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class StateRecieverSystem implements System{
 
 
     private Queue<Player> playersToUpdate;
     private Queue<NPC> npcsToUpdate;
-    private List<Player> players;
-    private List<NPC> npcs;
+    private Supplier<Stream<GameObject>> gameObjects;
+
+    private Consumer<Player> addPlayer;
+    private Consumer<NPC> addNpc;
 
 
-    public StateRecieverSystem(Queue<Player> playersToUpdate, Queue<NPC> npcsToUpdate, List<Player> players, List<NPC> npcs) {
+    public StateRecieverSystem(Queue<Player> playersToUpdate, Queue<NPC> npcsToUpdate, Supplier<Stream<GameObject>> gameObjects, Consumer<Player> addPlayer, Consumer<NPC> addNpc) {
         this.playersToUpdate = playersToUpdate;
         this.npcsToUpdate = npcsToUpdate;
-        this.players = players;
-        this.npcs = npcs;
+        this.gameObjects = gameObjects;
+        this.addPlayer = addPlayer;
+
+        this.addNpc = addNpc;
     }
 
     @Override
@@ -28,28 +35,24 @@ public class StateRecieverSystem implements System{
         while (!playersToUpdate.isEmpty()){
             Player player = playersToUpdate.poll();
 
-            if (players.stream().noneMatch(p -> p.getName().equals(player.getName()))){
-                players.add(player);
+            if (gameObjects.get().filter(p -> p instanceof Player).noneMatch(p -> p.getName().equals(player.getName()))){
+                addPlayer.accept(player);
             }
             else {
-                IntStream.range(0, players.size())
-                        .filter(i -> players.get(i).getName().equals(player.getName()))
-                        .findFirst()
-                        .ifPresent(i -> players.get(i).setData(player));
+
+
+                gameObjects.get().filter(p -> player.getName().equals(p.getName())).forEach(p -> ((Player)p).setData(player));
             }
         }
 
         while (!npcsToUpdate.isEmpty()){
             NPC npc = npcsToUpdate.poll();
 
-            if (npcs.stream().noneMatch(p -> p.getName().equals(npc.getName()))){
-                npcs.add(npc);
+            if (gameObjects.get().filter(p -> p instanceof NPC).noneMatch(p -> p.getName().equals(npc.getName()))){
+                addNpc.accept(npc);
             }
             else {
-                IntStream.range(0, npcs.size())
-                        .filter(i -> npcs.get(i).getName().equals(npc.getName()))
-                        .findFirst()
-                        .ifPresent(i -> npcs.get(i).setData(npc));
+                gameObjects.get().filter(p -> npc.getName().equals(p.getName())).forEach(p -> ((NPC)p).setData(npc));
             }
         }
 

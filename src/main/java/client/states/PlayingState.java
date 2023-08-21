@@ -86,7 +86,7 @@ public class PlayingState implements ClientState {
             }
         });
 
-        player = world.add(playerName, 10, 10);
+        player = world.addPlayer(playerName, 10, 10);
 
         CooldownState attack = new CooldownState(500);
         CooldownState block = new CooldownState(5000);
@@ -94,7 +94,7 @@ public class PlayingState implements ClientState {
 
         world.addSystem(new InputHandlingSystem(keyStrokeQueue, animations, player, client::sendUDP, () -> world.createAttacks(player), attack, block))
                 .addSystem(new RenderSystem(screen, () -> world.query(Player.class, p -> true), player, () -> world.query(NPC.class, p -> true), animations, cdBar))
-                .addSystem(new StateRecieverSystem(playersToUpdate, npcsToUpdate, world.getPlayers(), world.getNpcs()));
+                .addSystem(new StateRecieverSystem(playersToUpdate, npcsToUpdate, () -> world.query(p -> true), p -> world.addPlayer(p), n -> world.addNPC(n)));
 
     }
 

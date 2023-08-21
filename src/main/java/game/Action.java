@@ -1,6 +1,6 @@
 package game;
 
-import game.components.Component;
+import game.components.GameObject;
 import game.components.Player;
 
 import java.io.Serializable;
@@ -24,5 +24,5 @@ public interface Action extends Serializable {
      */
     Action undo();
 
-    Player getPerformer();
+    GameObject getPerformer();
 }

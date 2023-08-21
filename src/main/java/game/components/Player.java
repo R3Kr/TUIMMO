@@ -2,7 +2,7 @@ package game.components;
 
 
 
-public class Player {
+public class Player implements GameObject{
     private String name;
     private int x;
     private int y;

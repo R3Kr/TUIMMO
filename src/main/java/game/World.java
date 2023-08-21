@@ -1,6 +1,7 @@
 package game;
 
 import com.esotericsoftware.minlog.Log;
+import game.components.GameObject;
 import game.components.NPC;
 import game.components.Player;
 import game.systems.System;
@@ -11,59 +12,71 @@ import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class World {
 
     //public record Entity(String id) {}
-    private List<Player> players;
-    private List<NPC> npcs;
+    private List<GameObject> gameObjects;
+
     public List<System> systems = new ArrayList<>();
 
     private ExecutorService threadPool;
 
     public World() {
-        players = new ArrayList<>();
-        npcs = new ArrayList<>();
+        gameObjects = new ArrayList<>();
         threadPool = Executors.newSingleThreadExecutor();
     }
 
-    public Player add(String name, int x, int y) {
+    public Player addPlayer(String name, int x, int y) {
         //Entity entity = new Entity(name);
         Player player = new Player(name, x, y, 100);
 
-        players.add(player);
+        gameObjects.add(player);
         return player;
     }
 
-    public void remove(String name) {
-        Optional<Player> player = players.stream().filter(p -> p.getName().equals(name)).findFirst();
-        player.ifPresentOrElse(p -> players.remove(p), () -> Log.debug(String.format("Player %s doesnt exist", name)));
+    public Player addPlayer(Player player){
+        gameObjects.add(player);
+        return player;
+    }
+    public NPC addNPC(String name, int x, int y) {
+        //Entity entity = new Entity(name);
+        NPC player = new NPC(name, x, y);
+
+        gameObjects.add(player);
+        return player;
     }
 
-    public <T> Stream<T> query(Class<T> tClass, Predicate<T> predicate) {
+    public NPC addNPC(NPC npc){
+        gameObjects.add(npc);
+        return npc;
+    }
 
-        if (tClass == Player.class){
-            return players.stream()
-                    .filter(tClass::isInstance)
-                    .map(tClass::cast)
-                    .filter(predicate);
-        }
-        else {
-            return npcs.stream()
-                    .filter(tClass::isInstance)
-                    .map(tClass::cast)
-                    .filter(predicate);
-        }
+    public void remove(String name) {
+        Optional<GameObject> player = gameObjects.stream().filter(p -> p.getName().equals(name)).findFirst();
+        player.ifPresentOrElse(p -> gameObjects.remove(p), () -> Log.debug(String.format("Player %s doesnt exist", name)));
+    }
+
+    public <T extends GameObject> Stream<T> query(Class<T> tClass, Predicate<T> predicate) {
+
+
+        return gameObjects.stream()
+                .filter(tClass::isInstance)
+                .map(tClass::cast)
+                .filter(predicate);
 
 
         //test.run();
     }
 
+    public Stream<GameObject> query(Predicate<GameObject> predicate){
+        return gameObjects.stream().filter(predicate);
+    }
+
     public Optional<Player> query(String name) {
 
-        return players.stream().filter(player -> player.getName().equals(name)).findFirst();
+        return query(Player.class, player -> player.getName().equals(name)).findFirst();
     }
 
     public void tick() {
@@ -75,9 +88,7 @@ public class World {
         return this;
     }
 
-    public List<Player> getPlayers() {
-        return players;
-    }
+
 
     public List<Attack> createAttacks(Player player) {
 
@@ -90,7 +101,4 @@ public class World {
     }
 
 
-    public List<NPC> getNpcs() {
-        return npcs;
-    }
 }
