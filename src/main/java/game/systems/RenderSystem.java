@@ -1,10 +1,9 @@
 package game.systems;
 
+import client.CooldownBar;
 import client.HpBar;
 import client.animations.Animation;
 import client.animations.BlockAnimation;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
@@ -19,9 +18,11 @@ import java.util.stream.Stream;
 
 public class RenderSystem implements System{
     private final TextGraphics playerGraphics;
-    private final TextGraphics uiGraphics;
-    private final TextGraphics blockGraphics;
+    private final TextGraphics redGraphics;
+    private final TextGraphics whiteGraphics;
+    private final TextGraphics grayGraphics;
     private final HpBar hpBar;
+    private final CooldownBar cdBar;
     private final TextGraphics terrainGraphics;
     private Supplier<Stream<Player>> streamSupplier;
     private Supplier<Stream<NPC>> npcSupplier;
@@ -32,16 +33,18 @@ public class RenderSystem implements System{
 
 
 
-    public RenderSystem(Screen screen, Supplier<Stream<Player>> positions, Player getPlayer, Supplier<Stream<NPC>> npcSupplier, List<Animation> animations) throws IOException {
+    public RenderSystem(Screen screen, Supplier<Stream<Player>> positions, Player getPlayer, Supplier<Stream<NPC>> npcSupplier, List<Animation> animations, CooldownBar cdBar) throws IOException {
         this.streamSupplier = positions;
         this.npcSupplier = npcSupplier;
         this.animations = animations;
+        this.cdBar = cdBar;
 
 
         this.screen = screen;
         this.playerGraphics = screen.newTextGraphics();
-        this.uiGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.RED);
-        this.blockGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.WHITE_BRIGHT);
+        this.redGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.RED);
+        this.whiteGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.WHITE_BRIGHT);
+        this.grayGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.WHITE);
         this.terrainGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.BLACK).setBackgroundColor(TextColor.ANSI.WHITE);
         this.hpBar = new HpBar(getPlayer);
 
@@ -82,10 +85,10 @@ public class RenderSystem implements System{
     private void renderAnimations(){
         for (Animation a : animations){
             if (a instanceof BlockAnimation){
-                a.renderWith(blockGraphics);
+                a.renderWith(whiteGraphics);
             }
             else {
-                a.renderWith(uiGraphics);
+                a.renderWith(redGraphics);
             }
         }
     }
@@ -97,6 +100,7 @@ public class RenderSystem implements System{
     }
 
     private void renderUI() {
-        uiGraphics.putString(HpBar.POSITION, hpBar.getString());
+        redGraphics.putString(HpBar.POSITION, hpBar.getString());
+        cdBar.renderWith(whiteGraphics, grayGraphics);
     }
 }

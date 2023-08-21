@@ -5,6 +5,7 @@ import client.animations.AttackAnimation;
 import client.animations.BlockAnimation;
 import client.animations.CoolAnimation;
 import game.Attack;
+import game.CooldownState;
 import game.Direction;
 import game.Move;
 import game.components.Player;
@@ -19,8 +20,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class InputHandlingSystem implements System{
-    private static final int ATTACK_COOLDOWN = 500;
-    private static final int BLOCK_COOLDOWN = 5000;
+
     private Queue<KeyStroke> keyStrokeQueue;
     private List<Animation> animations;
 
@@ -35,10 +35,12 @@ public class InputHandlingSystem implements System{
     private Move moveLeft;
     private Move moveRight;
 
-    private long lastAttack = 0;
-    private long lastBlock = 0;
 
-    public InputHandlingSystem(Queue<KeyStroke> keyStrokeQueue, List<Animation> animations, Player posComponent, Consumer<Object> sendToServer, Supplier<List<Attack>> createAttacks) {
+
+    private CooldownState canAttack;
+    private CooldownState canBlock;
+
+    public InputHandlingSystem(Queue<KeyStroke> keyStrokeQueue, List<Animation> animations, Player posComponent, Consumer<Object> sendToServer, Supplier<List<Attack>> createAttacks, CooldownState canAttack, CooldownState canBlock) {
         this.keyStrokeQueue = keyStrokeQueue;
         this.animations = animations;
         this.posComponent = posComponent;
@@ -50,6 +52,8 @@ public class InputHandlingSystem implements System{
         this.moveDown = new Move(posComponent, Direction.DOWN);
         this.moveLeft = new Move(posComponent, Direction.LEFT);
         this.moveRight = new Move(posComponent, Direction.RIGHT);
+        this.canAttack = canAttack;
+        this.canBlock = canBlock;
     }
 
     @Override
@@ -81,20 +85,20 @@ public class InputHandlingSystem implements System{
             }
             case Backspace -> {
                 if (keyStroke.isShiftDown()){
-                    if (keyStroke.getEventTime() - lastBlock < BLOCK_COOLDOWN){
+                    if (canBlock.test(keyStroke.getEventTime())){
                         break;
                     }
-                    lastBlock = keyStroke.getEventTime();
+                    canBlock.set(keyStroke.getEventTime());
                     animations.add(new BlockAnimation(posComponent));
                     sendToServer.accept(new BlockSignal());
                     break;
                 }
 
 
-                if (keyStroke.getEventTime() - lastAttack < ATTACK_COOLDOWN) {
+                if (canAttack.test(keyStroke.getEventTime())) {
                     break;
                 }
-                lastAttack = keyStroke.getEventTime();
+                canAttack.set(keyStroke.getEventTime());
                 animations.add(new AttackAnimation(posComponent));
                 createAttacks.get().forEach(Attack::perform);
                 sendToServer.accept(new AttackSignal());

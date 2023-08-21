@@ -1,5 +1,6 @@
 package client.states;
 
+import client.CooldownBar;
 import client.animations.*;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -8,6 +9,7 @@ import com.esotericsoftware.minlog.Log;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
+import game.CooldownState;
 import game.World;
 import game.components.NPC;
 import game.components.Player;
@@ -34,6 +36,8 @@ public class PlayingState implements ClientState {
     private Queue<Player> playersToUpdate;
     private Queue<NPC> npcsToUpdate;
 
+
+
     private World world = new World();
     private Player player;
 
@@ -45,6 +49,8 @@ public class PlayingState implements ClientState {
         keyStrokeQueue = new LinkedList<>();
         playersToUpdate = new LinkedList<>();
         npcsToUpdate = new LinkedList<>();
+
+
 
         init(playerName.get());
 
@@ -82,9 +88,12 @@ public class PlayingState implements ClientState {
 
         player = world.add(playerName, 10, 10);
 
+        CooldownState attack = new CooldownState(500);
+        CooldownState block = new CooldownState(5000);
+        CooldownBar cdBar = new CooldownBar(attack, block);
 
-        world.addSystem(new InputHandlingSystem(keyStrokeQueue, animations, player, client::sendUDP, () -> world.createAttacks(player)))
-                .addSystem(new RenderSystem(screen, () -> world.query(Player.class, p -> true), player, () -> world.query(NPC.class, p -> true), animations))
+        world.addSystem(new InputHandlingSystem(keyStrokeQueue, animations, player, client::sendUDP, () -> world.createAttacks(player), attack, block))
+                .addSystem(new RenderSystem(screen, () -> world.query(Player.class, p -> true), player, () -> world.query(NPC.class, p -> true), animations, cdBar))
                 .addSystem(new StateRecieverSystem(playersToUpdate, npcsToUpdate, world.getPlayers(), world.getNpcs()));
 
     }

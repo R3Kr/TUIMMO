@@ -4,26 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="npcs">
-      <change afterPath="$PROJECT_DIR$/src/main/java/client/animations/BlockAnimation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/effects/BlockEffect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/effects/Effect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/systems/EffectSystem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/data/BlockSignal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/game/systems/EffectSystemTest.java" afterDir="false" />
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="blocking fungerar">
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/CooldownBar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/game/CooldownState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ClientMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Attack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Attack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Move.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/components/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/components/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/InputHandlingSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/InputHandlingSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/NPCStateSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/NPCStateSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/RenderSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/RenderSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/KryoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/KryoFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/data/AnimationData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/data/AnimationData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/ClientListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ClientListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +23,8 @@
         <option value="Enum" />
         <option value="Record" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -285,7 +272,7 @@
       <workItem from="1691989454952" duration="15083000" />
       <workItem from="1692125722782" duration="8108000" />
       <workItem from="1692195914958" duration="70822000" />
-      <workItem from="1692639494931" duration="8701000" />
+      <workItem from="1692639494931" duration="12107000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>
@@ -469,7 +456,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692562657007</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="blocking fungerar">
+      <created>1692648386000</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1692648386000</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -522,6 +516,7 @@
     <MESSAGE value="KryoNet gigachad" />
     <MESSAGE value="KryoNet refactor" />
     <MESSAGE value="npcs" />
-    <option name="LAST_COMMIT_MESSAGE" value="npcs" />
+    <MESSAGE value="blocking fungerar" />
+    <option name="LAST_COMMIT_MESSAGE" value="blocking fungerar" />
   </component>
 </project>
