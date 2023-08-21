@@ -90,11 +90,11 @@ public class World {
 
 
 
-    public List<Attack> createAttacks(Player player) {
+    public List<Attack> createAttacks(GameObject player) {
 
         ArrayList<Attack> attacks = new ArrayList<>();
 
-        query(Player.class, p -> p != player && player.isCloseTo(p)).forEach(p -> attacks.add(new Attack(player, p)));
+        query(p -> p != player && player.isCloseTo(p)).forEach(p -> attacks.add(new Attack(player, p)));
 
         return attacks;
 

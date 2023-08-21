@@ -78,11 +78,11 @@ public class PlayingState implements ClientState {
                 }
                 StringBuilder stringBuilder = new StringBuilder("Players: ");
                 world.query(Player.class, player -> true).forEach(p -> stringBuilder.append("\n" + p.toString()));
-                Log.info(stringBuilder.toString());
+                Log.debug(stringBuilder.toString());
 
                 StringBuilder stringBuilder2 = new StringBuilder("NPCs: ");
                 world.query(NPC.class, player -> true).forEach(p -> stringBuilder.append("\n" + p.toString()));
-                Log.info(stringBuilder2.toString());
+                Log.debug(stringBuilder2.toString());
             }
         });
 

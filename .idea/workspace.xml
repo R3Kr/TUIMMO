@@ -4,20 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="CooldownBar works">
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/components/GameObject.java" afterDir="false" />
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="gameobject refactor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Attack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Attack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Move.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/components/Component.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/components/NPC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/components/NPC.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/components/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/components/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/StateRecieverSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/StateRecieverSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/NPCStateSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/NPCStateSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/game/systems/EffectSystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/game/systems/EffectSystemTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +122,7 @@
       <command value="mvn clean package" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Game2">
+  <component name="RunManager" selected="Application.Game">
     <configuration name="Game" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="client.ClientMain" />
       <module name="TUIMMO" />
@@ -281,7 +273,7 @@
       <workItem from="1691989454952" duration="15083000" />
       <workItem from="1692125722782" duration="8108000" />
       <workItem from="1692195914958" duration="70822000" />
-      <workItem from="1692639494931" duration="15024000" />
+      <workItem from="1692639494931" duration="16545000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>
@@ -479,7 +471,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692651700979</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="gameobject refactor">
+      <created>1692654887571</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1692654887571</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -509,7 +508,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="kan bygga en fucking jar" />
     <MESSAGE value="multiplayer gad damn work" />
     <MESSAGE value="only sends state updates if new state" />
     <MESSAGE value="can now handle disconnects" />
@@ -534,6 +532,7 @@
     <MESSAGE value="npcs" />
     <MESSAGE value="blocking fungerar" />
     <MESSAGE value="CooldownBar works" />
-    <option name="LAST_COMMIT_MESSAGE" value="CooldownBar works" />
+    <MESSAGE value="gameobject refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="gameobject refactor" />
   </component>
 </project>

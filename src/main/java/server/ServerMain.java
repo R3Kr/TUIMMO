@@ -48,7 +48,7 @@ public class ServerMain {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Server server = new Server();
-        Log.set(2);
+
         KryoFactory.init(server.getKryo());
         server.start();
         server.bind(6969, 6970);
@@ -80,20 +80,20 @@ public class ServerMain {
             world.query(NPC.class, n -> true).forEach(n -> server.sendToAllUDP(n));
         };
 
-        world.addNPC("albert", 20, 20);
-        world.addNPC("donkey", 21, 20);
-        world.addNPC("ernst", 22, 20);
-        world.addNPC("tu madre", 23, 20);
-        world.addNPC("bill clinton", 24, 20);
-        world.addNPC("bill wad", 24, 20);
-        world.addNPC("bill clintaon", 24, 20);
-        world.addNPC("bill ssadasdasd", 24, 20);
-        world.addNPC("bill wdwdw", 24, 20);
-        world.addNPC("bill clinqweqweqweton", 24, 20);
-        world.addNPC("bill qwew", 24, 20);
-        world.addNPC("bill clinqweqwwwweqweton", 24, 20);
-        world.addNPC("bill clinqweqqqqweqweton", 24, 20);
-        world.addNPC("bill clinqffffweqweqweton", 24, 20);
+        world.addNPC("albert", 40, 0);
+        world.addNPC("donkey", 71, 20);
+        world.addNPC("ernst", 62, 0);
+        world.addNPC("tu madre", 53, 20);
+        world.addNPC("bill clinton", 44, 0);
+        world.addNPC("bill wad", 34, 20);
+        world.addNPC("bill clintaon", 24, 0);
+        world.addNPC("bill ssadasdasd", 14, 20);
+        world.addNPC("bill wdwdw", 4, 0);
+        world.addNPC("bill clinqweqweqweton", 74, 10);
+        world.addNPC("bill qwew", 64, 20);
+        world.addNPC("bill clinqweqwwwweqweton", 54, 10);
+        world.addNPC("bill clinqweqqqqweqweton", 44, 10);
+        world.addNPC("bill clinqffffweqweqweton", 34, 00);
 
         world.addSystem(new ClientHandlingSystem(actionDataQueue, animationDataQueue, broadcastState, ((integer, o) -> server.sendToAllExceptUDP(integer, o))))
                 .addSystem(new PlayerConnecterSystem(playersToConnect, playersToDisconnect,

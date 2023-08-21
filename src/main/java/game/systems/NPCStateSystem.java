@@ -1,5 +1,7 @@
 package game.systems;
 
+import game.Direction;
+import game.Move;
 import game.components.NPC;
 
 import java.util.Random;
@@ -22,10 +24,10 @@ public class NPCStateSystem implements System{
 
 
         npcSupplier.get()
-                .filter(npc -> 0 == r.nextInt(1000))
+                .filter(npc -> 0 == r.nextInt(100))
                 .peek(npc -> {
-            npc.setX(r.nextInt(79));
-            npc.setY(r.nextInt(26));
+                    Direction direction = Direction.fromShort((short) r.nextInt(4));
+                    new Move(npc, direction).perform();
                 }).findFirst().ifPresent(npc -> broadcastNPCUpdate.run());
 
 
