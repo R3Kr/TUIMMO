@@ -32,7 +32,7 @@ public class Move implements Action {
     public Action perform() {
         switch (direction){
             case UP -> player.setY(Math.max(player.getY() - 1, 0));
-            case DOWN -> player.setY(Math.min(player.getY() + 1, 25));
+            case DOWN -> player.setY(Math.min(player.getY() + 1, 24));
             case LEFT -> player.setX(Math.max(player.getX() - 2, 0));
             case RIGHT -> player.setX(Math.min(player.getX() + 2, 78));
         }

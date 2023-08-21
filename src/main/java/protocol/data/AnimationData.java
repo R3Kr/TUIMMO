@@ -3,7 +3,8 @@ package protocol.data;
 public class AnimationData {
     public enum AnimationType{
         ATTACK,
-        COOL;
+        COOL,
+        BLOCK;
     }
     public int performerId;
     public String player;

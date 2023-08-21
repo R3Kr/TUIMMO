@@ -2,6 +2,7 @@ package game.systems;
 
 import client.HpBar;
 import client.animations.Animation;
+import client.animations.BlockAnimation;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
@@ -19,6 +20,7 @@ import java.util.stream.Stream;
 public class RenderSystem implements System{
     private final TextGraphics playerGraphics;
     private final TextGraphics uiGraphics;
+    private final TextGraphics blockGraphics;
     private final HpBar hpBar;
     private final TextGraphics terrainGraphics;
     private Supplier<Stream<Player>> streamSupplier;
@@ -39,6 +41,7 @@ public class RenderSystem implements System{
         this.screen = screen;
         this.playerGraphics = screen.newTextGraphics();
         this.uiGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.RED);
+        this.blockGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.WHITE_BRIGHT);
         this.terrainGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.BLACK).setBackgroundColor(TextColor.ANSI.WHITE);
         this.hpBar = new HpBar(getPlayer);
 
@@ -78,14 +81,19 @@ public class RenderSystem implements System{
 
     private void renderAnimations(){
         for (Animation a : animations){
-            a.renderWith(uiGraphics);
+            if (a instanceof BlockAnimation){
+                a.renderWith(blockGraphics);
+            }
+            else {
+                a.renderWith(uiGraphics);
+            }
         }
     }
 
 
     private void renderTerrain() {
-        terrainGraphics.drawLine(0, 0, 0, 23, 'E');
-        terrainGraphics.drawLine(0, 23, 40, 23, '@');
+        //terrainGraphics.drawLine(0, 0, 0, 23, 'E');
+        //terrainGraphics.drawLine(0, 23, 40, 23, '@');
     }
 
     private void renderUI() {

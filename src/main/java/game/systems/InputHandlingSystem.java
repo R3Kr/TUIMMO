@@ -2,6 +2,7 @@ package game.systems;
 
 import client.animations.Animation;
 import client.animations.AttackAnimation;
+import client.animations.BlockAnimation;
 import client.animations.CoolAnimation;
 import game.Attack;
 import game.Direction;
@@ -9,6 +10,7 @@ import game.Move;
 import game.components.Player;
 import com.googlecode.lanterna.input.KeyStroke;
 import protocol.data.AttackSignal;
+import protocol.data.BlockSignal;
 import protocol.data.CoolSignal;
 
 import java.util.List;
@@ -17,11 +19,13 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class InputHandlingSystem implements System{
+    private static final int ATTACK_COOLDOWN = 500;
+    private static final int BLOCK_COOLDOWN = 5000;
     private Queue<KeyStroke> keyStrokeQueue;
     private List<Animation> animations;
 
     private Player posComponent;
-    private String player;
+
 
     private Consumer<Object> sendToServer;
     Supplier<List<Attack>> createAttacks;
@@ -31,12 +35,15 @@ public class InputHandlingSystem implements System{
     private Move moveLeft;
     private Move moveRight;
 
-    public InputHandlingSystem(Queue<KeyStroke> keyStrokeQueue, List<Animation> animations, Player posComponent, String player, Consumer<Object> sendToServer, Supplier<List<Attack>> createAttacks) {
+    private long lastAttack = 0;
+    private long lastBlock = 0;
+
+    public InputHandlingSystem(Queue<KeyStroke> keyStrokeQueue, List<Animation> animations, Player posComponent, Consumer<Object> sendToServer, Supplier<List<Attack>> createAttacks) {
         this.keyStrokeQueue = keyStrokeQueue;
         this.animations = animations;
         this.posComponent = posComponent;
         this.sendToServer = sendToServer;
-        this.player = player;
+
         this.createAttacks = createAttacks;
 
         this.moveUp = new Move(posComponent, Direction.UP);
@@ -54,37 +61,50 @@ public class InputHandlingSystem implements System{
     }
 
     private void handle(KeyStroke keyStroke){
+
         switch (keyStroke.getKeyType()) {
-            case ArrowUp:
+            case ArrowUp -> {
                 moveUp.perform();
                 sendToServer.accept(Direction.UP);
-                break;
-            case ArrowDown:
+            }
+            case ArrowDown -> {
                 moveDown.perform();
                 sendToServer.accept(Direction.DOWN);
-                break;
-            case ArrowLeft:
+            }
+            case ArrowLeft -> {
                 moveLeft.perform();
                 sendToServer.accept(Direction.LEFT);
-                break;
-            case ArrowRight:
+            }
+            case ArrowRight -> {
                 moveRight.perform();
                 sendToServer.accept(Direction.RIGHT);
-                break;
-            case Backspace:
+            }
+            case Backspace -> {
+                if (keyStroke.isShiftDown()){
+                    if (keyStroke.getEventTime() - lastBlock < BLOCK_COOLDOWN){
+                        break;
+                    }
+                    lastBlock = keyStroke.getEventTime();
+                    animations.add(new BlockAnimation(posComponent));
+                    sendToServer.accept(new BlockSignal());
+                    break;
+                }
 
+
+                if (keyStroke.getEventTime() - lastAttack < ATTACK_COOLDOWN) {
+                    break;
+                }
+                lastAttack = keyStroke.getEventTime();
                 animations.add(new AttackAnimation(posComponent));
                 createAttacks.get().forEach(Attack::perform);
                 sendToServer.accept(new AttackSignal());
-                break;
-            case Enter:
-
+            }
+            case Enter -> {
                 animations.add(new CoolAnimation(posComponent));
                 sendToServer.accept(new CoolSignal());
-                break;
-
-            default:
-                break;
+            }
+            default -> {
+            }
         }
     }
 }

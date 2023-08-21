@@ -4,6 +4,8 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import game.*;
 import game.components.Player;
+import game.effects.BlockEffect;
+import game.effects.Effect;
 import protocol.data.*;
 
 import java.util.Queue;
@@ -16,15 +18,18 @@ public class ClientListener extends Listener {
 
     private Queue<AnimationData> animationDataQueue;
 
+    private Queue<Effect> effectQueue;
+
     private World world;
 
     private String name;
 
-    public ClientListener(Queue<Action> actionDataQueue, Queue<String> playersToConnect, Queue<String> playersToDisconnect, Queue<AnimationData> animationDataQueue, World world) {
+    public ClientListener(Queue<Action> actionDataQueue, Queue<String> playersToConnect, Queue<String> playersToDisconnect, Queue<AnimationData> animationDataQueue, Queue<Effect> effectQueue, World world) {
         this.actionDataQueue = actionDataQueue;
         this.playersToConnect = playersToConnect;
         this.playersToDisconnect = playersToDisconnect;
         this.animationDataQueue = animationDataQueue;
+        this.effectQueue = effectQueue;
         this.world = world;
     }
 
@@ -48,6 +53,10 @@ public class ClientListener extends Listener {
             world.createAttacks(attacker).forEach(attack -> actionDataQueue.offer(attack));
         } else if (object instanceof CoolSignal) {
             animationDataQueue.offer(new AnimationData(connection.getID(), name, AnimationData.AnimationType.COOL));
+        } else if (object instanceof BlockSignal) {
+            animationDataQueue.offer(new AnimationData(connection.getID(), name, AnimationData.AnimationType.BLOCK));
+            Player blocker = world.query(name).orElseThrow();
+            effectQueue.offer(new BlockEffect(blocker));
         }
     }
 

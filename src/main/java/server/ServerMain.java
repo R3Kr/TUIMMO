@@ -8,7 +8,9 @@ import game.Action;
 import game.World;
 import game.components.NPC;
 import game.components.Player;
+import game.effects.Effect;
 import game.systems.ClientHandlingSystem;
+import game.systems.EffectSystem;
 import game.systems.NPCStateSystem;
 import game.systems.PlayerConnecterSystem;
 import protocol.KryoFactory;
@@ -30,6 +32,8 @@ public class ServerMain {
 
     private Queue<AnimationData> animationDataQueue;
 
+    private Queue<Effect> effectQueue;
+
     public ServerMain(Server server) {
         this.server = server;
         world = new World();
@@ -37,6 +41,7 @@ public class ServerMain {
         playersToConnect = new ConcurrentLinkedQueue<>();
         playersToDisconnect = new ConcurrentLinkedQueue<>();
         animationDataQueue = new ConcurrentLinkedQueue<>();
+        effectQueue = new ConcurrentLinkedQueue<>();
 
     }
 
@@ -59,7 +64,7 @@ public class ServerMain {
             @Override
             public void connected(Connection connection) {
                 super.connected(connection);
-                connection.addListener(new ClientListener(actionDataQueue, playersToConnect, playersToDisconnect, animationDataQueue, world));
+                connection.addListener(new ClientListener(actionDataQueue, playersToConnect, playersToDisconnect, animationDataQueue, effectQueue, world));
             }
 
             @Override
@@ -80,6 +85,15 @@ public class ServerMain {
         world.getNpcs().add(new NPC("ernst", 22, 20));
         world.getNpcs().add(new NPC("tu madre", 23, 20));
         world.getNpcs().add(new NPC("bill clinton", 24, 20));
+        world.getNpcs().add(new NPC("bill wad", 24, 20));
+        world.getNpcs().add(new NPC("bill clintaon", 24, 20));
+        world.getNpcs().add(new NPC("bill ssadasdasd", 24, 20));
+        world.getNpcs().add(new NPC("bill wdwdw", 24, 20));
+        world.getNpcs().add(new NPC("bill clinqweqweqweton", 24, 20));
+        world.getNpcs().add(new NPC("bill qwew", 24, 20));
+        world.getNpcs().add(new NPC("bill clinqweqwwwweqweton", 24, 20));
+        world.getNpcs().add(new NPC("bill clinqweqqqqweqweton", 24, 20));
+        world.getNpcs().add(new NPC("bill clinqffffweqweqweton", 24, 20));
 
         world.addSystem(new ClientHandlingSystem(actionDataQueue, animationDataQueue, broadcastState, ((integer, o) -> server.sendToAllExceptUDP(integer, o))))
                 .addSystem(new PlayerConnecterSystem(playersToConnect, playersToDisconnect,
@@ -89,7 +103,8 @@ public class ServerMain {
                             server.sendToAllUDP(new DisconnectPlayer(s));
                         },
                         broadcastState))
-                        .addSystem(new NPCStateSystem(() ->world.query(NPC.class, n -> true).forEach(n -> server.sendToAllUDP(n)), () -> world.query(NPC.class, n -> true)));
+                .addSystem(new NPCStateSystem(() -> world.query(NPC.class, n -> true).forEach(n -> server.sendToAllUDP(n)), () -> world.query(NPC.class, n -> true)))
+                .addSystem(new EffectSystem(effectQueue));
 
         // .addSystem(new StateBroadcasterSystem(stringPositionMap -> server.sendToAllUDP(stringPositionMap), () -> world.getPositions()));
 

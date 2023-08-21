@@ -31,6 +31,9 @@ public class Attack implements Action {
      */
     @Override
     public Action perform() {
+        if (target.isInvincible()){
+            return this;
+        }
         target.setCurrHp(target.getCurrHp()-5);
         Log.info(String.format("%s attacked %s for %d damage", attacker.getName(), target.getName(), DMG));
         Log.info(String.format("Attacker HP: %d ,  Target HP: %d", attacker.getCurrHp(), target.getCurrHp()));

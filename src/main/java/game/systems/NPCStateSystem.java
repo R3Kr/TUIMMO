@@ -3,6 +3,7 @@ package game.systems;
 import game.components.NPC;
 
 import java.util.Random;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -21,12 +22,12 @@ public class NPCStateSystem implements System{
 
 
         npcSupplier.get()
-                .filter(npc -> 0 == r.nextInt(21))
-                .forEach(npc -> {
+                .filter(npc -> 0 == r.nextInt(1000))
+                .peek(npc -> {
             npc.setX(r.nextInt(79));
             npc.setY(r.nextInt(26));
-        });
-        broadcastNPCUpdate.run();
+                }).findFirst().ifPresent(npc -> broadcastNPCUpdate.run());
+
 
 
     }

@@ -10,6 +10,8 @@ public class Player {
     private int currHp;
     private int maxHp;
 
+    private boolean invincible = false;
+
     public Player(String name, int x, int y, int maxHp) {
         this.name = name;
         this.x = x;
@@ -87,5 +89,13 @@ public class Player {
 
     public boolean isCloseTo(Player p) {
         return x - p.x >= -2 && x - p.x <= 2 && y - p.y >= -1 && y - p.y <= 1;
+    }
+
+    public void setInvincible(boolean invincible) {
+        this.invincible = invincible;
+    }
+
+    public boolean isInvincible() {
+        return invincible;
     }
 }

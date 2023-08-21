@@ -19,6 +19,7 @@ public class KryoFactory {
         kryo.register(AnimationData.class);
         kryo.register(AnimationData.AnimationType.class);
         kryo.register(CoolSignal.class);
+        kryo.register(BlockSignal.class);
         kryo.register(NPC.class);
     }
 }

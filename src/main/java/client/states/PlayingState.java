@@ -1,9 +1,6 @@
 package client.states;
 
-import client.animations.Animation;
-import client.animations.AnimationList;
-import client.animations.AttackAnimation;
-import client.animations.CoolAnimation;
+import client.animations.*;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -68,6 +65,7 @@ public class PlayingState implements ClientState {
                     switch (ad.type) {
                         case ATTACK -> animations.add(new AttackAnimation(p));
                         case COOL -> animations.add(new CoolAnimation(p));
+                        case BLOCK -> animations.add(new BlockAnimation(p));
                     }
                 } else if (object instanceof NPC) {
                     npcsToUpdate.offer((NPC) object);
@@ -85,7 +83,7 @@ public class PlayingState implements ClientState {
         player = world.add(playerName, 10, 10);
 
 
-        world.addSystem(new InputHandlingSystem(keyStrokeQueue, animations, player, playerName, client::sendUDP, () -> world.createAttacks(player)))
+        world.addSystem(new InputHandlingSystem(keyStrokeQueue, animations, player, client::sendUDP, () -> world.createAttacks(player)))
                 .addSystem(new RenderSystem(screen, () -> world.query(Player.class, p -> true), player, () -> world.query(NPC.class, p -> true), animations))
                 .addSystem(new StateRecieverSystem(playersToUpdate, npcsToUpdate, world.getPlayers(), world.getNpcs()));
 

@@ -60,6 +60,10 @@ public class ClientMain {
 
         ClientMain clientMain;
         Client client = new Client();
+        KryoFactory.init(client.getKryo());
+
+        client.start();
+        client.connect(5000, "127.0.0.1", 6969, 6970);
         if (args.length == 2) {
 
             clientMain = new ClientMain(args[0].substring(0, 2), client, args[1], true);
@@ -70,10 +74,7 @@ public class ClientMain {
         }
 
 
-        KryoFactory.init(client.getKryo());
 
-        client.start();
-        client.connect(5000, args[1], 6969, 6970);
 
 
         clientMain.context.run();
