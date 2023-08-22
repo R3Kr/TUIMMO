@@ -1,11 +1,12 @@
 package client.animations;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
+import game.components.GameObject;
 import game.components.Player;
 
 public class BlockAnimation extends Animation{
     private static final int FRAMES = 100;
-    public BlockAnimation(Player player) {
+    public BlockAnimation(GameObject player) {
         super(player, FRAMES);
     }
 

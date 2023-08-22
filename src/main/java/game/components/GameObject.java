@@ -20,5 +20,9 @@ public interface GameObject {
         return getX() - gameObject.getX() >= -2 && getX() - gameObject.getX() <= 2 && getY() - gameObject.getY() >= -1 && getY() - gameObject.getY() <= 1;
     }
 
+    default void takeDmg(int dmg){
+        setCurrHp(getCurrHp()-dmg);
+    }
+
     boolean isInvincible();
 }

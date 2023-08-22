@@ -11,6 +11,7 @@ import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import game.CooldownState;
 import game.World;
+import game.components.GameObject;
 import game.components.NPC;
 import game.components.Player;
 import game.effects.Effect;
@@ -20,6 +21,7 @@ import game.systems.RenderSystem;
 import game.systems.StateRecieverSystem;
 import protocol.data.AnimationData;
 import protocol.data.DisconnectGameobject;
+import protocol.data.StateData;
 
 import java.io.IOException;
 import java.util.*;
@@ -67,12 +69,12 @@ public class PlayingState implements ClientState {
             @Override
             public void received(Connection connection, Object object) {
                 if (object instanceof Player) {
-                    playersToUpdate.offer((Player) object);
+                    Log.info("Suspekt Player");
                 } else if (object instanceof DisconnectGameobject) {
                     world.remove(((DisconnectGameobject) object).player);
                 } else if (object instanceof AnimationData) {
                     AnimationData ad = (AnimationData) object;
-                    Player p = world.queryPlayer(ad.player).get();
+                    GameObject p = world.query(ad.player).get();
                     switch (ad.type) {
                         case ATTACK -> animations.add(new AttackAnimation(p));
                         case COOL -> animations.add(new CoolAnimation(p));
@@ -80,7 +82,17 @@ public class PlayingState implements ClientState {
                         case REGEN -> animations.add(new RegenAnimation(p));
                     }
                 } else if (object instanceof NPC) {
-                    npcsToUpdate.offer((NPC) object);
+                    Log.info("Suspekt NPC");
+                }
+                else if (object instanceof StateData){
+                    Log.info("State data recieved");
+                    Arrays.stream(((StateData) object).gameObjects).forEach(o -> {
+                        if (o instanceof Player){
+                            playersToUpdate.offer((Player) o);
+                        } else if (o instanceof NPC) {
+                            npcsToUpdate.offer((NPC) o);
+                        }
+                    });
                 }
 //                StringBuilder stringBuilder = new StringBuilder("Players: ");
 //                world.query(Player.class, player -> true).forEach(p -> stringBuilder.append("\n" + p.toString()));

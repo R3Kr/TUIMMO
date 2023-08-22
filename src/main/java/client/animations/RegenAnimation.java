@@ -1,12 +1,13 @@
 package client.animations;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
+import game.components.GameObject;
 import game.components.Player;
 
 public class RegenAnimation extends Animation {
     private static final int DURATION = 1000;
 
-    public RegenAnimation(Player player) {
+    public RegenAnimation(GameObject player) {
         super(player, DURATION);
     }
 

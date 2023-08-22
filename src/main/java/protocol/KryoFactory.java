@@ -2,6 +2,7 @@ package protocol;
 
 import com.esotericsoftware.kryo.Kryo;
 import game.Direction;
+import game.components.GameObject;
 import game.components.NPC;
 import game.components.Player;
 import protocol.data.*;
@@ -22,5 +23,7 @@ public class KryoFactory {
         kryo.register(BlockSignal.class);
         kryo.register(NPC.class);
         kryo.register(RegenSignal.class);
+        kryo.register(StateData.class);
+        kryo.register(GameObject[].class);
     }
 }

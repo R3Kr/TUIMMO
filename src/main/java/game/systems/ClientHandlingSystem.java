@@ -2,18 +2,20 @@ package game.systems;
 
 import game.Action;
 import protocol.data.AnimationData;
+import protocol.data.StateData;
 
 import java.util.Queue;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class ClientHandlingSystem implements System{
     private final Queue<Action> actionQueue;
     private final Queue<AnimationData> animationDataQueue;
-    private final Runnable broadcastStateToClients;
+    private final Consumer<StateData> broadcastStateToClients;
 
     private final BiConsumer<Integer, Object> broadcastToAllClientsExceptCaller;
 
-    public ClientHandlingSystem(Queue<Action> actionQueue, Queue<AnimationData> animationDataQueue, Runnable broadcastToClients, BiConsumer<Integer, Object> broadcastToAllClientsExceptCaller) {
+    public ClientHandlingSystem(Queue<Action> actionQueue, Queue<AnimationData> animationDataQueue, Consumer<StateData> broadcastToClients, BiConsumer<Integer, Object> broadcastToAllClientsExceptCaller) {
         this.actionQueue = actionQueue;
         this.animationDataQueue = animationDataQueue;
         this.broadcastStateToClients = broadcastToClients;
@@ -25,7 +27,9 @@ public class ClientHandlingSystem implements System{
         while (!actionQueue.isEmpty()){
             Action action = actionQueue.poll();
             action.perform();
-            broadcastStateToClients.run();
+            StateData.StateDataBuilder builder = StateData.builder();
+            action.getInvolved().forEach(builder::add);
+            broadcastStateToClients.accept(builder.build());
         }
 
         while (!animationDataQueue.isEmpty()){

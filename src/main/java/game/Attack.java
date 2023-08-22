@@ -4,6 +4,8 @@ import com.esotericsoftware.minlog.Log;
 import game.components.GameObject;
 import game.components.Player;
 
+import java.util.stream.Stream;
+
 /**
  * The Attack class represents an action of attacking another player in the game.
  */
@@ -11,7 +13,6 @@ public class Attack implements Action {
     private static final int DMG = 5;
     private GameObject attacker;
     private GameObject target;
-
 
     /**
      * Constructs a new Attack instance.
@@ -35,7 +36,7 @@ public class Attack implements Action {
         if (target.isInvincible()){
             return this;
         }
-        target.setCurrHp(target.getCurrHp()-5);
+        target.takeDmg(DMG);
         Log.info(String.format("%s attacked %s for %d damage", attacker.getName(), target.getName(), DMG));
         Log.info(String.format("Attacker HP: %d ,  Target HP: %d", attacker.getCurrHp(), target.getCurrHp()));
         return this;
@@ -59,5 +60,10 @@ public class Attack implements Action {
 
     public GameObject getTarget() {
         return target;
+    }
+
+    @Override
+    public Stream<GameObject> getInvolved() {
+        return Stream.of(getPerformer(), getTarget());
     }
 }

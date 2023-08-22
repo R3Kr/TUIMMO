@@ -4,6 +4,7 @@ import game.components.GameObject;
 import game.components.Player;
 
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * The Move class represents an action of moving a movable object in a specified direction.
@@ -58,5 +59,10 @@ public class Move implements Action {
     @Override
     public GameObject getPerformer() {
         return player;
+    }
+
+    @Override
+    public Stream<GameObject> getInvolved() {
+        return Stream.of(getPerformer());
     }
 }

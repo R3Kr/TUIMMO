@@ -1,12 +1,13 @@
 package client.animations;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
+import game.components.GameObject;
 import game.components.Player;
 
 public class AttackAnimation extends Animation{
     private static final int TOTAL_FRAMES = 10;
 
-    public AttackAnimation(Player player) {
+    public AttackAnimation(GameObject player) {
         super(player, TOTAL_FRAMES);
     }
 

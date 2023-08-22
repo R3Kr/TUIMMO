@@ -1,13 +1,14 @@
 package client.animations;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
+import game.components.GameObject;
 import game.components.Player;
 
 public class CoolAnimation extends Animation{
 
     private int x;
     private int y;
-    public CoolAnimation(Player player) {
+    public CoolAnimation(GameObject player) {
         super(player, 1000);
         x = player.getX();
         y = player.getY();

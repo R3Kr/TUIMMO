@@ -9,6 +9,8 @@ public class NPC implements GameObject{
 
     private int currHp;
 
+    private String state = "neutral";
+
     public NPC() {
     }
 
@@ -41,6 +43,16 @@ public class NPC implements GameObject{
     @Override
     public void setMaxHp(int maxHp) {
 
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    @Override
+    public void takeDmg(int dmg) {
+        GameObject.super.takeDmg(dmg);
+        state = "attack";
     }
 
     @Override
@@ -84,7 +96,8 @@ public class NPC implements GameObject{
     public void setData(NPC npc) {
         x = npc.x;
         y = npc.y;
-
+        currHp = npc.currHp;
+        state = npc.state;
     }
 
     @Override

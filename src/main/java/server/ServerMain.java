@@ -6,12 +6,12 @@ import com.esotericsoftware.kryonet.Server;
 import game.Action;
 import game.World;
 import game.components.NPC;
-import game.components.Player;
 import game.effects.Effect;
 import game.systems.*;
 import protocol.KryoFactory;
 import protocol.data.AnimationData;
 import protocol.data.DisconnectGameobject;
+import protocol.data.StateData;
 
 import java.io.IOException;
 import java.util.Queue;
@@ -63,7 +63,7 @@ public class ServerMain {
             @Override
             public void connected(Connection connection) {
                 super.connected(connection);
-                connection.addListener(new ClientListener(actionDataQueue, playersToConnect, playersToDisconnect, animationDataQueue, effectQueue, world));
+                connection.addListener(new ThreadedListener(new ClientListener(actionDataQueue, playersToConnect, playersToDisconnect, animationDataQueue, effectQueue, world)));
             }
 
             @Override
@@ -74,10 +74,14 @@ public class ServerMain {
 
         });
 
-        Runnable broadcastState = () -> {
-            world.query(Player.class, (p) -> true).forEach(p -> server.sendToAllUDP(p));
-            world.query(NPC.class, n -> true).forEach(n -> server.sendToAllUDP(n));
+
+        Runnable broadcastStateOnLogin = () -> {
+            StateData stateData = StateData.builder(world.getGameObjects()).build();
+            server.sendToAllTCP(stateData);
+
         };
+
+
 
         Consumer<DisconnectGameobject> removeObject = o -> {
           world.remove(o.player);
@@ -99,15 +103,15 @@ public class ServerMain {
         world.addNPC("bill clinqweqqqqweqweton", 44, 10);
         world.addNPC("bill clinqffffweqweqweton", 34, 0);
 
-        world.addSystem(new ClientHandlingSystem(actionDataQueue, animationDataQueue, broadcastState, ((integer, o) -> server.sendToAllExceptUDP(integer, o))))
+        world.addSystem(new ClientHandlingSystem(actionDataQueue, animationDataQueue, stateData -> server.sendToAllUDP(stateData), ((integer, o) -> server.sendToAllExceptUDP(integer, o))))
                 .addSystem(new PlayerConnecterSystem(playersToConnect, playersToDisconnect,
                         s -> world.addPlayer(s, 10, 10),
                         s -> {
                             world.remove(s);
                             server.sendToAllUDP(new DisconnectGameobject(s));
                         },
-                        broadcastState))
-                .addSystem(new NPCStateSystem(() -> world.query(NPC.class, n -> true).forEach(n -> server.sendToAllUDP(n)), () -> world.query(NPC.class, n -> true), removalQueue))
+                        broadcastStateOnLogin))
+                .addSystem(new NPCStateSystem(s -> server.sendToAllUDP(s), () -> world.query(NPC.class, n -> true), removalQueue, actionDataQueue, animationDataQueue, o -> world.createAttacks(o)))
                 .addSystem(new EffectSystem(effectQueue))
                         .addSystem(new ObjectRemovalSystem(removalQueue, removeObject));
 

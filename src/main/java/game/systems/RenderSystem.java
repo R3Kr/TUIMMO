@@ -82,7 +82,14 @@ public class RenderSystem implements System{
 
     private void renderPlayer(){
         streamSupplier.get().forEach(p -> playerGraphics.putString(p.getX(), p.getY(), p.getName()));
-        npcSupplier.get().forEach(n -> terrainGraphics.setCharacter(n.getX(), n.getY(), '@'));
+        npcSupplier.get().forEach(n -> {
+            if (n.getState().equals("neutral")){
+                terrainGraphics.setCharacter(n.getX(), n.getY(), '@');
+            }
+            else {
+                redGraphics.setCharacter(n.getX(), n.getY(), '@');
+            }
+        });
     }
 
     private void renderAnimations(){

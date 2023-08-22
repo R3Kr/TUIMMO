@@ -116,6 +116,7 @@ public class InputHandlingSystem implements System{
                     effectQueue.offer(new RegenEffect(player));
                     animations.add(new RegenAnimation(player));
                     sendToServer.accept(new RegenSignal());
+                    break;
                 }
 
                 animations.add(new CoolAnimation(player));

@@ -105,5 +105,7 @@ public class World {
 
     }
 
-
+    public List<GameObject> getGameObjects() {
+        return gameObjects;
+    }
 }

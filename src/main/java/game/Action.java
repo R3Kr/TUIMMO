@@ -4,6 +4,7 @@ import game.components.GameObject;
 import game.components.Player;
 
 import java.io.Serializable;
+import java.util.stream.Stream;
 
 /**
  * The Action interface represents an action that can be performed and undone in the game.
@@ -25,4 +26,6 @@ public interface Action extends Serializable {
     Action undo();
 
     GameObject getPerformer();
+
+    Stream<GameObject> getInvolved();
 }
