@@ -4,12 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="gameobject refactor">
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="npcs ai is better, can attack npcs">
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/animations/RegenAnimation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/game/effects/RegenEffect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/data/RegenSignal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/CooldownBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/CooldownBar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/NPCStateSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/NPCStateSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/effects/Effect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/effects/Effect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/InputHandlingSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/InputHandlingSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/RenderSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/RenderSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/KryoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/KryoFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/data/AnimationData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/data/AnimationData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/ClientListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ClientListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +29,8 @@
         <option value="Enum" />
         <option value="Record" />
         <option value="JUnit5 Test Class" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -273,7 +280,7 @@
       <workItem from="1691989454952" duration="15083000" />
       <workItem from="1692125722782" duration="8108000" />
       <workItem from="1692195914958" duration="70822000" />
-      <workItem from="1692639494931" duration="16545000" />
+      <workItem from="1692639494931" duration="20656000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>
@@ -478,7 +485,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692654887571</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="npcs ai is better, can attack npcs">
+      <created>1692656161866</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1692656161866</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -508,7 +522,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="multiplayer gad damn work" />
     <MESSAGE value="only sends state updates if new state" />
     <MESSAGE value="can now handle disconnects" />
     <MESSAGE value="collision detectsion added" />
@@ -533,6 +546,7 @@
     <MESSAGE value="blocking fungerar" />
     <MESSAGE value="CooldownBar works" />
     <MESSAGE value="gameobject refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="gameobject refactor" />
+    <MESSAGE value="npcs ai is better, can attack npcs" />
+    <option name="LAST_COMMIT_MESSAGE" value="npcs ai is better, can attack npcs" />
   </component>
 </project>

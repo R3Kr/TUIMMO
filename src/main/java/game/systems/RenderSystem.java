@@ -4,6 +4,7 @@ import client.CooldownBar;
 import client.HpBar;
 import client.animations.Animation;
 import client.animations.BlockAnimation;
+import client.animations.RegenAnimation;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
@@ -21,6 +22,7 @@ public class RenderSystem implements System{
     private final TextGraphics redGraphics;
     private final TextGraphics whiteGraphics;
     private final TextGraphics grayGraphics;
+    private final TextGraphics greenGraphics;
     private final HpBar hpBar;
     private final CooldownBar cdBar;
     private final TextGraphics terrainGraphics;
@@ -46,6 +48,7 @@ public class RenderSystem implements System{
         this.whiteGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.WHITE_BRIGHT);
         this.grayGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.WHITE);
         this.terrainGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.BLACK).setBackgroundColor(TextColor.ANSI.WHITE);
+        this.greenGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.GREEN);
         this.hpBar = new HpBar(getPlayer);
 
         init();
@@ -86,8 +89,9 @@ public class RenderSystem implements System{
         for (Animation a : animations){
             if (a instanceof BlockAnimation){
                 a.renderWith(whiteGraphics);
-            }
-            else {
+            } else if (a instanceof RegenAnimation) {
+                a.renderWith(greenGraphics);
+            } else {
                 a.renderWith(redGraphics);
             }
         }

@@ -21,5 +21,6 @@ public class KryoFactory {
         kryo.register(CoolSignal.class);
         kryo.register(BlockSignal.class);
         kryo.register(NPC.class);
+        kryo.register(RegenSignal.class);
     }
 }

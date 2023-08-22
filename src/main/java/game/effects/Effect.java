@@ -28,6 +28,14 @@ public abstract class Effect implements Comparable<Effect>{
         return duration > 0;
     }
 
+    protected Integer getDurationLeft() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
     @Override
     public int compareTo(Effect o) {
         return duration.compareTo(o.duration);

@@ -6,6 +6,7 @@ import game.*;
 import game.components.Player;
 import game.effects.BlockEffect;
 import game.effects.Effect;
+import game.effects.RegenEffect;
 import protocol.data.*;
 
 import java.util.Queue;
@@ -57,6 +58,11 @@ public class ClientListener extends Listener {
             animationDataQueue.offer(new AnimationData(connection.getID(), name, AnimationData.AnimationType.BLOCK));
             Player blocker = world.query(name).orElseThrow();
             effectQueue.offer(new BlockEffect(blocker));
+        }
+        else if (object instanceof RegenSignal){
+            Player player = world.query(name).orElseThrow();
+            effectQueue.offer(new RegenEffect(player));
+            animationDataQueue.offer(new AnimationData(connection.getID(), name, AnimationData.AnimationType.REGEN));
         }
     }
 

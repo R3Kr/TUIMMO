@@ -4,7 +4,8 @@ public class AnimationData {
     public enum AnimationType{
         ATTACK,
         COOL,
-        BLOCK;
+        BLOCK,
+        REGEN;
     }
     public int performerId;
     public String player;

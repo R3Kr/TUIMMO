@@ -13,6 +13,8 @@ import game.CooldownState;
 import game.World;
 import game.components.NPC;
 import game.components.Player;
+import game.effects.Effect;
+import game.systems.EffectSystem;
 import game.systems.InputHandlingSystem;
 import game.systems.RenderSystem;
 import game.systems.StateRecieverSystem;
@@ -35,6 +37,7 @@ public class PlayingState implements ClientState {
 
     private Queue<Player> playersToUpdate;
     private Queue<NPC> npcsToUpdate;
+    private Queue<Effect> effectQueue;
 
 
 
@@ -49,6 +52,7 @@ public class PlayingState implements ClientState {
         keyStrokeQueue = new LinkedList<>();
         playersToUpdate = new LinkedList<>();
         npcsToUpdate = new LinkedList<>();
+        effectQueue = new LinkedList<>();
 
 
 
@@ -72,6 +76,7 @@ public class PlayingState implements ClientState {
                         case ATTACK -> animations.add(new AttackAnimation(p));
                         case COOL -> animations.add(new CoolAnimation(p));
                         case BLOCK -> animations.add(new BlockAnimation(p));
+                        case REGEN -> animations.add(new RegenAnimation(p));
                     }
                 } else if (object instanceof NPC) {
                     npcsToUpdate.offer((NPC) object);
@@ -90,11 +95,13 @@ public class PlayingState implements ClientState {
 
         CooldownState attack = new CooldownState(500);
         CooldownState block = new CooldownState(5000);
-        CooldownBar cdBar = new CooldownBar(attack, block);
+        CooldownState regen = new CooldownState(60000);
+        CooldownBar cdBar = new CooldownBar(attack, block, regen);
 
-        world.addSystem(new InputHandlingSystem(keyStrokeQueue, animations, player, client::sendUDP, () -> world.createAttacks(player), attack, block))
+        world.addSystem(new InputHandlingSystem(keyStrokeQueue, effectQueue, animations, player, client::sendUDP, () -> world.createAttacks(player), attack, block, regen))
                 .addSystem(new RenderSystem(screen, () -> world.query(Player.class, p -> true), player, () -> world.query(NPC.class, p -> true), animations, cdBar))
-                .addSystem(new StateRecieverSystem(playersToUpdate, npcsToUpdate, () -> world.query(p -> true), p -> world.addPlayer(p), n -> world.addNPC(n)));
+                .addSystem(new StateRecieverSystem(playersToUpdate, npcsToUpdate, () -> world.query(p -> true), p -> world.addPlayer(p), n -> world.addNPC(n)))
+                .addSystem(new EffectSystem(effectQueue));
 
     }
 
