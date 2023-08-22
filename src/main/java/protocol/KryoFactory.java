@@ -14,7 +14,7 @@ public class KryoFactory {
         kryo.register(Direction.class);
         kryo.register(Player.class);
         kryo.register(ConnectPlayer.class);
-        kryo.register(DisconnectPlayer.class);
+        kryo.register(DisconnectGameobject.class);
         kryo.register(AttackSignal.class);
         kryo.register(AnimationData.class);
         kryo.register(AnimationData.AnimationType.class);

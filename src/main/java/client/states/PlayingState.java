@@ -19,7 +19,7 @@ import game.systems.InputHandlingSystem;
 import game.systems.RenderSystem;
 import game.systems.StateRecieverSystem;
 import protocol.data.AnimationData;
-import protocol.data.DisconnectPlayer;
+import protocol.data.DisconnectGameobject;
 
 import java.io.IOException;
 import java.util.*;
@@ -62,16 +62,17 @@ public class PlayingState implements ClientState {
     }
 
     private void init(String playerName) throws IOException {
+
         client.addListener(new Listener() {
             @Override
             public void received(Connection connection, Object object) {
                 if (object instanceof Player) {
                     playersToUpdate.offer((Player) object);
-                } else if (object instanceof DisconnectPlayer) {
-                    world.remove(((DisconnectPlayer) object).player);
+                } else if (object instanceof DisconnectGameobject) {
+                    world.remove(((DisconnectGameobject) object).player);
                 } else if (object instanceof AnimationData) {
                     AnimationData ad = (AnimationData) object;
-                    Player p = world.query(ad.player).get();
+                    Player p = world.queryPlayer(ad.player).get();
                     switch (ad.type) {
                         case ATTACK -> animations.add(new AttackAnimation(p));
                         case COOL -> animations.add(new CoolAnimation(p));
@@ -81,13 +82,13 @@ public class PlayingState implements ClientState {
                 } else if (object instanceof NPC) {
                     npcsToUpdate.offer((NPC) object);
                 }
-                StringBuilder stringBuilder = new StringBuilder("Players: ");
-                world.query(Player.class, player -> true).forEach(p -> stringBuilder.append("\n" + p.toString()));
-                Log.debug(stringBuilder.toString());
-
+//                StringBuilder stringBuilder = new StringBuilder("Players: ");
+//                world.query(Player.class, player -> true).forEach(p -> stringBuilder.append("\n" + p.toString()));
+//                Log.debug(stringBuilder.toString());
+//
                 StringBuilder stringBuilder2 = new StringBuilder("NPCs: ");
-                world.query(NPC.class, player -> true).forEach(p -> stringBuilder.append("\n" + p.toString()));
-                Log.debug(stringBuilder2.toString());
+                world.query(NPC.class, player -> true).forEach(p -> stringBuilder2.append("\n" + p.toString()));
+                Log.info(stringBuilder2.toString());
             }
         });
 
@@ -99,7 +100,7 @@ public class PlayingState implements ClientState {
         CooldownBar cdBar = new CooldownBar(attack, block, regen);
 
         world.addSystem(new InputHandlingSystem(keyStrokeQueue, effectQueue, animations, player, client::sendUDP, () -> world.createAttacks(player), attack, block, regen))
-                .addSystem(new RenderSystem(screen, () -> world.query(Player.class, p -> true), player, () -> world.query(NPC.class, p -> true), animations, cdBar))
+                .addSystem(new RenderSystem(screen, () -> world.query(Player.class, p -> true), player, () -> world.query(NPC.class, p -> p.getCurrHp() > 0), animations, cdBar))
                 .addSystem(new StateRecieverSystem(playersToUpdate, npcsToUpdate, () -> world.query(p -> true), p -> world.addPlayer(p), n -> world.addNPC(n)))
                 .addSystem(new EffectSystem(effectQueue));
 
@@ -113,7 +114,7 @@ public class PlayingState implements ClientState {
         // Handle input
         if (keyStroke != null) {
             if (keyStroke.getKeyType() == KeyType.Escape) {
-                client.sendTCP(new DisconnectPlayer(player.getName()));
+                client.sendTCP(new DisconnectGameobject(player.getName()));
                 return onNext.get();
             }
             keyStrokeQueue.offer(keyStroke);

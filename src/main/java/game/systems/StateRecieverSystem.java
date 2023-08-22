@@ -52,7 +52,7 @@ public class StateRecieverSystem implements System{
                 addNpc.accept(npc);
             }
             else {
-                gameObjects.get().filter(p -> npc.getName().equals(p.getName())).forEach(p -> ((NPC)p).setData(npc));
+                gameObjects.get().filter(p ->  npc.getName().equals(p.getName())).forEach(p -> ((NPC)p).setData(npc));
             }
         }
 

@@ -24,7 +24,7 @@ public class ClientContext {
 
     private void init(){
         loginState.setOnNext(() -> playingState);
-        playingState.setOnNext(() -> null);
+        playingState.setOnNext(() -> loginState);
     }
 
     public void run() throws IOException, InterruptedException {

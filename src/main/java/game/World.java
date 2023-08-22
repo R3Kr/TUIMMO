@@ -9,6 +9,7 @@ import game.systems.System;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Predicate;
@@ -19,7 +20,7 @@ public class World {
     //public record Entity(String id) {}
     private List<GameObject> gameObjects;
 
-    public List<System> systems = new ArrayList<>();
+    public List<System> systems = new CopyOnWriteArrayList<>();
 
     private ExecutorService threadPool;
 
@@ -55,7 +56,7 @@ public class World {
 
     public void remove(String name) {
         Optional<GameObject> player = gameObjects.stream().filter(p -> p.getName().equals(name)).findFirst();
-        player.ifPresentOrElse(p -> gameObjects.remove(p), () -> Log.debug(String.format("Player %s doesnt exist", name)));
+        player.ifPresentOrElse(p -> gameObjects.remove(p), () -> Log.info(String.format("Player %s doesnt exist", name)));
     }
 
     public <T extends GameObject> Stream<T> query(Class<T> tClass, Predicate<T> predicate) {
@@ -74,7 +75,11 @@ public class World {
         return gameObjects.stream().filter(predicate);
     }
 
-    public Optional<Player> query(String name) {
+    public Optional<GameObject> query(String name){
+        return gameObjects.stream().filter(o -> o.getName().equals(name)).findFirst();
+    }
+
+    public Optional<Player> queryPlayer(String name) {
 
         return query(Player.class, player -> player.getName().equals(name)).findFirst();
     }

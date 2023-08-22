@@ -3,23 +3,20 @@ package server;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import com.esotericsoftware.minlog.Log;
 import game.Action;
 import game.World;
 import game.components.NPC;
 import game.components.Player;
 import game.effects.Effect;
-import game.systems.ClientHandlingSystem;
-import game.systems.EffectSystem;
-import game.systems.NPCStateSystem;
-import game.systems.PlayerConnecterSystem;
+import game.systems.*;
 import protocol.KryoFactory;
 import protocol.data.AnimationData;
-import protocol.data.DisconnectPlayer;
+import protocol.data.DisconnectGameobject;
 
 import java.io.IOException;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.function.Consumer;
 
 public class ServerMain {
     private Server server;
@@ -33,6 +30,7 @@ public class ServerMain {
     private Queue<AnimationData> animationDataQueue;
 
     private Queue<Effect> effectQueue;
+    private Queue<DisconnectGameobject> removalQueue;
 
     public ServerMain(Server server) {
         this.server = server;
@@ -42,6 +40,7 @@ public class ServerMain {
         playersToDisconnect = new ConcurrentLinkedQueue<>();
         animationDataQueue = new ConcurrentLinkedQueue<>();
         effectQueue = new ConcurrentLinkedQueue<>();
+        removalQueue = new ConcurrentLinkedQueue<>();
 
     }
 
@@ -80,6 +79,11 @@ public class ServerMain {
             world.query(NPC.class, n -> true).forEach(n -> server.sendToAllUDP(n));
         };
 
+        Consumer<DisconnectGameobject> removeObject = o -> {
+          world.remove(o.player);
+          server.sendToAllTCP(o);
+        };
+
         world.addNPC("albert", 40, 0);
         world.addNPC("donkey", 71, 20);
         world.addNPC("ernst", 62, 0);
@@ -93,18 +97,19 @@ public class ServerMain {
         world.addNPC("bill qwew", 64, 20);
         world.addNPC("bill clinqweqwwwweqweton", 54, 10);
         world.addNPC("bill clinqweqqqqweqweton", 44, 10);
-        world.addNPC("bill clinqffffweqweqweton", 34, 00);
+        world.addNPC("bill clinqffffweqweqweton", 34, 0);
 
         world.addSystem(new ClientHandlingSystem(actionDataQueue, animationDataQueue, broadcastState, ((integer, o) -> server.sendToAllExceptUDP(integer, o))))
                 .addSystem(new PlayerConnecterSystem(playersToConnect, playersToDisconnect,
                         s -> world.addPlayer(s, 10, 10),
                         s -> {
                             world.remove(s);
-                            server.sendToAllUDP(new DisconnectPlayer(s));
+                            server.sendToAllUDP(new DisconnectGameobject(s));
                         },
                         broadcastState))
-                .addSystem(new NPCStateSystem(() -> world.query(NPC.class, n -> true).forEach(n -> server.sendToAllUDP(n)), () -> world.query(NPC.class, n -> true)))
-                .addSystem(new EffectSystem(effectQueue));
+                .addSystem(new NPCStateSystem(() -> world.query(NPC.class, n -> true).forEach(n -> server.sendToAllUDP(n)), () -> world.query(NPC.class, n -> true), removalQueue))
+                .addSystem(new EffectSystem(effectQueue))
+                        .addSystem(new ObjectRemovalSystem(removalQueue, removeObject));
 
         // .addSystem(new StateBroadcasterSystem(stringPositionMap -> server.sendToAllUDP(stringPositionMap), () -> world.getPositions()));
 
