@@ -1,7 +1,6 @@
-package game;
+package game.actions;
 
 import game.components.GameObject;
-import game.components.Player;
 
 import java.io.Serializable;
 import java.util.stream.Stream;

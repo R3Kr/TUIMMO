@@ -15,10 +15,7 @@ import game.components.GameObject;
 import game.components.NPC;
 import game.components.Player;
 import game.effects.Effect;
-import game.systems.EffectSystem;
-import game.systems.InputHandlingSystem;
-import game.systems.RenderSystem;
-import game.systems.StateRecieverSystem;
+import game.systems.*;
 import protocol.data.AnimationData;
 import protocol.data.DisconnectGameobject;
 import protocol.data.StateUpdateData;
@@ -106,9 +103,10 @@ public class PlayingState implements ClientState {
         CooldownBar cdBar = new CooldownBar(attack, block, regen);
 
         world.addSystem(new InputHandlingSystem(keyStrokeQueue, effectQueue, animations, player, client::sendUDP, () -> world.createAttacks(player), attack, block, regen))
-                .addSystem(new RenderSystem(screen, () -> world.query(Player.class, p -> true), player, () -> world.query(NPC.class, p -> true), animations, cdBar))
+                .addSystem(new RenderSystem(screen, () -> world.query(Player.class, p -> p.getZoneID() == player.getZoneID()), player, () -> world.query(NPC.class, p -> p.getZoneID() == player.getZoneID()), animations, cdBar))
                 .addSystem(new StateRecieverSystem(playersToUpdate, npcsToUpdate, gameObjectToUpdate, () -> world.query(p -> true), o -> world.add(o)))
-                .addSystem(new EffectSystem(effectQueue));
+                .addSystem(new EffectSystem(effectQueue))
+                .addSystem(new ZoneSwitcherSystem(player, client::sendUDP));
 
     }
 

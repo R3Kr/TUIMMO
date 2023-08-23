@@ -10,6 +10,8 @@ public class Player implements GameObject{
     private int currHp;
     private int maxHp;
 
+    private int zoneId;
+
     private boolean invincible = false;
 
     public Player(String name, int x, int y, int maxHp) {
@@ -18,6 +20,7 @@ public class Player implements GameObject{
         this.y = y;
         this.currHp = maxHp;
         this.maxHp = maxHp;
+        this.zoneId = 0;
     }
 
     public Player() {
@@ -69,7 +72,18 @@ public class Player implements GameObject{
         y = player.y;
         currHp = player.currHp;
         maxHp = player.maxHp;
+        zoneId = player.zoneId;
 
+    }
+
+    @Override
+    public int getZoneID() {
+        return zoneId;
+    }
+
+    @Override
+    public void setZoneID(int zoneID) {
+        this.zoneId = zoneID;
     }
 
     public void print(){
@@ -87,9 +101,6 @@ public class Player implements GameObject{
                 '}';
     }
 
-    public boolean isCloseTo(Player p) {
-        return x - p.x >= -2 && x - p.x <= 2 && y - p.y >= -1 && y - p.y <= 1;
-    }
 
     public void setInvincible(boolean invincible) {
         this.invincible = invincible;

@@ -1,9 +1,9 @@
 package game.systems;
 
-import game.Action;
-import game.Attack;
-import game.Direction;
-import game.Move;
+import game.actions.Action;
+import game.actions.Attack;
+import game.actions.Direction;
+import game.actions.Move;
 import game.components.GameObject;
 import game.components.NPC;
 import game.components.Player;

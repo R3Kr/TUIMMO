@@ -1,18 +1,16 @@
 package game.systems;
 
 import client.animations.*;
-import game.Attack;
+import game.actions.Attack;
 import game.CooldownState;
-import game.Direction;
-import game.Move;
+import game.actions.ChangeZone;
+import game.actions.Direction;
+import game.actions.Move;
 import game.components.Player;
 import com.googlecode.lanterna.input.KeyStroke;
 import game.effects.Effect;
 import game.effects.RegenEffect;
-import protocol.data.AttackSignal;
-import protocol.data.BlockSignal;
-import protocol.data.CoolSignal;
-import protocol.data.RegenSignal;
+import protocol.data.*;
 
 import java.util.List;
 import java.util.Queue;
@@ -109,6 +107,14 @@ public class InputHandlingSystem implements System{
 
                 animations.add(new CoolAnimation(player));
                 sendToServer.accept(new CoolSignal());
+            }
+            case ArrowRight -> {
+                if (player.getZoneID() == 0){
+                    sendToServer.accept(new ChangeZoneSignal(1, Direction.UP));
+                }
+                else {
+                    sendToServer.accept(new ChangeZoneSignal(0, Direction.UP));
+                }
             }
             case Character -> {
                 switch (keyStroke.getCharacter()){

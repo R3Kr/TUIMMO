@@ -4,9 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="npcs has state and can attack">
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="bug fixes and refactors">
+      <change afterPath="$PROJECT_DIR$/src/main/java/game/actions/ChangeZone.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/game/systems/ZoneSwitcherSystem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/protocol/data/ChangeZoneSignal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/actions/Action.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Attack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/actions/Attack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/actions/Direction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/actions/Move.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/World.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/components/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/components/GameObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/components/NPC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/components/NPC.java" afterDir="false" />
@@ -14,13 +21,11 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/ClientHandlingSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/ClientHandlingSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/InputHandlingSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/InputHandlingSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/NPCStateSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/NPCStateSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/PlayerConnecterSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/PlayerConnecterSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/StateRecieverSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/StateRecieverSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/RenderSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/RenderSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/protocol/KryoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/KryoFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/data/ConnectPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/data/ConnectPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/data/StateData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/data/StateUpdateData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/ClientListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ClientListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/game/systems/EffectSystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/game/systems/EffectSystemTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -284,7 +289,7 @@
       <workItem from="1691989454952" duration="15083000" />
       <workItem from="1692125722782" duration="8108000" />
       <workItem from="1692195914958" duration="70822000" />
-      <workItem from="1692639494931" duration="42689000" />
+      <workItem from="1692639494931" duration="52819000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>
@@ -517,7 +522,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692709983753</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="bug fixes and refactors">
+      <created>1692783050506</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1692783050506</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -547,7 +559,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="now builds both client and server jars" />
     <MESSAGE value="hp implemented" />
     <MESSAGE value="big refactor" />
     <MESSAGE value="server now performs actions and sends back resulting gamestate" />
@@ -572,6 +583,7 @@
     <MESSAGE value="regeneration is now added to the game" />
     <MESSAGE value="dead npcs are removed" />
     <MESSAGE value="npcs has state and can attack" />
-    <option name="LAST_COMMIT_MESSAGE" value="npcs has state and can attack" />
+    <MESSAGE value="bug fixes and refactors" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug fixes and refactors" />
   </component>
 </project>

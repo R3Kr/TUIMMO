@@ -1,7 +1,7 @@
 package protocol;
 
 import com.esotericsoftware.kryo.Kryo;
-import game.Direction;
+import game.actions.Direction;
 import game.components.GameObject;
 import game.components.NPC;
 import game.components.Player;
@@ -25,5 +25,7 @@ public class KryoFactory {
         kryo.register(RegenSignal.class);
         kryo.register(StateUpdateData.class);
         kryo.register(GameObject[].class);
+        kryo.register(ChangeZoneSignal.class);
+
     }
 }

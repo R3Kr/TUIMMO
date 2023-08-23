@@ -1,8 +1,8 @@
-package game;
+package game.actions;
 
 import com.esotericsoftware.minlog.Log;
+import game.actions.Action;
 import game.components.GameObject;
-import game.components.Player;
 
 import java.util.stream.Stream;
 

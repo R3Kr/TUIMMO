@@ -1,6 +1,7 @@
 package game;
 
 import com.esotericsoftware.minlog.Log;
+import game.actions.Attack;
 import game.components.GameObject;
 import game.components.NPC;
 import game.components.Player;
@@ -20,12 +21,12 @@ public class World {
     //public record Entity(String id) {}
     private List<GameObject> gameObjects;
 
-    public List<System> systems = new CopyOnWriteArrayList<>();
+    public List<System> systems = new ArrayList<>();
 
     private ExecutorService threadPool;
 
     public World() {
-        gameObjects = new ArrayList<>();
+        gameObjects = new CopyOnWriteArrayList<>();
         threadPool = Executors.newSingleThreadExecutor();
     }
 

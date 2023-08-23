@@ -18,8 +18,12 @@ public interface GameObject {
      void setMaxHp(int maxHp);
 
      void setData(GameObject gameObject);
+
+     int getZoneID();
+
+     void setZoneID(int zoneID);
     default boolean isCloseTo(GameObject gameObject) {
-        return getX() - gameObject.getX() >= -2 && getX() - gameObject.getX() <= 2 && getY() - gameObject.getY() >= -1 && getY() - gameObject.getY() <= 1;
+        return getZoneID() == gameObject.getZoneID() && getX() - gameObject.getX() >= -2 && getX() - gameObject.getX() <= 2 && getY() - gameObject.getY() >= -1 && getY() - gameObject.getY() <= 1;
     }
 
     default void takeDmg(int dmg){

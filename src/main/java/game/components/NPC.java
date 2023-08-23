@@ -9,6 +9,8 @@ public class NPC implements GameObject{
 
     private int currHp;
 
+    private int zoneID;
+
     private String state = "neutral";
 
     public NPC() {
@@ -19,6 +21,7 @@ public class NPC implements GameObject{
         this.x = x;
         this.y = y;
         currHp = getMaxHp();
+        zoneID = 1;
     }
 
     public String getName() {
@@ -43,6 +46,16 @@ public class NPC implements GameObject{
     @Override
     public void setMaxHp(int maxHp) {
 
+    }
+
+    @Override
+    public int getZoneID() {
+        return zoneID;
+    }
+
+    @Override
+    public void setZoneID(int zoneID) {
+        this.zoneID = zoneID;
     }
 
     public String getState() {
@@ -99,6 +112,7 @@ public class NPC implements GameObject{
         y = npc.y;
         currHp = npc.currHp;
         state = npc.state;
+        zoneID = npc.zoneID;
     }
 
     @Override

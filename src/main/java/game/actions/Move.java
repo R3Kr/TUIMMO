@@ -1,7 +1,8 @@
-package game;
+package game.actions;
 
+import game.actions.Action;
+import game.actions.Direction;
 import game.components.GameObject;
-import game.components.Player;
 
 import java.util.Objects;
 import java.util.stream.Stream;

@@ -3,6 +3,10 @@ package server;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import game.*;
+import game.actions.Action;
+import game.actions.ChangeZone;
+import game.actions.Direction;
+import game.actions.Move;
 import game.components.Player;
 import game.effects.BlockEffect;
 import game.effects.Effect;
@@ -64,6 +68,10 @@ public class ClientListener extends Listener {
             Player player = world.queryPlayer(name).orElseThrow();
             effectQueue.offer(new RegenEffect(player));
             animationDataQueue.offer(new AnimationData(connection.getID(), name, AnimationData.AnimationType.REGEN));
+        }
+        else if (object instanceof ChangeZoneSignal){
+            Player player = world.queryPlayer(name).orElseThrow();
+            actionDataQueue.offer(new ChangeZone(player, ((ChangeZoneSignal) object).newZoneID, ((ChangeZoneSignal) object).incomingDirection));
         }
     }
 

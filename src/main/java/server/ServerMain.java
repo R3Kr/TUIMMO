@@ -3,7 +3,7 @@ package server;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import game.Action;
+import game.actions.Action;
 import game.World;
 import game.components.GameObject;
 import game.components.NPC;

@@ -1,6 +1,6 @@
 package game.systems;
 
-import game.Action;
+import game.actions.Action;
 import game.components.GameObject;
 import protocol.data.AnimationData;
 import protocol.data.StateUpdateData;

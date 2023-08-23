@@ -106,8 +106,11 @@ public class RenderSystem implements System{
 
 
     private void renderTerrain() {
-        //terrainGraphics.drawLine(0, 0, 0, 23, 'E');
-        //terrainGraphics.drawLine(0, 23, 40, 23, '@');
+        terrainGraphics.putString(38, 24, "↓↓");
+        terrainGraphics.putString(38, 0, "↑↑");
+        terrainGraphics.putString(0, 12, "←");
+        terrainGraphics.putString(79, 12, "→");
+
     }
 
     private void renderUI() {

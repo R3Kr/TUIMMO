@@ -1,7 +1,7 @@
 package game.systems;
 
-import game.Action;
-import game.Attack;
+import game.actions.Action;
+import game.actions.Attack;
 import game.components.Player;
 import game.effects.BlockEffect;
 import game.effects.Effect;
@@ -10,9 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
