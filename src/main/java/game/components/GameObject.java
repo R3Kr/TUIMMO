@@ -16,6 +16,8 @@ public interface GameObject {
      int getMaxHp();
 
      void setMaxHp(int maxHp);
+
+     void setData(GameObject gameObject);
     default boolean isCloseTo(GameObject gameObject) {
         return getX() - gameObject.getX() >= -2 && getX() - gameObject.getX() <= 2 && getY() - gameObject.getY() >= -1 && getY() - gameObject.getY() <= 1;
     }

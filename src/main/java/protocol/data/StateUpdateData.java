@@ -4,7 +4,7 @@ import game.components.GameObject;
 
 import java.util.*;
 
-public class StateData {
+public class StateUpdateData {
     public static class StateDataBuilder{
         Collection<GameObject> gameObjectsToUpdate;
 
@@ -21,12 +21,16 @@ public class StateData {
             return this;
         }
 
-        public StateData build(){
-            return new StateData(gameObjectsToUpdate);
+        public StateUpdateData build(){
+            return new StateUpdateData(gameObjectsToUpdate);
         }
 
         public int size(){
             return gameObjectsToUpdate.size();
+        }
+
+        public void clear(){
+            gameObjectsToUpdate.clear();
         }
     }
     public static StateDataBuilder builder(){
@@ -38,10 +42,10 @@ public class StateData {
 
     public GameObject[] gameObjects;
 
-    private StateData(Collection<GameObject> gameObjects){
+    private StateUpdateData(Collection<GameObject> gameObjects){
         this.gameObjects = gameObjects.toArray(new GameObject[0]);
     }
 
-    private StateData() {
+    private StateUpdateData() {
     }
 }

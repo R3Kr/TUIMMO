@@ -37,10 +37,7 @@ public class World {
         return player;
     }
 
-    public Player addPlayer(Player player){
-        gameObjects.add(player);
-        return player;
-    }
+
     public NPC addNPC(String name, int x, int y) {
         //Entity entity = new Entity(name);
         NPC player = new NPC(name, x, y);
@@ -49,9 +46,8 @@ public class World {
         return player;
     }
 
-    public NPC addNPC(NPC npc){
-        gameObjects.add(npc);
-        return npc;
+    public void add(GameObject gameObject){
+        gameObjects.add(gameObject);
     }
 
     public void remove(String name) {

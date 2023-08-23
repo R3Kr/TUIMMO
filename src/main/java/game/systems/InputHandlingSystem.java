@@ -70,23 +70,11 @@ public class InputHandlingSystem implements System{
 
     private void handle(KeyStroke keyStroke){
 
+
+
         switch (keyStroke.getKeyType()) {
-            case ArrowUp -> {
-                moveUp.perform();
-                sendToServer.accept(Direction.UP);
-            }
-            case ArrowDown -> {
-                moveDown.perform();
-                sendToServer.accept(Direction.DOWN);
-            }
-            case ArrowLeft -> {
-                moveLeft.perform();
-                sendToServer.accept(Direction.LEFT);
-            }
-            case ArrowRight -> {
-                moveRight.perform();
-                sendToServer.accept(Direction.RIGHT);
-            }
+
+
             case Backspace -> {
                 if (keyStroke.isShiftDown()){
                     if (cantBlock.test(keyStroke.getEventTime())){
@@ -122,8 +110,34 @@ public class InputHandlingSystem implements System{
                 animations.add(new CoolAnimation(player));
                 sendToServer.accept(new CoolSignal());
             }
+            case Character -> {
+                switch (keyStroke.getCharacter()){
+                    case 'w' -> {
+                        moveUp.perform();
+                        sendToServer.accept(Direction.UP);
+                    }
+                    case 's' -> {
+                        moveDown.perform();
+                        sendToServer.accept(Direction.DOWN);
+                    }
+                    case 'a' -> {
+                        moveLeft.perform();
+                        sendToServer.accept(Direction.LEFT);
+                    }
+                    case 'd' -> {
+                        moveRight.perform();
+                        sendToServer.accept(Direction.RIGHT);
+                    }
+
+                    default -> {
+
+                    }
+                }
+            }
             default -> {
             }
         }
+
+
     }
 }

@@ -14,7 +14,7 @@ import java.util.Queue;
 public class ClientListener extends Listener {
 
     private Queue<Action> actionDataQueue;
-    private Queue<String> playersToConnect;
+    private Queue<ConnectPlayer> playersToConnect;
     private Queue<String> playersToDisconnect;
 
     private Queue<AnimationData> animationDataQueue;
@@ -25,7 +25,7 @@ public class ClientListener extends Listener {
 
     private String name;
 
-    public ClientListener(Queue<Action> actionDataQueue, Queue<String> playersToConnect, Queue<String> playersToDisconnect, Queue<AnimationData> animationDataQueue, Queue<Effect> effectQueue, World world) {
+    public ClientListener(Queue<Action> actionDataQueue, Queue<ConnectPlayer> playersToConnect, Queue<String> playersToDisconnect, Queue<AnimationData> animationDataQueue, Queue<Effect> effectQueue, World world) {
         this.actionDataQueue = actionDataQueue;
         this.playersToConnect = playersToConnect;
         this.playersToDisconnect = playersToDisconnect;
@@ -43,7 +43,8 @@ public class ClientListener extends Listener {
             actionDataQueue.offer(new Move(player, (Direction) object));
         } else if (object instanceof ConnectPlayer) {
             name = ((ConnectPlayer) object).player;
-            playersToConnect.offer(name);
+            ((ConnectPlayer) object).connectionId = connection.getID();
+            playersToConnect.offer(((ConnectPlayer) object));
 
         } else if (object instanceof DisconnectGameobject) {
             playersToDisconnect.offer(((DisconnectGameobject) object).player);

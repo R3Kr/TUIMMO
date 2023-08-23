@@ -63,8 +63,8 @@ public class Player implements GameObject{
         this.maxHp = maxHp;
     }
 
-    public void setData(Player player){
-
+    public void setData(GameObject gameObject){
+        Player player = (Player) gameObject;
         x = player.x;
         y = player.y;
         currHp = player.currHp;

@@ -93,7 +93,8 @@ public class NPC implements GameObject{
         return Objects.hash(name, x, y);
     }
 
-    public void setData(NPC npc) {
+    public void setData(GameObject gameObject) {
+        NPC npc = (NPC) gameObject;
         x = npc.x;
         y = npc.y;
         currHp = npc.currHp;

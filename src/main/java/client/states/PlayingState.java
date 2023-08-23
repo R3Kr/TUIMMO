@@ -21,7 +21,7 @@ import game.systems.RenderSystem;
 import game.systems.StateRecieverSystem;
 import protocol.data.AnimationData;
 import protocol.data.DisconnectGameobject;
-import protocol.data.StateData;
+import protocol.data.StateUpdateData;
 
 import java.io.IOException;
 import java.util.*;
@@ -40,7 +40,7 @@ public class PlayingState implements ClientState {
     private Queue<Player> playersToUpdate;
     private Queue<NPC> npcsToUpdate;
     private Queue<Effect> effectQueue;
-
+    private Queue<GameObject> gameObjectToUpdate;
 
 
     private World world = new World();
@@ -55,7 +55,7 @@ public class PlayingState implements ClientState {
         playersToUpdate = new LinkedList<>();
         npcsToUpdate = new LinkedList<>();
         effectQueue = new LinkedList<>();
-
+        gameObjectToUpdate = new LinkedList<>();
 
 
         init(playerName.get());
@@ -69,38 +69,32 @@ public class PlayingState implements ClientState {
             @Override
             public void received(Connection connection, Object object) {
                 if (object instanceof Player) {
-                    Log.info("Suspekt Player");
+                    playersToUpdate.add((Player) object);
                 } else if (object instanceof DisconnectGameobject) {
                     world.remove(((DisconnectGameobject) object).player);
                 } else if (object instanceof AnimationData) {
                     AnimationData ad = (AnimationData) object;
-                    GameObject p = world.query(ad.player).get();
-                    switch (ad.type) {
-                        case ATTACK -> animations.add(new AttackAnimation(p));
-                        case COOL -> animations.add(new CoolAnimation(p));
-                        case BLOCK -> animations.add(new BlockAnimation(p));
-                        case REGEN -> animations.add(new RegenAnimation(p));
-                    }
-                } else if (object instanceof NPC) {
-                    Log.info("Suspekt NPC");
-                }
-                else if (object instanceof StateData){
-                    Log.info("State data recieved");
-                    Arrays.stream(((StateData) object).gameObjects).forEach(o -> {
-                        if (o instanceof Player){
-                            playersToUpdate.offer((Player) o);
-                        } else if (o instanceof NPC) {
-                            npcsToUpdate.offer((NPC) o);
+                    world.query(ad.player).ifPresent(p -> {
+                        switch (ad.type) {
+                            case ATTACK -> animations.add(new AttackAnimation(p));
+                            case COOL -> animations.add(new CoolAnimation(p));
+                            case BLOCK -> animations.add(new BlockAnimation(p));
+                            case REGEN -> animations.add(new RegenAnimation(p));
                         }
                     });
+                } else if (object instanceof NPC) {
+                    npcsToUpdate.add((NPC) object);
+                } else if (object instanceof StateUpdateData) {
+                    gameObjectToUpdate.addAll(Arrays.asList(((StateUpdateData) object).gameObjects));
                 }
-//                StringBuilder stringBuilder = new StringBuilder("Players: ");
-//                world.query(Player.class, player -> true).forEach(p -> stringBuilder.append("\n" + p.toString()));
-//                Log.debug(stringBuilder.toString());
-//
-                StringBuilder stringBuilder2 = new StringBuilder("NPCs: ");
-                world.query(NPC.class, player -> true).forEach(p -> stringBuilder2.append("\n" + p.toString()));
-                Log.info(stringBuilder2.toString());
+
+                StringBuilder stringBuilder = new StringBuilder("Players: ");
+                world.query(Player.class, player -> true).forEach(p -> stringBuilder.append("\n" + p.toString()));
+                Log.info(stringBuilder.toString());
+
+//                StringBuilder stringBuilder2 = new StringBuilder("NPCs: ");
+//                world.query(NPC.class, player -> true).forEach(p -> stringBuilder2.append("\n" + p.toString()));
+//                Log.info(stringBuilder2.toString());
             }
         });
 
@@ -112,8 +106,8 @@ public class PlayingState implements ClientState {
         CooldownBar cdBar = new CooldownBar(attack, block, regen);
 
         world.addSystem(new InputHandlingSystem(keyStrokeQueue, effectQueue, animations, player, client::sendUDP, () -> world.createAttacks(player), attack, block, regen))
-                .addSystem(new RenderSystem(screen, () -> world.query(Player.class, p -> true), player, () -> world.query(NPC.class, p -> p.getCurrHp() > 0), animations, cdBar))
-                .addSystem(new StateRecieverSystem(playersToUpdate, npcsToUpdate, () -> world.query(p -> true), p -> world.addPlayer(p), n -> world.addNPC(n)))
+                .addSystem(new RenderSystem(screen, () -> world.query(Player.class, p -> true), player, () -> world.query(NPC.class, p -> true), animations, cdBar))
+                .addSystem(new StateRecieverSystem(playersToUpdate, npcsToUpdate, gameObjectToUpdate, () -> world.query(p -> true), o -> world.add(o)))
                 .addSystem(new EffectSystem(effectQueue));
 
     }

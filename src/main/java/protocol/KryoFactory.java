@@ -23,7 +23,7 @@ public class KryoFactory {
         kryo.register(BlockSignal.class);
         kryo.register(NPC.class);
         kryo.register(RegenSignal.class);
-        kryo.register(StateData.class);
+        kryo.register(StateUpdateData.class);
         kryo.register(GameObject[].class);
     }
 }
