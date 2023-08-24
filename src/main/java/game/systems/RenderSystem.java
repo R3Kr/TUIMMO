@@ -32,6 +32,7 @@ public class RenderSystem implements System{
     private List<Animation> animations;
 
     private Screen screen;
+    private Player player;
 
 
 
@@ -50,6 +51,7 @@ public class RenderSystem implements System{
         this.terrainGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.BLACK).setBackgroundColor(TextColor.ANSI.WHITE);
         this.greenGraphics = screen.newTextGraphics().setForegroundColor(TextColor.ANSI.GREEN);
         this.hpBar = new HpBar(getPlayer);
+        player = getPlayer;
 
         init();
 
@@ -93,7 +95,7 @@ public class RenderSystem implements System{
     }
 
     private void renderAnimations(){
-        for (Animation a : animations){
+        animations.stream().filter(a -> a.getPerformer().getZoneID() == player.getZoneID()).forEach(a ->{
             if (a instanceof BlockAnimation){
                 a.renderWith(whiteGraphics);
             } else if (a instanceof RegenAnimation) {
@@ -101,7 +103,7 @@ public class RenderSystem implements System{
             } else {
                 a.renderWith(redGraphics);
             }
-        }
+        });
     }
 
 

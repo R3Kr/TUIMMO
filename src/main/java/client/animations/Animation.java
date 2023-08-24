@@ -29,5 +29,7 @@ public abstract class Animation {
 
     protected abstract void _render(TextGraphics tg);
 
-
+    public GameObject getPerformer() {
+        return player;
+    }
 }

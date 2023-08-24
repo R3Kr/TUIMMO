@@ -17,6 +17,7 @@ import protocol.data.DisconnectGameobject;
 
 import java.io.IOException;
 import java.util.Queue;
+import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Consumer;
 
@@ -62,7 +63,7 @@ public class ServerMain {
     }
 
     private void init() throws InterruptedException {
-
+        //Log.set(2);
         server.addListener(new Listener() {
             @Override
             public void connected(Connection connection) {
@@ -86,6 +87,10 @@ public class ServerMain {
         };
 
 
+        Consumer<String> spawnNpc = s ->{
+            Random r = new Random();
+            server.sendToAllTCP(world.addNPC(s, r.nextInt(76), r.nextInt(24)));
+        };
 
         Consumer<DisconnectGameobject> removeObject = o -> {
           world.remove(o.player);
@@ -115,9 +120,10 @@ public class ServerMain {
                             server.sendToAllUDP(new DisconnectGameobject(s));
                         },
                         broadcastStateOnLogin))
-                .addSystem(new NPCStateSystem(s -> server.sendToAllUDP(s), () -> world.query(NPC.class, n -> true), () -> world.query(Player.class, p -> true).findFirst(), removalQueue, actionDataQueue, animationDataQueue, objectsToUpdate, o -> world.createAttacks(o)))
+                .addSystem(new NPCStateSystem(() -> world.query(NPC.class, n -> true), () -> world.query(Player.class, p -> true).findFirst(), removalQueue, actionDataQueue, animationDataQueue, objectsToUpdate, o -> world.createAttacks(o), spawnNpc))
                 .addSystem(new EffectSystem(effectQueue))
-                        .addSystem(new ObjectRemovalSystem(removalQueue, removeObject));
+                        .addSystem(new ObjectRemovalSystem(removalQueue, removeObject))
+                                .addSystem(new ZoneSwitcherSystem(() -> world.query(Player.class, p->true), actionDataQueue));
 
         // .addSystem(new StateBroadcasterSystem(stringPositionMap -> server.sendToAllUDP(stringPositionMap), () -> world.getPositions()));
 

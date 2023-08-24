@@ -61,6 +61,7 @@ public class PlayingState implements ClientState {
     }
 
     private void init(String playerName) throws IOException {
+        //Log.set(2);
 
         client.addListener(new Listener() {
             @Override
@@ -105,8 +106,8 @@ public class PlayingState implements ClientState {
         world.addSystem(new InputHandlingSystem(keyStrokeQueue, effectQueue, animations, player, client::sendUDP, () -> world.createAttacks(player), attack, block, regen))
                 .addSystem(new RenderSystem(screen, () -> world.query(Player.class, p -> p.getZoneID() == player.getZoneID()), player, () -> world.query(NPC.class, p -> p.getZoneID() == player.getZoneID()), animations, cdBar))
                 .addSystem(new StateRecieverSystem(playersToUpdate, npcsToUpdate, gameObjectToUpdate, () -> world.query(p -> true), o -> world.add(o)))
-                .addSystem(new EffectSystem(effectQueue))
-                .addSystem(new ZoneSwitcherSystem(player, client::sendUDP));
+                .addSystem(new EffectSystem(effectQueue));
+                //.addSystem(new ZoneSwitcherSystem(player, client::sendUDP));
 
     }
 

@@ -9,7 +9,6 @@ import game.components.NPC;
 import game.components.Player;
 import protocol.data.AnimationData;
 import protocol.data.DisconnectGameobject;
-import protocol.data.StateUpdateData;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +20,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class NPCStateSystem implements System{
-    private Consumer<StateUpdateData> broadcastNPCUpdate;
+
     private Supplier<Stream<NPC>> npcSupplier;
     private Supplier<Optional<Player>> playerSupplier;
 
@@ -33,11 +32,12 @@ public class NPCStateSystem implements System{
     private Queue<AnimationData> animationDataQueue;
     private Queue<GameObject> objectsToUpdate;
     private Function<GameObject, List<Attack>> createAttacks;
+    private Consumer<String> spawnNpc;
 
     private Random r = new Random();
 
-    public NPCStateSystem(Consumer<StateUpdateData> broadcastStateUpdate, Supplier<Stream<NPC>> npcSupplier, Supplier<Optional<Player>> playerSupplier, Queue<DisconnectGameobject> disconnectGameobjectQueue, Queue<Action> attackQueue, Queue<AnimationData> animationDataQueue, Queue<GameObject> objectsToUpdate, Function<GameObject, List<Attack>> createAttacks) {
-        this.broadcastNPCUpdate = broadcastStateUpdate;
+    public NPCStateSystem(Supplier<Stream<NPC>> npcSupplier, Supplier<Optional<Player>> playerSupplier, Queue<DisconnectGameobject> disconnectGameobjectQueue, Queue<Action> attackQueue, Queue<AnimationData> animationDataQueue, Queue<GameObject> objectsToUpdate, Function<GameObject, List<Attack>> createAttacks, Consumer<String> spawnNpc) {
+
         this.npcSupplier = npcSupplier;
         this.playerSupplier = playerSupplier;
 
@@ -46,6 +46,7 @@ public class NPCStateSystem implements System{
         this.animationDataQueue = animationDataQueue;
         this.objectsToUpdate = objectsToUpdate;
         this.createAttacks = createAttacks;
+        this.spawnNpc = spawnNpc;
     }
 
     @Override
@@ -63,7 +64,7 @@ public class NPCStateSystem implements System{
                 });
 
         npcSupplier.get().filter(npc -> npc.getState().equals("attack") && r.nextInt(10) == 0).forEach(npc -> {
-            player.ifPresent(p -> moveToTarget(npc, p));
+            player.filter(p-> p.getZoneID()==npc.getZoneID()).ifPresent(p -> moveToTarget(npc, p));
             animationDataQueue.offer(new AnimationData(69420, npc.getName(), AnimationData.AnimationType.ATTACK));
             createAttacks.apply(npc).forEach(attack -> {
                 attackQueue.offer(attack);
@@ -72,7 +73,11 @@ public class NPCStateSystem implements System{
         });
 
 
-        npcSupplier.get().filter(npc -> npc.getCurrHp() <= 0).forEach(npc -> disconnectGameobjectQueue.offer(new DisconnectGameobject(npc.getName())));
+        npcSupplier.get().filter(npc -> npc.getCurrHp() <= 0).forEach(npc ->{
+            disconnectGameobjectQueue.offer(new DisconnectGameobject(npc.getName()));
+            spawnNpc.accept(String.valueOf(java.lang.System.currentTimeMillis()));
+        }
+        );
 
 
     }
