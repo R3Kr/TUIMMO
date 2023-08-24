@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="implemented zones">
+    <list default="true" id="8a10609d-ac61-494f-87a0-13d804491897" name="Changes" comment="fixed Animation bug, npcs respawn">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/ClientContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ClientContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/animations/Animation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/animations/Animation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/states/PlayingState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/NPCStateSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/NPCStateSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/RenderSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/RenderSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/systems/ZoneSwitcherSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/systems/ZoneSwitcherSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ServerMain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -276,7 +270,7 @@
       <workItem from="1691989454952" duration="15083000" />
       <workItem from="1692125722782" duration="8108000" />
       <workItem from="1692195914958" duration="70822000" />
-      <workItem from="1692639494931" duration="59966000" />
+      <workItem from="1692639494931" duration="62139000" />
     </task>
     <task id="LOCAL-00001" summary="kan bygga en fucking jar">
       <created>1690626607366</created>
@@ -523,7 +517,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692821822246</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="fixed Animation bug, npcs respawn">
+      <created>1692878034880</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1692878034880</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -553,7 +554,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="big refactor" />
     <MESSAGE value="server now performs actions and sends back resulting gamestate" />
     <MESSAGE value="reworks on packet data and added factory for data, can now send attack actions to server" />
     <MESSAGE value="attack feature fully works, bug fixes" />
@@ -578,6 +578,7 @@
     <MESSAGE value="npcs has state and can attack" />
     <MESSAGE value="bug fixes and refactors" />
     <MESSAGE value="implemented zones" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented zones" />
+    <MESSAGE value="fixed Animation bug, npcs respawn" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed Animation bug, npcs respawn" />
   </component>
 </project>

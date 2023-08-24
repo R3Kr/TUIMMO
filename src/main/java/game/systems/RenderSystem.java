@@ -68,10 +68,10 @@ public class RenderSystem implements System{
         }
         screen.clear();
 
+        renderTerrain();
         renderAnimations();
         renderPlayer();
         renderUI();
-        renderTerrain();
 
     }
 
@@ -108,14 +108,29 @@ public class RenderSystem implements System{
 
 
     private void renderTerrain() {
-        terrainGraphics.putString(38, 24, "↓↓");
-        terrainGraphics.putString(38, 0, "↑↑");
-        terrainGraphics.putString(0, 12, "←");
-        terrainGraphics.putString(79, 12, "→");
+        if (player.getZoneID() == 1){
+            terrainGraphics.putString(38, 24, "↓↓");
+        }
+        else {
+            terrainGraphics.putString(38, 0, "↑↑");
+        }
+        //terrainGraphics.putString(0, 12, "←");
+        //terrainGraphics.putString(79, 12, "→");
+
+        if (player.getZoneID() == 0){
+            terrainGraphics.putString(16, 8, "Welcome to the World of TUIMMO!, or you just died, stay mad.");
+            terrainGraphics.putString(16, 10, "Press Backspace to Attack");
+            terrainGraphics.putString(16, 12, "Press Shift + Backspace to Block");
+            terrainGraphics.putString(16, 14, "Press Shift + Enter to Regenerate HP");
+            terrainGraphics.putString(16, 16, "Press Enter to place a ping");
+            terrainGraphics.putString(16, 18, "W,A,S,D to move and enjoy :)");
+
+        }
 
     }
 
     private void renderUI() {
+        redGraphics.putString(72, 0, String.format("ROOM: %d", player.getZoneID()));
         redGraphics.putString(HpBar.POSITION, hpBar.getString());
         cdBar.renderWith(whiteGraphics, grayGraphics);
     }
